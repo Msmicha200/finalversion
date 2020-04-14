@@ -93,6 +93,25 @@ CREATE TABLE Report(
     `Datetime` TIMESTAMP NOT NULL,
     FOREIGN KEY(GradeId) REFERENCES Grades(Id)
 ) CHARACTER SET utf8;
+CREATE TABLE RequestToAdmin(
+    Id INT PRIMARY KEY AUTO_INCREMENT,
+    TeacherId INT NOT NULL,
+    DisciplineId INT NOT NULL,
+    GroupId INT NOT NULL,
+    FOREIGN KEY(TeacherId) REFERENCES Accounts(Id),
+    FOREIGN KEY(DisciplineId) REFERENCES Disciplines(Id),
+    FOREIGN KEY(GroupId) REFERENCES Groups(Id)
+);
+CREATE TABLE Notifications(
+    Id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    TeacherId INT NOT NULL,
+    DisciplineId INT NOT NULL,
+    GroupId INT NOT NULL,
+    `Text` TEXT(1024) NOT NULL,
+    FOREIGN KEY(TeacherId) REFERENCES Accounts(Id),
+    FOREIGN KEY(DisciplineId) REFERENCES Disciplines(Id),
+    FOREIGN KEY(GroupId) REFERENCES Groups(Id)
+);
 ALTER TABLE
     Groups ADD CONSTRAINT FOREIGN KEY(CuratorId) REFERENCES Accounts(Id);
 ALTER TABLE
