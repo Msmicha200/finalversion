@@ -1,4 +1,5 @@
 const Database = require('../components/Database');
+const Mail = require('../components/Mail.js');
 const crypto = require('crypto');
 
 class User {
@@ -35,25 +36,74 @@ class User {
         const sql = `INSERT
                         INTO
                             Accounts(
-                                lastName,
-                                firstName,
-                                middleName,
-                                login,
-                                email,
-                                phoneNumber,
-                                password,
-                                userTpeId,
-                                groupId
+                                LastName,
+                                FirstName,
+                                MiddleName,
+                                Login,
+                                Email,
+                                PhoneNumber,
+                                Password,
+                                UserTpeId,
+                                GroupId
                             )
                         VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     
         password = this.getHash(password);
     
-        const data = [lastName, firstName, middleName, login, email, 
+        const data = [lastName, firstName, middleName, login, email,
             phoneNumber, password, userTypeId, groupId];
     
-        return db.query(sql, data);            
-        }
+        return db.query(sql, data);
+    }
+
+    static editUser (id, lastName, firstName, middleName, login, 
+        email, phoneNumber, password, groupId) {
+        const db = Database.getConnection();
+        const sql = `UPDATE
+                        Accounts
+                    SET
+                        LastName = ?,
+                        FirstName = ?,
+                        MiddleName = ?,
+                        Login = ?,
+                        Email = ?,
+                        PhoneNumber = ?,
+                        Password = ?,
+                        GroupId = ?
+                    WHERE
+                        Id = ?`;
+
+        password = this.getHash(password);
+
+        const data = [lastName, firstName, middleName, login, email,
+            phoneNumber, password, groupId, id];
+
+        return db.query(sql, data);
+    }
+
+    static disableAccount (id) {
+        const db = Database.getConnection();
+        const sql = `UPDATE
+                        Accounts
+                    SET
+                        IsActive = 0
+                    WHERE
+                        Id = ?`;
+
+        return db.query(sql, [id]);
+    }
+
+    static activateAccount (id) {
+        const db = Database.getConnection();
+        const sql = `UPDATE
+                        Accounts
+                    SET
+                        IsActive = 1
+                    WHERE
+                        Id = ?`;
+
+        return db.query(sql, [id]);
+    }
 
     static checkUser (login, password) {
         const db = Database.getConnection();
@@ -82,9 +132,26 @@ class User {
         const token = this.generateToken();
         const data = [token, email];
 
-        db.query(sql, data).then(result  => {
-            
+        return db.query(sql, data).then(result  => {
+            return Mail.sendMail(email, token);
         });
+    }
+
+    static setPassword (token, password) {
+        const db = Database.getConnection();
+        const sql = `UPDATE
+                        Accounts
+                    SET Password
+                        = ?,
+                        Token = NULL
+                    WHERE
+                        Token = ?`;
+
+        password = this.getHash(password);
+
+        const data = [password, token];
+
+        return db.query(sql, data);
     }
 
 
