@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div>Hello World</div>
+	<button id="btn">
+		Send
+	</button>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+	<script>
+		$('#btn').on('click', () => {
+			$.ajax({
+				url: '/users/checkUser',
+				type: 'POST',
+				data: {
+					login: 'login',
+					password: 'password'
+				},
+				success: data => {
+					console.log(data);
+				}
+			});
+		});
+	</script>
+</body>
+</html>

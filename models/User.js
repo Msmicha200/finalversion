@@ -2,7 +2,7 @@ const Database = require('../components/Database');
 const Mail = require('../components/Mail.js');
 const crypto = require('crypto');
 
-class User {
+module.exports = class User {
 
     static getHash (data) {
         const hash = crypto.createHash('sha512');
@@ -108,11 +108,13 @@ class User {
     static checkUser (login, password) {
         const db = Database.getConnection();
         const sql = `SELECT
-                        Id
+                        a.Id,
+                        u.Title
                     FROM
-                        Accounts
+                        Accounts as a,
+                        UserTypes as u
                     WHERE
-                        Login = ? AND PASSWORD = ?`;
+                        Login = ? AND PASSWORD = ? AND u.Id = a.UserTypeId`;
         
         password = this.getHash(password);
 
