@@ -93,7 +93,7 @@ CREATE TABLE Report(
     `Datetime` TIMESTAMP NOT NULL,
     FOREIGN KEY(GradeId) REFERENCES Grades(Id)
 ) CHARACTER SET utf8;
-CREATE TABLE RequestToAdmin(
+CREATE TABLE RequestsToAdmin(
     Id INT PRIMARY KEY AUTO_INCREMENT,
     TeacherId INT NOT NULL,
     DisciplineId INT NOT NULL,
@@ -145,3 +145,7 @@ INSERT
 INTO
     Report(Grade)
 VALUES(NEW.Id, NEW.Grade) //
+INSERT
+INTO
+    UserTypes(Title)
+VALUES('Admin'),('Operator'),('Teacher'),('Student');
