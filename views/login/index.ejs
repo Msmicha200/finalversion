@@ -2,28 +2,32 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Login</title>
+	<link rel="stylesheet" href="/css/global.css">
+	<link rel="stylesheet" href="/css/login.css">
+	<link rel="stylesheet" href="/css/uvmInput.css">
 </head>
 <body>
-	<div>Hello World</div>
-	<button id="btn">
-		Send
-	</button>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
-	<script>
-		$('#btn').on('click', () => {
-			$.ajax({
-				url: '/users/checkUser',
-				type: 'POST',
-				data: {
-					login: 'login',
-					password: 'password'
-				},
-				success: data => {
-					console.log(data);
-				}
-			});
-		});
-	</script>
+	<div class="wrapper flex jcc">
+		<div class="login-wrapper flex alic fdc jcsb">
+			<div class="inputs flex fdc alic jcc">
+				<div class="uvm--input-wrapper">
+					<input autocomplete="off" type="login" id="login" placeholder="Login" class="uvm--input" required>
+					<label for="login" class="uvm--label">Логін</label>
+				</div>
+				<div class="uvm--input-wrapper">
+					<input autocomplete="off" type="password" id="password" placeholder="Login" class="uvm--input" required>
+					<label for="login" class="uvm--label">Пароль</label>
+				</div>
+			</div>
+			<div class="buttons flex">
+				<button id="remember-pass">Забули пароль?</button>
+				<button id="log-in">Увійти</button>
+			</div>
+		</div>
+	</div>
+	<script src="/scripts/tools.js"></script>
+	<script src="/scripts/uvm.js"></script>
+	<script src="/scripts/login.js"></script>
 </body>
 </html>
