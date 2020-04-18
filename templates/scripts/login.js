@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		if (login && password) {			
 			uvm.ajax({
-				url: '/users/checkUser',
+				url: '/user/checkUser',
 				type: 'POST',
 				data: {
 					login: login,

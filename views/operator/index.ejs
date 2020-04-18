@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Operator</title>
+	<link rel="stylesheet" href="/css/global.css">
+	<link rel="stylesheet" href="/css/operator.css">
+</head>
+<body>
+	<div class="wrapper flex fdc">
+		<div class="header flex jcsa alic">
+			<div class="logo">
+				<img src="/images/logo.svg" alt="">
+			</div>
+			<div class="buttons flex jcsa alic">
+				<div class="tab active" id="student">
+					Студент
+				</div>
+				<div class="tab" id="group">
+					Група
+				</div>
+				<div class="tab" id="teacher">
+					Викладач
+				</div>
+				<div class="tab" id="operator">
+					Оператор
+				</div>
+				<div class="tab" id="discipline">
+					Дисципліна
+				</div>
+				<div class="tab" id="program">
+					Робоча програма
+				</div>
+				<div class="border">
+					
+				</div>
+			</div>
+			<a href="/user/logout" class="logout">
+				<img src="/images/logout.svg" alt="">
+			</a>
+		</div>
+		<div class="main flex jcc">
+			<div class="flex jcc alic content" id="student-content">
+				<h1>Student</h1>
+			</div>
+			<div class="flex jcc alic content" id="group-content">
+				<h1>Groups</h1>
+			</div>
+			<div class="flex jcc alic content" id="teacher-content">
+				<h1>Teacher</h1>
+			</div>
+			<div class="flex jcc alic content" id="operator-content">
+				<h1>Oper</h1>
+			</div>
+			<div class="flex jcc alic content" id="discipline-content">
+				<h1>Discipline</h1>
+			</div>
+			<div class="flex jcc alic content" id="program-content">
+				<h1>program</h1>
+			</div>
+		</div>
+	</div>
+	<script src="/scripts/uvm.js"></script>
+	<script src="/scripts/operator/tabSwitch.js"></script>
+</body>
+</html>

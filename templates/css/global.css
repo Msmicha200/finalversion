@@ -1,3 +1,7 @@
+@font-face {
+	src: url('/fonts/Roboto.ttf');
+	font-family: Roboto;
+}
 * {
 	box-sizing: border-box;
 	margin: 0;

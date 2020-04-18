@@ -35,12 +35,16 @@ class uvm {
     });
   }
 
-  static q (cls) {
-    return document.querySelector(cls);
+  static q (selector) {
+    return document.querySelector(selector);
   }
 
   static byId (id) {
     return document.getElementById(id)
+  }
+
+  static qa (selector) {
+    return document.querySelectorAll(selector);
   }
 
 }

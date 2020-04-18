@@ -57,7 +57,7 @@ module.exports = class UserController {
 
     logout (req, res) {
         req.session.destroy();
-        res.redirect('/users');
+        res.redirect('/user');
     }
 
 }
