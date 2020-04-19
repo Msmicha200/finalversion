@@ -1,5 +1,12 @@
 const User = require('../models/User');
 
+const users = {
+    Administrator: 'admin',
+    Student: 'student',
+    Operator: 'operator',
+    Teacher: 'teacher'
+}
+
 module.exports = class UserController {
     
     index (req, res) {
@@ -27,25 +34,17 @@ module.exports = class UserController {
             User.checkUser(login, password)
             .then(([rows, fileds]) => {
                 if (rows.length) {
-                    if (rows[0].Title === 'Administrator') {
-                        req.session.admin = rows[0].Id;
-                        res.end('/admin');
-                    }
-                    else if (rows[0].Title === 'Student') {
-                        req.session.student = rows[0].Id;
-                        res.end('/student');
-                    }
-                    else if (rows[0].Title === 'Operator') {
-                        req.session.operator = rows[0].Id;
-                        res.end('/operator');
-                    }
-                    else if (rows[0].Title === 'Teacher') {
-                        req.session.operator = rows[0].Id;
-                        res.end('/teacher');
+                    const row = rows[0];
+
+                    for (const user in users) {
+                        if (row.Title === user) {
+                            req.session[users[user]] = row.Id;
+                            res.end(users[user]);    
+                        }
                     }
                 }
                 else {
-                    res.end('No users');
+                    res.end('false');
                 }
             })
             .catch(err => {

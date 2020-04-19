@@ -9,7 +9,6 @@ class uvm {
       const dataType = (options.dataType || 'text');
       const data = (options.data || {});
       const request = new XMLHttpRequest();
-      const form = new FormData();
       let chunk = '';
 
       for (const value in data) {

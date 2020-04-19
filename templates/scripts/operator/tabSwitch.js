@@ -3,21 +3,26 @@ document.addEventListener('DOMContentLoaded', () => {
 	const border = uvm.q('.border');
 	const activeTab = uvm.q('.tab.active');
 	const tabsWrapper = uvm.q('.buttons');
-	const properties = activeTab.getBoundingClientRect();
-	const _properties = tabsWrapper.getBoundingClientRect();
+	let properties = activeTab.getBoundingClientRect();
+	let _properties = tabsWrapper.getBoundingClientRect();
 	
-	border.style.width = properties.width + 'px';
-	border.style.left = (properties.left - _properties.left) + 'px';
-
+	setTimeout(() => {
+		properties = activeTab.getBoundingClientRect();
+		_properties = tabsWrapper.getBoundingClientRect();
+		border.style.width = properties.width + 'px';
+		border.style.left = (properties.left - _properties.left) + 'px';
+	}, 100);
+	
 	const tabSwitch = function () {
 		if (!this.classList.contains('active')) {
+
+			_properties = tabsWrapper.getBoundingClientRect();
 
 			const _active = uvm.q('.tab.active');
 			const active = uvm.byId(`${_active.id}-content`);
 			const next = uvm.byId(`${this.id}-content`);
 			const isRight = this.getBoundingClientRect().left 
 				< _active.getBoundingClientRect().left;
-
 			active.classList.remove('ative-content');
 			_active.classList.remove('active');
 			this.classList.add('active');
@@ -45,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             setTimeout(() => active.style.display = 'none', 400);
 		}
-	}
+	};
 
 	for (const tab of tabs) {
 		tab.addEventListener('click', tabSwitch);

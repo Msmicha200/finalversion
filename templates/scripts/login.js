@@ -3,7 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	const loginButton = uvm.byId('log-in');
 	const loginInput = uvm.byId('login');
 	const passwordInput = uvm.byId('password');
-
+    const users = {
+        Administrator: 'admin',
+        Student: 'student',
+        Operator: 'operator',
+        Teacher: 'teacher'
+    }
 
 	const error = () => {
 		loginInput.classList.add('error');
@@ -30,17 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			})
 			.then(res => {
 				console.log(res);
-				if (res === '/admin') {
-					window.location.href = '/admin';
-				}
-				else if (res === '/student') {
-					window.location.href = '/student';
-				}
-				else if (res === '/operator') {
-					window.location.href = '/operator';
-				}
-				else if (res === '/teacher') {
-					window.location.href = '/teacher';
+				if (res !== 'false') {
+					for (const user in users) {
+						if (res === users[user]) {
+							window.location.href = `/${users[user]}`;
+						}
+					}
 				}
 				else {
 					error();
