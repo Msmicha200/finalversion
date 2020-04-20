@@ -10,21 +10,14 @@ const users = {
 module.exports = class UserController {
     
     index (req, res) {
-        if (req.session.admin) {
-            res.redirect('/admin');
+        for (const user in users) {
+            if (req.session[users[user]]) {
+                res.redirect(`/${users[user]}`);
+                return;
+            }
         }
-        else if (req.session.student) {
-            res.redirect('/student');
-        }
-        else if (req.session.operator) {
-            res.redirect('/operator');
-        }
-        else if (req.session.teacher) {
-            res.redirect('/teacher');
-        }
-        else {
-            res.render('login/index.ejs');
-        }
+        
+        res.render('login/index.ejs');
     }
 
     authUser (req, res) {
@@ -48,8 +41,8 @@ module.exports = class UserController {
                 }
             })
             .catch(err => {
-                console.log('We got an error');
-                console.log(err);
+                red.end('false');
+                console.log('We got an error: ' + err);
             });
         }
     }

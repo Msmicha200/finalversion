@@ -1,0 +1,38 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.uvm--round {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	-ms-align-items: center;
+	align-items: center;
+	background: #E5E5E5;
+	width: 30px;
+	height: 15px;
+	border-radius: 50px;
+	position: relative;
+	transition: 0.4s;
+}
+.uvm--round:before {
+	pointer-events: none;
+	content: '';
+	left: 3px;
+	background: #8F8F8F;
+	border-radius: 100%;
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	transition: 0.4s;
+}
+.uvm--toggle-container input:checked + .uvm--round {
+	background: #1ABC9C;
+}
+.uvm--toggle-container input:checked + .uvm--round:before {
+	background: #fff;
+	transform: translateX(14px);
+}
