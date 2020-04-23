@@ -41,7 +41,7 @@ module.exports = class UserController {
                 }
             })
             .catch(err => {
-                red.end('false');
+                res.end('false');
                 console.log('We got an error: ' + err);
             });
         }

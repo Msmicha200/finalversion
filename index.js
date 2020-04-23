@@ -15,15 +15,15 @@ app.use(express.static('templates'));
 app.set('view engine', 'ejs');
 
 app.use(session({
-	store: new redisStorage({
-		host: '127.0.0.1',
-		port: '6379',
-		client: client
-	}),
-	secret: 'rediskin',
-	resave: false,
-	saveUninitialized: false,
-	unset: 'destroy'
+    store: new redisStorage({
+        host: '127.0.0.1',
+        port: '6379',
+        client: client
+    }),
+    secret: 'rediskin',
+    resave: false,
+    saveUninitialized: false,
+    unset: 'destroy'
 }));
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,5 +35,5 @@ app.use('/admin', adminRouter)
 app.use('/operator', operatorRouter);
 
 app.listen(port, () => {
-	console.log('Server started on port ' + port);
-});	
+    console.log('Server started on port ' + port);
+});

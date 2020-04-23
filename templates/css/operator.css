@@ -59,11 +59,12 @@ a {
 	width: 100%;
 	padding: 0 20px 0 0;
 }
-.add-student img {
+.add-student img,
+.add-group img,
+.add-to-group img,
+.add-teacher img,
+.add-operator img {
 	pointer-events: none;
-}
-.add-student {
-	cursor: pointer;
 }
 .search {
 	position: relative;
@@ -94,14 +95,24 @@ a {
 	height: 65vh;
 	overflow-y: auto;
 }
-.student-table {
+table {
 	width: 100%;
 	border-collapse: collapse;
 }
-.student-table td {
+td {
 	border: 1px solid #7E9AE4;
 }
 .student-table tbody > tr > td:first-child,
+.group-table tbody > tr > td:first-child,
+.teacher-table tbody > tr > td:first-child,
+.operator-table tbody > tr > td:first-child,
+.discipline-table tbody > tr > td:first-child {
+	text-align: center;
+}
+.group-table tbody > tr > td:nth-child(2),
+.group-table tbody > tr > td:nth-child(3) {
+	text-align: center;
+}
 .student-table tbody > tr > td:nth-child(6) {
 	text-align: center;
 }
@@ -123,4 +134,112 @@ table > tbody > tr > td:last-child button {
 	background: transparent;
 	outline: none;
 	border: none;
+	cursor: pointer;
+}
+table > tbody > tr > td:last-child > button img {
+	pointer-events: none;
+}
+.group-table tbody > tr {
+	cursor: pointer;
+}
+.selected {
+	background: rgba(126, 154, 228, 0.4);
+}
+.left-side,
+.right-side {
+	width: 47%;
+}
+.table-head div,
+.speciality div,
+.course > div {
+	border-bottom: 1px solid #7E9AE4;
+	border-right: 1px solid #7E9AE4;
+}
+.speciality,
+.course {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+.speciality:hover {
+	background: rgba(126, 154, 228, 0.4);
+}
+.table-head div {
+	height: 35px;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.speciality div,
+.course div {
+	pointer-events: none;
+	height: 30px;
+}
+.spec-title-head {
+	width: 100%;
+	font-weight: bold;
+}
+.spec-number,
+.speciality div:first-child,
+.course div:first-child {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 45px;
+	width: 45px;
+}
+.course div:nth-child(2) {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	width: 100%;
+	align-items: center;
+}
+.speciality div:nth-child(2) {
+	width: 100%;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	align-items: center;
+	padding: 0 10px;
+}
+.first-level {
+	border: none !important;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	width: 10px;
+	cursor: pointer;
+	align-items: center;
+}
+.speciality.opened div:first-child .first-level:before {
+	transform: rotate(90deg);	
+}
+.opened:before {
+
+}
+.first-level:before {
+	content: '';
+	transition: 0.2s;
+	border-top: 7px solid transparent;
+	border-bottom: 7px solid transparent;
+	border-left: 10px solid #7E9AE4;
 }

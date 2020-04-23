@@ -18,6 +18,9 @@
 	-ms-align-items: center;
 	align-items: center;
 }
+.alife {
+	align-items: flex-end;
+}
 .fdc {
 	-webkit-flex-direction: column;
 	-moz-flex-direction: column;
@@ -33,4 +36,10 @@
 }
 .jcsa {
 	justify-content: space-around;
+}
+.jcfe {
+	justify-content: flex-end;
+}
+.pointer {
+	cursor: pointer;
 }
