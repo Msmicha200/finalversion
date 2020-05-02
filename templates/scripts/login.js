@@ -4,11 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	const loginInput = uvm.byId('login');
 	const passwordInput = uvm.byId('password');
     const users = {
-        Administrator: 'admin',
-        Student: 'student',
-        Operator: 'operator',
-        Teacher: 'teacher'
-    }
+        administrator: 'admin',
+        student: 'student',
+        operator: 'operator',
+        teacher: 'teacher'
+    };
 
 	const error = () => {
 		loginInput.classList.add('error');

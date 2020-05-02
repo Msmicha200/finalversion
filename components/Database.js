@@ -7,7 +7,7 @@ module.exports = class Database {
             host: '127.0.0.1',
             database: 'ebook',
             user: 'root',
-            password: 'root'
+            password: '123'
         }).promise();
     }
 } 

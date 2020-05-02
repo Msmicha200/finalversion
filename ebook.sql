@@ -7,7 +7,8 @@ CREATE TABLE UserTypes(
 ) CHARACTER SET utf8;
 CREATE TABLE Disciplines(
     Id INT PRIMARY KEY AUTO_INCREMENT,
-    Title VARCHAR(512) NOT NULL UNIQUE
+    Title VARCHAR(512) NOT NULL UNIQUE,
+    TeacherId INT NOT NULL
 ) CHARACTER SET utf8;
 CREATE TABLE Specialities(
     Id INT PRIMARY KEY NOT NULL,
@@ -37,17 +38,18 @@ CREATE TABLE Accounts(
     FOREIGN KEY(UserTypeId) REFERENCES UserTypes(Id),
     FOREIGN KEY(GroupId) REFERENCES Groups(Id)
 ) CHARACTER SET utf8;
-CREATE TABLE DisciplineToTeacher(
-    Id INT PRIMARY KEY AUTO_INCREMENT,
-    TeacherId INT NOT NULL,
-    DisciplineId INT NOT NULL,
-    FOREIGN KEY(TeacherId) REFERENCES Accounts(Id),
-    FOREIGN KEY(DisciplineId) REFERENCES Disciplines(Id)
-) CHARACTER SET utf8;
+-- CREATE TABLE DisciplineToTeacher(
+--     Id INT PRIMARY KEY AUTO_INCREMENT,
+--     TeacherId INT NOT NULL,
+--     DisciplineId INT NOT NULL,
+--     FOREIGN KEY(TeacherId) REFERENCES Accounts(Id),
+--     FOREIGN KEY(DisciplineId) REFERENCES Disciplines(Id)
+-- ) CHARACTER SET utf8;
 CREATE TABLE DisciplineToGroup(
     Id INT PRIMARY KEY AUTO_INCREMENT,
     DisciplineId INT NOT NULL,
     GroupId INT NOT NULL,
+    Passed TINYINT NOT NULL DEFAULT 0,
     FOREIGN KEY(DisciplineId) REFERENCES Disciplines(Id),
     FOREIGN KEY(GroupId) REFERENCES Groups(Id)
 ) CHARACTER SET utf8;
@@ -113,11 +115,13 @@ CREATE TABLE Notifications(
     FOREIGN KEY(GroupId) REFERENCES Groups(Id)
 );
 ALTER TABLE
+	Disciplines ADD CONSTRAINT FOREIGN KEY(TeacherId) REFERENCES Accounts(Id);
+ALTER TABLE
     Groups ADD CONSTRAINT FOREIGN KEY(CuratorId) REFERENCES Accounts(Id);
 ALTER TABLE
     DisciplineToGroup ADD UNIQUE unique_index(DisciplineId, GroupId);
 ALTER TABLE
-    DisciplineToTeacher ADD UNIQUE unique_index(TeacherId, DisciplineId);
+    Disciplines ADD UNIQUE unique_index(Discipline, TeacherId);
 DELIMITER
     //
 CREATE TRIGGER OnInsertLesson AFTER

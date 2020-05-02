@@ -1,11 +1,11 @@
 const User = require('../models/User');
 
 const users = {
-    Administrator: 'admin',
-    Student: 'student',
-    Operator: 'operator',
-    Teacher: 'teacher'
-}
+    admin: 'admin',
+    student: 'student',
+    operator: 'operator',
+    teacher: 'teacher'
+};
 
 module.exports = class UserController {
     
@@ -17,7 +17,7 @@ module.exports = class UserController {
             }
         }
         
-        res.render('login/index.ejs');
+        res.render('login/index.twig');
     }
 
     authUser (req, res) {

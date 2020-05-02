@@ -12,7 +12,12 @@ const port = 3000;
 
 app.use(express.static('templates'));
 
-app.set('view engine', 'ejs');
+app.set('twig options', {
+    allow_async: true
+});
+
+app.set('view engine', 'twig');
+
 
 app.use(session({
     store: new redisStorage({

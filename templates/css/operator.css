@@ -151,12 +151,15 @@ table > tbody > tr > td:last-child > button img {
 }
 .table-head div,
 .speciality div,
-.course > div {
+.course > div,
+.group-program > div,
+.discipline-program > div {
 	border-bottom: 1px solid #7E9AE4;
 	border-right: 1px solid #7E9AE4;
 }
 .speciality,
-.course {
+.course,
+.group-program {
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -179,8 +182,9 @@ table > tbody > tr > td:last-child > button img {
 	align-items: center;
 }
 .speciality div,
-.course div {
-	pointer-events: none;
+.course div,
+.group-program div,
+.discipline-program div {
 	height: 30px;
 }
 .spec-title-head {
@@ -189,7 +193,9 @@ table > tbody > tr > td:last-child > button img {
 }
 .spec-number,
 .speciality div:first-child,
-.course div:first-child {
+.course div:first-child,
+.group-program div:first-child,
+.discipline-program div:first-child {
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -200,7 +206,8 @@ table > tbody > tr > td:last-child > button img {
 	min-width: 45px;
 	width: 45px;
 }
-.course div:nth-child(2) {
+.course div:nth-child(2),
+.discipline-program div:nth-child(2) {
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -210,6 +217,11 @@ table > tbody > tr > td:last-child > button img {
 	align-items: center;
 }
 .speciality div:nth-child(2) {
+	padding: 0 10px;
+}
+.speciality div:nth-child(2),
+.group-program div:nth-child(2),
+.discipline-program {
 	width: 100%;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -217,9 +229,10 @@ table > tbody > tr > td:last-child > button img {
 	display: -o-flex;
 	display: flex;
 	align-items: center;
-	padding: 0 10px;
 }
-.first-level {
+.first-level,
+.second-level,
+.third-level {
 	border: none !important;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -227,19 +240,46 @@ table > tbody > tr > td:last-child > button img {
 	display: -o-flex;
 	display: flex;
 	width: 10px;
-	cursor: pointer;
 	align-items: center;
 }
-.speciality.opened div:first-child .first-level:before {
+.speciality-row,
+.course-row,
+.group-row,
+.discipline-tow {
+	cursor: pointer;
+}
+.speciality-row.opened div:first-child .first-level:before,
+.course-row.opened div:first-child .second-level:before,
+.group-row.opened div:first-child .third-level:before {
 	transform: rotate(90deg);	
 }
-.opened:before {
-
+.courses,
+.groups-program,
+.disciplines-program {
+	max-height: 0;
+	overflow: hidden;
 }
-.first-level:before {
+.speciality-row.opened .courses,
+.course-row.opened .groups-program,
+.group-row.opened .disciplines-program {
+	overflow: visible;
+	max-height: none;
+}
+.first-level:before,
+.second-level:before,
+.third-level:before {
 	content: '';
 	transition: 0.2s;
 	border-top: 7px solid transparent;
 	border-bottom: 7px solid transparent;
 	border-left: 10px solid #7E9AE4;
+}
+.group-program > div:nth-child(2) .third-level,
+.discipline-program > div:nth-child(2) .fourth-level {
+	margin-left: 20px;
+}
+.speciality,
+.course,
+.group-program {
+	pointer-events: none;
 }

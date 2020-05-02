@@ -30,6 +30,33 @@ module.exports = class User {
         return token;
     }
 
+    static getUsers () {
+        const db = Database.getConnection();
+        const sql = `SELECT
+                        a.Id,
+                        a.LastName,
+                        a.FirstName,
+                        a.MiddleName,
+                        a.Login,
+                        a.Email,
+                        a.PhoneNumber,
+                        u.Title AS UserType,
+                        g.Title AS GroupTitle,
+                        a.IsActive
+                    FROM
+                        Accounts AS a
+                    INNER JOIN
+                        UserTypes AS u
+                    ON
+                        a.UserTypeId = u.Id
+                    LEFT JOIN
+                        Groups AS g
+                    ON
+                        a.GroupId = g.Id;`;
+
+        return db.query(sql); 
+    }
+
     static addUser (lastName, firstName, middleName, login, 
         email, phoneNumber, password, userTypeId, groupId) {
         const db = Database.getConnection();
@@ -81,28 +108,17 @@ module.exports = class User {
         return db.query(sql, data);
     }
 
-    static disableAccount (id) {
+    static disableAccount (id, status) {
         const db = Database.getConnection();
         const sql = `UPDATE
                         Accounts
                     SET
-                        IsActive = 0
+                        IsActive = ?
                     WHERE
                         Id = ?`;
+        const data = [status, id];
 
-        return db.query(sql, [id]);
-    }
-
-    static activateAccount (id) {
-        const db = Database.getConnection();
-        const sql = `UPDATE
-                        Accounts
-                    SET
-                        IsActive = 1
-                    WHERE
-                        Id = ?`;
-
-        return db.query(sql, [id]);
+        return db.query(sql, data);        
     }
 
     static checkUser (login, password) {
@@ -114,7 +130,8 @@ module.exports = class User {
                         Accounts as a,
                         UserTypes as u
                     WHERE
-                        Login = ? AND PASSWORD = ? AND u.Id = a.UserTypeId`;
+                        Login = ? AND PASSWORD = ? AND u.Id = 
+                            a.UserTypeId`;
         
         password = this.getHash(password);
 
