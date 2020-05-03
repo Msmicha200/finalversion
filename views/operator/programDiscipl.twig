@@ -1,0 +1,15 @@
+{% for discipline in disciplines %}
+    <div class="disciplines-program">
+    	<div class="discipline-row" data-disciplineid="{{ discipline.Id }}">
+			<div class="discipline-program">
+	    		<div>
+	    		</div>
+	    		<div>
+	    			<div class="fourth-level">
+	    			</div>
+	    			<div>{{ discipline.Title }}</div>
+	    		</div>
+			</div>
+    	</div>
+    </div>
+{% endfor %}

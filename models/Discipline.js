@@ -24,18 +24,35 @@ module.exports = class Discipline {
             sql = `SELECT
                         d.Id,
                         d.Title,
-                        d.Passed
+                        dg.Passed
                     FROM
                         Disciplines AS d,
                         DisciplineToGroup AS dg
                     WHERE
-                        dg.GroupId = ? AND d.Id = dg.DisciplineId;`
-        }
-        else {
-            sql = `SELECT * FROM Disciplines`;
+                        dg.GroupId = ? AND d.Id = dg.DisciplineId`
+        
+            return db.query(sql, [groupId]);
         }
 
-        return db.query(sql, [groupId]);
+        sql = `SELECT
+                    d.Id,
+                    d.Title,
+                    a.LastName,
+                    a.FirstName,
+                    a.MiddleName,
+                    dt.TeacherId
+                FROM
+                    Disciplines AS d
+                INNER JOIN
+                    DisciplineToTeacher AS dt
+                ON
+                    d.Id = dt.DisciplineId
+                INNER JOIN
+                    Accounts AS a
+                ON
+                    dt.TeacherId = a.Id`;
+
+        return db.query(sql);
     }
 
     static editDisciplines (id, title, teacherId) {

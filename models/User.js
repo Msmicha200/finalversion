@@ -12,12 +12,12 @@ module.exports = class User {
         return hash.digest('hex');
     }
 
-    static generateToken () {
+    static generateToken (length = 10) {
         const symbols = '@!#$~%~^~&*(!)qwertyuiopasdfghjk;kl@@#!$%^%@';
         const date = new Date();
-        let token = "";
+        let token = '';
         
-        for (let i = 0; i <= 10; i++) {
+        for (let i = 0; i <= length; i++) {
             token += symbols[Math.random(symbols.length)];
         }
 
@@ -108,7 +108,7 @@ module.exports = class User {
         return db.query(sql, data);
     }
 
-    static disableAccount (id, status) {
+    static updateStatus (id, status) {
         const db = Database.getConnection();
         const sql = `UPDATE
                         Accounts
@@ -131,7 +131,7 @@ module.exports = class User {
                         UserTypes as u
                     WHERE
                         Login = ? AND PASSWORD = ? AND u.Id = 
-                            a.UserTypeId`;
+                            a.UserTypeId AND a.IsActive > 0`;
         
         password = this.getHash(password);
 

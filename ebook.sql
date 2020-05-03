@@ -7,7 +7,7 @@ CREATE TABLE UserTypes(
 ) CHARACTER SET utf8;
 CREATE TABLE Disciplines(
     Id INT PRIMARY KEY AUTO_INCREMENT,
-    Title VARCHAR(512) NOT NULL UNIQUE,
+    Title VARCHAR(512) NOT NULL,
     TeacherId INT NOT NULL
 ) CHARACTER SET utf8;
 CREATE TABLE Specialities(
@@ -38,13 +38,13 @@ CREATE TABLE Accounts(
     FOREIGN KEY(UserTypeId) REFERENCES UserTypes(Id),
     FOREIGN KEY(GroupId) REFERENCES Groups(Id)
 ) CHARACTER SET utf8;
--- CREATE TABLE DisciplineToTeacher(
---     Id INT PRIMARY KEY AUTO_INCREMENT,
---     TeacherId INT NOT NULL,
---     DisciplineId INT NOT NULL,
---     FOREIGN KEY(TeacherId) REFERENCES Accounts(Id),
---     FOREIGN KEY(DisciplineId) REFERENCES Disciplines(Id)
--- ) CHARACTER SET utf8;
+CREATE TABLE DisciplineToTeacher(
+    Id INT PRIMARY KEY AUTO_INCREMENT,
+    TeacherId INT NOT NULL,
+    DisciplineId INT NOT NULL,
+    FOREIGN KEY(TeacherId) REFERENCES Accounts(Id),
+    FOREIGN KEY(DisciplineId) REFERENCES Disciplines(Id)
+) CHARACTER SET utf8;
 CREATE TABLE DisciplineToGroup(
     Id INT PRIMARY KEY AUTO_INCREMENT,
     DisciplineId INT NOT NULL,
@@ -121,7 +121,7 @@ ALTER TABLE
 ALTER TABLE
     DisciplineToGroup ADD UNIQUE unique_index(DisciplineId, GroupId);
 ALTER TABLE
-    Disciplines ADD UNIQUE unique_index(Discipline, TeacherId);
+    DisciplineToTeacher ADD UNIQUE unique_index(TeacherId, DisciplineId);
 DELIMITER
     //
 CREATE TRIGGER OnInsertLesson AFTER
@@ -152,4 +152,4 @@ VALUES(NEW.Id, NEW.Grade) //
 INSERT
 INTO
     UserTypes(Title)
-VALUES('Admin'),('Operator'),('Teacher'),('Student');
+VALUES('administrator'),('operator'),('teacher'),('student');

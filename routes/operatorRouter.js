@@ -5,4 +5,8 @@ const operatorController = new OperatorController();
 
 router.get('/', operatorController.index);
 
+router.post('/getGroups', operatorController.groups);
+
+router.post('/getDisciplines', operatorController.disciplines);
+
 module.exports = router;

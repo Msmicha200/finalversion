@@ -1,0 +1,17 @@
+{% for group in groups %}
+    <div class="groups-program">
+    	<div class="group-row" data-groupid="{{ group.Id }}">
+    		<div class="group-program">
+    			<div>
+    			</div>
+    			<div>
+    				<div class="third-level">
+    				</div>
+    				<div>
+    					{{ group.Title }}
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+{% endfor %}

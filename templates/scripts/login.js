@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				url: '/user/checkUser',
 				type: 'POST',
 				data: {
-					login: login,
-					password: password
+					login,
+					password
 				}
 			})
 			.then(res => {

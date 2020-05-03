@@ -46,4 +46,16 @@ class uvm {
     return document.querySelectorAll(selector);
   }
 
+  static qe (element, selector) {
+    return element.querySelector(selector);
+  }
+
+  static qae (element, selector) {
+    return element.querySelectorAll(selector);
+  }
+
+  static ce (tag) {
+    return document.createElement(tag)
+  }
+
 }

@@ -9,6 +9,10 @@
 	<link rel="stylesheet" href="/css/toggle.css">
 </head>
 <body>
+	<!-- <script src="http://cdn.bootcss.com/twig.js/0.8.9/twig.js"></script> -->
+	<div id="test">
+<!-- {% for value in list %}{{ value }}, {% endfor %} -->
+	</div>
 	<div class="wrapper flex fdc">
 		<div class="header flex jcsa alic">
 			<div class="logo">
@@ -138,19 +142,19 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>1</td>
-										<td>ПЗ-228</td>
-										<td>2</td>
-										<td align="justify">
-										Кривошеєва Олена Миколаївна
-										</td>
-										<td align="center">
-											<button>
-												<img src="/images/edit.svg" alt="">
-											</button>
-										</td>
-									</tr>
+									{% for group in groups %}
+									    <tr>
+									    	<td>{{ group.Id }}</td>
+									    	<td>{{ group.Title }}</td>
+									    	<td>{{ group.Course }}</td>
+									    	<td>{{ group.LastName  }} {{ group.FirstName }} {{ group.MiddleName }}</td>
+									    	<td align="center">
+									    		<button data-groupId="{{ group.Id }}">
+									    			<img src="/images/edit.svg" alt="">
+									    		</button>
+									    	</td>
+									    </tr>
+									{% endfor %}
 								</tbody>
 							</table>
 						</div>
@@ -339,16 +343,18 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>Кривошеєва Олена Миколаївна</td>
-									<td>Krivosheeva</td>
-									<td align="center">
-										<button>
-											<img src="/images/edit.svg" alt="">
-										</button>
-									</td>
-								</tr>
+								{% for discipline in disciplines %}
+								    <tr>
+								    	<td>{{ discipline.Id }}</td>
+								    	<td>{{ discipline.Title }}</td>
+								    	<td>{{ discipline.LastName  }} {{ discipline.FirstName }} {{ discipline.MiddleName }}</td>
+								    	<td align="center">
+								    		<button data-groupId="{{ discipline.Id }}" data-teacherId="{{ discipline.TeacherId }}">
+												<img src="/images/edit.svg" alt="">
+								    		</button>
+								    	</td>
+								    </tr>
+								{% endfor %}
 							</tbody>
 						</table>
 					</div>
@@ -366,72 +372,30 @@
 									</div>
 								</div>
 								<div class="specialities">
-									<div class="speciality-row">
-										<div class="speciality">
-											<div>
-												<div class="first-level"></div>
-											</div>
-											<div>Програмування</div>
-										</div>
-										<div class="courses">
-											<div class="course-row">
-												<div class="course">
-													<div>
-													</div>
-													<div>
-														<div class="second-level"></div>
-														<div>1 курс</div>
-													</div>
-												</div>
-												<div class="groups-program">
-													<div class="group-row">
-														<div class="group-program">
-															<div>
-															</div>
-															<div>
-																<div class="third-level"></div>
-																<div>
-																	ПЗ-18
-																</div>
-															</div>
-														</div>
-														<div class="disciplines-program">
-															<div class="discipline-row">
-																<div class="discipline-program">
-																	<div>
-																	</div>
-																	<div>
-																		<div class="fourth-level"></div>
-																		<div>ОКС</div>
-																	</div>
-																</div>
-															</div>
-															<div class="discipline-row">
-																<div class="discipline-program">
-																	<div>
-																	</div>
-																	<div>
-																		<div class="fourth-level"></div>
-																		<div>ОКС</div>
-																	</div>
-																</div>
-															</div>
-															<div class="discipline-row">
-																<div class="discipline-program">
-																	<div>
-																	</div>
-																	<div>
-																		<div class="fourth-level"></div>
-																		<div>ОКС</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+									{% for speciality in specialities %}
+									    <div class="speciality-row">
+									    	<div class="speciality">
+									    		<div>
+									    			<div class="first-level"></div>
+									    		</div>
+									    		<div>{{ speciality.Title }}</div>
+									    	</div>
+									    	<div class="courses">
+									    		<div class="course-row" data-specid="{{ speciality.Id }}" data-course="1">
+									    			<div class="course">
+									    				<div>
+									    				</div>
+									    				<div>
+									    					<div class="second-level"></div>
+									    					<div>1 курс</div>
+									    				</div>
+									    			</div>
+									    			<!-- Template with groups -->
+									    			<!-- Template with disciplines -->
+									    		</div>
+									    	</div>
+									    </div>
+									{% endfor %}
 								</div>
 							</div>
 						</div>
@@ -461,7 +425,9 @@
 		</div>
 	</div>
 	<script src="/scripts/uvm.js"></script>
+	<script src="/scripts/twig.min.js"></script>
 	<script src="/scripts/operator/tabSwitch.js"></script>
+	<script src="/scripts/operator/workingProgram.js"></script>
 	<script src="/scripts/operator/accordion.js"></script>
 </body>
 </html>
