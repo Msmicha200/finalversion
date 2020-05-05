@@ -72,6 +72,9 @@ module.exports = class OperatorController {
                 });
             }
         }
+        else {
+            res.redirect('/notfound');
+        }
     }
 
     disciplines (req, res) {
@@ -83,10 +86,41 @@ module.exports = class OperatorController {
                 .then(([disciplines]) => {
                     res.render('operator/programDiscipl.twig', 
                         { disciplines });
-                }).catch(error => {
-                    console.log('Error discipline select: ' + error);
                 })
+                .catch(error => {
+                    console.log('Error discipline select: ' + error);
+                });
             }
+            else {
+                res.end('false');
+            }
+        }
+        else {
+            res.redirect('/notfound');
+        }
+    }
+
+    program (req, res) {
+        if (req.session.operator) {
+            const {disciplineId, groupId} = req.body;
+
+            if (disciplineId && groupId) {
+
+                Discipline.program(disciplineId, groupId).
+                then(([themes]) => {
+                    res.render('operator/programThemes.twig', 
+                        { themes });
+                })
+                .catch(error => {
+                    console.log('Error with getting themes: ' + error);
+                });
+            }
+            else {
+                res.end('false');
+            }
+        }
+        else {
+            res.redirect('/notfound');
         }
     }
 

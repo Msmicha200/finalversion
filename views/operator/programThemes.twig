@@ -1,0 +1,10 @@
+{% for theme in themes %}
+    <tr>
+    	<td>{{ theme.Theme }}</td>
+    	<td align="center">
+    		<button data-groupId="{{ theme.Id }}">
+				<img src="/images/edit.svg" alt="">
+    		</button>
+    	</td>
+    </tr>
+{% endfor %}

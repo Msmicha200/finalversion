@@ -12,6 +12,10 @@ const port = 3000;
 
 app.use(express.static('templates'));
 
+app.get('/', (req, res) => {
+    res.redirect('/user');
+});
+
 app.set('twig options', {
     allow_async: true
 });

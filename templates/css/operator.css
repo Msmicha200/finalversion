@@ -245,7 +245,7 @@ table > tbody > tr > td:last-child > button img {
 .speciality-row,
 .course-row,
 .group-row,
-.discipline-tow {
+.discipline-row {
 	cursor: pointer;
 }
 .speciality-row.opened div:first-child .first-level:before,
@@ -280,6 +280,10 @@ table > tbody > tr > td:last-child > button img {
 }
 .speciality,
 .course,
-.group-program {
+.group-program,
+.discipline-program {
 	pointer-events: none;
+}
+.selected {
+
 }

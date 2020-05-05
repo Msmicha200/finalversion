@@ -1,21 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
-	const specialities = uvm.q('.specialities');
-	const targets = ['speciality-row', 'course-row', 'group-row'];
-	specialities.addEventListener('click', event => {
-		const { target } = event;
+    const specialities = uvm.q('.specialities');
+    const targets = ['speciality-row', 'course-row', 'group-row'];
 
-		targets.forEach(elem => {
-			if (target.classList.contains(elem)) {
-				const list = uvm.qae(target, '.opened');
+    specialities.addEventListener('click', event => {
+        const { target } = event;
+        targets.forEach(elem => {
+            if (target.classList.contains(elem)) {
+                const list = uvm.qae(target, '.opened');
 
-				list.forEach(elem => {
-					elem.classList.remove('opened');
-				});
+                list.forEach(elem => {
+                    elem.classList.remove('opened');
+                });
 
-				setTimeout(() => {
-					target.classList.toggle('opened');
-				}, 20);
-			}
-		});
-	});
+                target.classList.toggle('opened');
+            }
+        });
+    });
 });

@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const specId = target.dataset.specid;
         const course = target.dataset.course;
         const groupId = target.dataset.groupid
+        const disciplineId = target.dataset.disciplineid;
+
         if (target.classList.contains('course-row') 
             && specId && course) {
             uvm.ajax({
@@ -17,14 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
             .then(res => {
-                const list = uvm.qae(target, '.groups-program');
-
-                list.forEach(elem => {
-                    target.removeChild(elem);
-                })
-                setTimeout(() => {
-                    target.innerHTML += res;
-                }, 150);
+                const list = uvm.qe(target, '.groups-program');
+				
+				list.innerHTML = res;       
             })
             .catch(error => {
                 console.log('Error: ' + error);
@@ -39,14 +36,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
             .then(res => {
-                const list = uvm.qae(target, '.disciplines-program');
+                if (res !== 'false') {
+                    const list = uvm.qe(target, '.disciplines-program');
 
-                list.forEach(elem => {
-                    target.removeChild(elem);
-                })
-                setTimeout(() => {
-                    target.innerHTML += res;
-                }, 150);  
+                    list.innerHTML = res;
+                } 
+            });
+        }
+        else if (target.classList.contains('discipline-row') 
+            && disciplineId) {
+            const groupId = target.parentNode.parentNode
+                .dataset.groupid;
+            uvm.ajax({
+                url: '/operator/getThemes',
+                type: 'POST',
+                data: {
+                    disciplineId,
+                    groupId
+                }
+            })
+            .then(res => {
+                if (res !== 'false') {
+                    const tbody = uvm.q('.themes tbody');
+                    const selected = uvm.qe(programTable, '.selected');
+
+                    if (selected !== null) {
+                        selected.classList.remove('selected');
+                    }
+                    target.classList.add('selected');
+                    tbody.innerHTML = res;
+                }
             })
         }
     });

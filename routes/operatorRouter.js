@@ -9,4 +9,6 @@ router.post('/getGroups', operatorController.groups);
 
 router.post('/getDisciplines', operatorController.disciplines);
 
+router.post('/getThemes', operatorController.program);
+
 module.exports = router;

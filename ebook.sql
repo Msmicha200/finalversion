@@ -57,7 +57,9 @@ CREATE TABLE WorkingProgram(
     Id INT PRIMARY KEY AUTO_INCREMENT,
     Theme VARCHAR(1024) NOT NULL,
     DisciplineId INT NOT NULL,
-    FOREIGN KEY(DisciplineId) REFERENCES Disciplines(Id)
+    GroupId INT NOT NULL,
+    FOREIGN KEY(DisciplineId) REFERENCES Disciplines(Id),
+    FOREIGN KEY(GroupId) REFERENCES Groups(Id)
 ) CHARACTER SET utf8;
 CREATE TABLE LessonTypes(
     Id INT PRIMARY KEY AUTO_INCREMENT,
@@ -81,13 +83,13 @@ CREATE TABLE Grades(
     FOREIGN KEY(LessonId) REFERENCES Lessons(Id),
     FOREIGN KEY(StudentId) REFERENCES Accounts(Id)
 ) CHARACTER SET utf8;
-CREATE TABLE ProgramToGroup(
-    Id INT PRIMARY KEY AUTO_INCREMENT,
-    GroupId INT NOT NULL,
-    ProgramId INT NOT NULL,
-    FOREIGN KEY(GroupId) REFERENCES Groups(Id),
-    FOREIGN KEY(ProgramId) REFERENCES WorkingProgram(Id)
-) CHARACTER SET utf8;
+-- CREATE TABLE ProgramToGroup(
+--     Id INT PRIMARY KEY AUTO_INCREMENT,
+--     GroupId INT NOT NULL,
+--     ProgramId INT NOT NULL,
+--     FOREIGN KEY(GroupId) REFERENCES Groups(Id),
+--     FOREIGN KEY(ProgramId) REFERENCES WorkingProgram(Id)
+-- ) CHARACTER SET utf8;
 CREATE TABLE Report(
     Id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     GradeId INT NOT NULL,

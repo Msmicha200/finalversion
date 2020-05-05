@@ -13,4 +13,4 @@ module.exports = class Database {
     static getConnection () {
         return connection;
     }
-} 
+}
