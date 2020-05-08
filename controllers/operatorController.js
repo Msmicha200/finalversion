@@ -80,12 +80,20 @@ module.exports = class OperatorController {
     disciplines (req, res) {
         if (req.session.operator) {
             const { groupId } = req.body;
+            const { url } = req;
 
             if (groupId) {
                 Discipline.getDisciplines(groupId)
                 .then(([disciplines]) => {
-                    res.render('operator/programDiscipl.twig', 
-                        { disciplines });
+                    if (url === '/getDisciplines') {
+                        res.render('operator/programDiscipl.twig', 
+                            { disciplines });                        
+                    }
+                    else if (url === '/getDisciplToGroup') {
+                        res.render('operator/groupDiscipl.twig',
+                            { disciplines });
+                    }
+
                 })
                 .catch(error => {
                     console.log('Error discipline select: ' + error);
@@ -114,6 +122,46 @@ module.exports = class OperatorController {
                 .catch(error => {
                     console.log('Error with getting themes: ' + error);
                 });
+            }
+            else {
+                res.end('false');
+            }
+        }
+        else {
+            res.redirect('/notfound');
+        }
+    }
+
+    passed (req, res) {
+        if (req.session.operator) {
+            const { dtogroupId } = req.body;
+            const { status } = req.body;
+
+            if (dtogroupId && status) {
+                Discipline.changePassed(dtogroupId, status)
+                .then(([result]) => {
+                    res.end('true');
+                })
+                .catch(error => {
+                    console.log('Error with changing passed: ' + error);
+                });
+            }
+        }
+    }
+
+    status (req, res) {
+        if (req.session.operator) {
+            const { userId } = req.body;
+            const { status } = req.body;
+
+            if (userId, status) {
+                User.changeStatus(userId, status)
+                .then(([result]) => {
+                    res.end('true');
+                })
+                .catch(error => {
+                    console.log('Error with changing status: ' + error);
+                })
             }
             else {
                 res.end('false');

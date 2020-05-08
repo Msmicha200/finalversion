@@ -22,14 +22,15 @@ module.exports = class Discipline {
         
         if (groupId) {
             sql = `SELECT
-                        d.Id,
+                        dg.Id,
+                        d.Id AS DisciplineId,
                         d.Title,
                         dg.Passed
                     FROM
                         Disciplines AS d,
                         DisciplineToGroup AS dg
                     WHERE
-                        dg.GroupId = ? AND d.Id = dg.DisciplineId`
+                        dg.GroupId = ? AND d.Id = dg.DisciplineId`;
         
             return db.query(sql, [groupId]);
         }

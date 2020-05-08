@@ -13,9 +13,9 @@
 	position: relative;
 	transition: 0.3s;
 	cursor: pointer;
+	pointer-events: none;
 }
 .uvm--round:before {
-	pointer-events: none;
 	content: '';
 	left: 3px;
 	background: #8F8F8F;
@@ -34,6 +34,9 @@
 	width: 30px;
 	height: 15px;
 	cursor: pointer;
+}
+.uvm--toggle {
+	pointer-events: none !important;
 }
 .uvm--toggle-container input:checked + .uvm--round {
 	background: #7E9AE4;

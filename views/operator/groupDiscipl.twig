@@ -1,0 +1,22 @@
+{% for discipline in disciplines %}
+    <tr data-dtogroup="{{ discipline.Id }}">
+    	<td>
+    		{{ discipline.Title }}
+    	</td>
+        <td align="center">
+            <label class="uvm--toggle-container">
+                {% if discipline.Passed == 0 %}
+                    <input type="checkbox" hidden="" checked class="uvm--toggle">
+                {% else %}
+                    <input type="checkbox" hidden="" class="uvm--toggle">
+                {% endif %}
+                <div class="uvm--round"></div>
+            </label>
+        </td>
+    	<td align="center">
+            <button>
+                <img src="/images/edit.svg" alt="">
+            </button>
+    	</td>
+    </tr>
+{% endfor %}

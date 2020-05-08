@@ -254,7 +254,7 @@ table > tbody > tr > td:last-child > button img {
 	transform: rotate(90deg);	
 }
 .courses,
-.groups-program,
+.groups-program, 
 .disciplines-program {
 	max-height: 0;
 	overflow: hidden;

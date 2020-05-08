@@ -9,10 +9,6 @@
 	<link rel="stylesheet" href="/css/toggle.css">
 </head>
 <body>
-	<!-- <script src="http://cdn.bootcss.com/twig.js/0.8.9/twig.js"></script> -->
-	<div id="test">
-<!-- {% for value in list %}{{ value }}, {% endfor %} -->
-	</div>
 	<div class="wrapper flex fdc">
 		<div class="header flex jcsa alic">
 			<div class="logo">
@@ -89,7 +85,7 @@
 							</thead>
 							<tbody>
 								{% for student in users.student %}
-								    <tr>
+								    <tr data-studentid="{{ student.Id }}">
 								    	<td>{{ student.Id }}</td>
 								    	<td>{{ student.LastName  }} {{ student.FirstName }} {{ student.MiddleName }}</td>
 								    	<td>{{ student.Login }}</td>
@@ -143,13 +139,13 @@
 								</thead>
 								<tbody>
 									{% for group in groups %}
-									    <tr>
+									    <tr data-groupid="{{ group.Id }}">
 									    	<td>{{ group.Id }}</td>
 									    	<td>{{ group.Title }}</td>
 									    	<td>{{ group.Course }}</td>
 									    	<td>{{ group.LastName  }} {{ group.FirstName }} {{ group.MiddleName }}</td>
 									    	<td align="center">
-									    		<button data-groupId="{{ group.Id }}">
+									    		<button>
 									    			<img src="/images/edit.svg" alt="">
 									    		</button>
 									    	</td>
@@ -160,18 +156,21 @@
 						</div>
 					</div>
 					<div class="right-side">
-						<div class="group-vigations flex jcfe">
+						<div class="group-navigations flex jcfe">
 							<div class="pointer add-to-group">
 								<img src="/images/addToGroup.svg" alt="">
 							</div>
 						</div>
 						<div class="table-wrapper">
-							<table class="group">
+							<table class="group-disciplines">
 								<thead>
 									<td width="550px">Назва дисципліни</td>
 									<td width="100px">Відчитано</td>
 									<td width="100px">Редагувати</td>
 								</thead>
+								<tbody>
+									
+								</tbody>
 							</table>
 						</div>
 					</div>
@@ -231,7 +230,7 @@
 													<input type="checkbox" hidden="" class="uvm--toggle">
 												{% endif %}
 												<div class="uvm--round"></div>
-											</label>								    		
+											</label>  		
 								    	</td>
 								    	<td align="center">
 								    		<button data-id="{{ teacher.Id }}">
@@ -449,7 +448,7 @@
 						</div>
 					</div>
 					<div class="right-side">
-						<div class="group-vigations flex jcsb">
+						<div class="group-navigations flex jcsb">
 							<div class="search student flex alic">
 								<input type="text">
 								<span>Пошук...</span>
@@ -477,6 +476,8 @@
 	<script src="/scripts/uvm.js"></script>
 	<script src="/scripts/operator/tabSwitch.js"></script>
 	<script src="/scripts/operator/workingProgram.js"></script>
+	<script src="/scripts/operator/student.js"></script>
+	<script src="/scripts/operator/group.js"></script>
 	<script src="/scripts/operator/accordion.js"></script>
 </body>
 </html>

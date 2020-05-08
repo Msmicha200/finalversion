@@ -108,7 +108,7 @@ module.exports = class User {
         return db.query(sql, data);
     }
 
-    static updateStatus (id, status) {
+    static changeStatus (id, status) {
         const db = Database.getConnection();
         const sql = `UPDATE
                         Accounts
