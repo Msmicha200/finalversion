@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="modal">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,6 +7,9 @@
 	<link rel="stylesheet" href="/css/global.css">
 	<link rel="stylesheet" href="/css/operator.css">
 	<link rel="stylesheet" href="/css/toggle.css">
+	<link rel="stylesheet" href="/css/modal.css">
+	<link rel="stylesheet" href="/css/uvmInput.css">
+	<link rel="stylesheet" href="/css/uvmSearchSelect.css">
 </head>
 <body>
 	<div class="wrapper flex fdc">
@@ -54,7 +57,7 @@
 						</div>
 					</div>
 					<div class="table-wrapper">
-						<table class="student-table">
+						<table class="student-table user-table">
 							<thead>
 								<tr>
 									<td width="45px">
@@ -85,7 +88,7 @@
 							</thead>
 							<tbody>
 								{% for student in users.student %}
-								    <tr data-studentid="{{ student.Id }}">
+								    <tr data-userid="{{ student.Id }}">
 								    	<td>{{ student.Id }}</td>
 								    	<td>{{ student.LastName  }} {{ student.FirstName }} {{ student.MiddleName }}</td>
 								    	<td>{{ student.Login }}</td>
@@ -103,7 +106,7 @@
 											</label>								    		
 								    	</td>
 								    	<td align="center">
-								    		<button data-id="{{ student.Id }}">
+								    		<button class="edit-student">
 								    			<img src="/images/edit.svg" alt="">
 								    		</button>
 								    	</td>
@@ -188,7 +191,7 @@
 						</div>
 					</div>
 					<div class="table-wrapper">
-						<table class="teacher-table">
+						<table class="teacher-table user-table">
 							<thead>
 								<tr>
 									<td width="45px">
@@ -216,7 +219,7 @@
 							</thead>
 							<tbody>
 								{% for teacher in users.teacher %}
-								    <tr>
+								    <tr data-userId="{{ teacher.Id }}">
 								    	<td>{{ teacher.Id }}</td>
 								    	<td>{{ teacher.LastName  }} {{ teacher.FirstName }} {{ teacher.MiddleName }}</td>
 								    	<td>{{ teacher.Login }}</td>
@@ -233,7 +236,7 @@
 											</label>  		
 								    	</td>
 								    	<td align="center">
-								    		<button data-id="{{ teacher.Id }}">
+								    		<button>
 								    			<img src="/images/edit.svg" alt="">
 								    		</button>
 								    	</td>
@@ -256,7 +259,7 @@
 						</div>
 					</div>
 					<div class="table-wrapper">
-						<table class="operator-table">
+						<table class="operator-table user-table">
 							<thead>
 								<tr>
 									<td width="45px">
@@ -284,7 +287,7 @@
 							</thead>
 							<tbody>
 								{% for operator in users.operator %}
-								    <tr>
+								    <tr data-userid="{{ operator.Id }}">
 								    	<td>{{ operator.Id }}</td>
 								    	<td>{{ operator.LastName  }} {{ operator.FirstName }} {{ operator.MiddleName }}</td>
 								    	<td>{{ operator.Login }}</td>
@@ -301,7 +304,7 @@
 											</label>								    		
 								    	</td>
 								    	<td align="center">
-								    		<button data-id="{{ operator.Id }}">
+								    		<button>
 								    			<img src="/images/edit.svg" alt="">
 								    		</button>
 								    	</td>
@@ -473,11 +476,72 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal-wrapper flex jcc alic">
+		<div class="student-modal-content flex jcsb fdc">
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" class="uvm--input" required>
+				<label for="login" class="uvm--label">Ім'я</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" class="uvm--input" required>
+				<label for="login" class="uvm--label">Прізвище</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" class="uvm--input" required>
+				<label for="login" class="uvm--label">По батькові</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" class="uvm--input" required>
+				<label for="login" class="uvm--label">E-mail</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" class="uvm--input" required>
+				<label for="login" class="uvm--label">Номер телефону</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" class="uvm--input" required>
+				<label for="login" class="uvm--label">Логін</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" type="password" placeholder="Login" class="uvm--input" required>
+				<label for="login" class="uvm--label">Пароль</label>
+			</div>
+			<div class="uvm--select">
+				<div class="uvm--current-item current-author">
+					Оберіть групу
+				</div>
+				<div class="uvm--options">
+					<div class="uvm--search-container">
+						<input type="text" placeholder="Пошук..." class="uvm--input-search">
+					</div>
+					<ul class="uvm--options-list">
+						<li class="uvm--option">1</li>
+						<li class="uvm--option">2</li>
+						<li class="uvm--option">3</li>
+						<li class="uvm--option">4</li>
+						<li class="uvm--option">5</li>
+						<li class="uvm--option">6</li>						
+					</ul>
+				</div>
+			</div>
+			<div class="modal-controls flex jcsb">
+				<button>
+					Відміна
+				</button>
+				<button>
+					Додати
+				</button>
+			</div>
+		</div>
+	</div>
 	<script src="/scripts/uvm.js"></script>
 	<script src="/scripts/operator/tabSwitch.js"></script>
 	<script src="/scripts/operator/workingProgram.js"></script>
 	<script src="/scripts/operator/student.js"></script>
+	<script src="/scripts/operator/teacher.js"></script>
 	<script src="/scripts/operator/group.js"></script>
+	<script src="/scripts/operator/userStatus.js"></script>
 	<script src="/scripts/operator/accordion.js"></script>
+	<script src="/scripts/uvmSearchSelect.js"></script>
 </body>
 </html>

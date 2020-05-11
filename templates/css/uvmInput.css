@@ -11,11 +11,12 @@
 	-o-flex-direction: column;
 	flex-direction: column;
 	position: relative;
-	padding: 15px 0 0;
+	padding: 13px 0 0;
+	margin-top: 5px;
 	width: 100%;
-	margin-top: 50px;
 }
 .uvm--label {
+	pointer-events: none;
 	position: absolute;
 	top: 0;
 	color: #849EEF;

@@ -40,3 +40,6 @@ body {
 .error {
 	border-bottom-color: red !important;
 }
+.uvm--input-wrapper {
+	margin-top: 50px;
+}
