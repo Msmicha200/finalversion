@@ -15,6 +15,9 @@ body {
 .inputs {
 	width: 320px;
 }
+.inputs .uvm--input-wrapper {
+	margin-top: 50px;
+}
 .buttons {
 	width: 100%;
 	height: 60px;

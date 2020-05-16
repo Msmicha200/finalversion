@@ -70,7 +70,7 @@ module.exports = class User {
                                 Email,
                                 PhoneNumber,
                                 Password,
-                                UserTpeId,
+                                UserTypeId,
                                 GroupId
                             )
                         VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`;

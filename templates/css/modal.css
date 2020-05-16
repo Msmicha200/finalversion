@@ -1,5 +1,11 @@
-html.modal .wrapper {
+html.student-modal .wrapper,
+html.group-modal .wrapper {
 	filter: blur(10px);
+}
+html.student-modal .student-modal-wrapper,
+html.group-modal .group-modal-wrapper {
+	visibility: visible;
+	opacity: 1;
 }
 .wrapper {
 	transition: 400ms;
@@ -10,11 +16,14 @@ html.modal .wrapper {
 	left: 0;
 	position: absolute;
 	height: 100vh;
+	visibility: hidden;
+	opacity: 0;
 	width: 100%;
 	background: rgba(183, 183, 183, 0.5);
 	
 }
-.student-modal-content {
+.student-modal-content,
+.group-modal-content {
 	background: #FFFFFF;
 	width: 550px;
 	/*height: 450px;*/

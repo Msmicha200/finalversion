@@ -149,7 +149,7 @@ ON
     Grades FOR EACH ROW
 INSERT
 INTO
-    Report(Grade)
+    Report(GradeId, Grade)
 VALUES(NEW.Id, NEW.Grade) //
 INSERT
 INTO

@@ -2,6 +2,16 @@
 
 class uvm {
 
+  static dataToObj (formData) {
+    const obj = {};
+
+    for (const [key, value] of formData.entries()) {
+      obj[key] = value;
+    }
+
+    return obj;
+  }
+
   static ajax(options) {
     return new Promise((resolve, reject) => {
       const type = options.type.toString();
@@ -58,4 +68,40 @@ class uvm {
     return document.createElement(tag)
   }
 
+  static selectErr (elem) {
+    elem.classList.add('uvm--select-error');
+
+    setTimeout(() => {
+        elem.classList.remove('uvm--select-error')
+    }, 1500);
+  }
+
+  static valid (inputs) {
+    let isCorrect = true;
+    const timeout = 1500;
+    const regex = {
+        firstName: /^[А-я]{2,50}$/,
+        lastName: /^[А-я]{2,50}$/,
+        middleName: /^[А-я]{2,50}$/,
+        email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        number: /^[0-9]{6,20}$/,
+        login: /^[A-z0-9]{3,64}$/,
+        password: /^.{6,64}$/,
+        groupTitle: /^[А-я0-9\-]{3,64}$/
+    };
+
+    inputs.forEach(elem => {
+        if (!regex[elem.getAttribute('name')].test(elem.value)) {
+            elem.classList.add('error');
+            isCorrect = false;
+
+            setTimeout(() => {
+                elem.classList.remove('error');
+                isCorrect = true;
+            }, 1500);
+        }
+    });
+
+    return isCorrect;
+  }
 }

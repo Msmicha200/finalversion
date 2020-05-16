@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="modal">
+<html lang="en" class="">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -476,38 +476,38 @@
 			</div>
 		</div>
 	</div>
-	<div class="modal-wrapper flex jcc alic">
-		<div class="student-modal-content flex jcsb fdc">
+	<div class="student-modal-wrapper modal-wrapper student-modal flex jcc alic">
+		<form class="student-modal-content flex jcsb fdc" name="addStudent">
 			<div class="uvm--input-wrapper">
-				<input autocomplete="off" placeholder="Login" class="uvm--input" required>
+				<input autocomplete="off" placeholder="Login" name="firstName" class="uvm--input" >
 				<label for="login" class="uvm--label">Ім'я</label>
 			</div>
 			<div class="uvm--input-wrapper">
-				<input autocomplete="off" placeholder="Login" class="uvm--input" required>
+				<input autocomplete="off" placeholder="Login" name="lastName" class="uvm--input" >
 				<label for="login" class="uvm--label">Прізвище</label>
 			</div>
 			<div class="uvm--input-wrapper">
-				<input autocomplete="off" placeholder="Login" class="uvm--input" required>
+				<input autocomplete="off" placeholder="Login" name="middleName" class="uvm--input" >
 				<label for="login" class="uvm--label">По батькові</label>
 			</div>
 			<div class="uvm--input-wrapper">
-				<input autocomplete="off" placeholder="Login" class="uvm--input" required>
+				<input autocomplete="off" placeholder="Login" name="email" class="uvm--input" >
 				<label for="login" class="uvm--label">E-mail</label>
 			</div>
 			<div class="uvm--input-wrapper">
-				<input autocomplete="off" placeholder="Login" class="uvm--input" required>
+				<input autocomplete="off" placeholder="Login" name="number" class="uvm--input" >
 				<label for="login" class="uvm--label">Номер телефону</label>
 			</div>
 			<div class="uvm--input-wrapper">
-				<input autocomplete="off" placeholder="Login" class="uvm--input" required>
+				<input autocomplete="off" placeholder="Login" name="login" class="uvm--input" >
 				<label for="login" class="uvm--label">Логін</label>
 			</div>
 			<div class="uvm--input-wrapper">
-				<input autocomplete="off" type="password" placeholder="Login" class="uvm--input" required>
+				<input autocomplete="off" type="password" placeholder="Login" name="password" class="uvm--input">
 				<label for="login" class="uvm--label">Пароль</label>
 			</div>
-			<div class="uvm--select">
-				<div class="uvm--current-item current-author">
+			<div class="uvm--select st-group-select">
+				<div class="uvm--current-item">
 					Оберіть групу
 				</div>
 				<div class="uvm--options">
@@ -515,24 +515,75 @@
 						<input type="text" placeholder="Пошук..." class="uvm--input-search">
 					</div>
 					<ul class="uvm--options-list">
-						<li class="uvm--option">1</li>
-						<li class="uvm--option">2</li>
-						<li class="uvm--option">3</li>
-						<li class="uvm--option">4</li>
-						<li class="uvm--option">5</li>
-						<li class="uvm--option">6</li>						
+						{% for group in groups %}
+						    <li class="uvm--option group-option" data-groupid="{{ group.Id }}">
+						    	{{ group.Title }}
+						    </li>
+						{% endfor %}						
 					</ul>
 				</div>
 			</div>
 			<div class="modal-controls flex jcsb">
-				<button>
+				<button class="close-modal">
 					Відміна
 				</button>
-				<button>
+				<button class="accept-student">
 					Додати
 				</button>
 			</div>
-		</div>
+		</form>
+	</div>
+	<div class="group-modal-wrapper modal-wrapper group-modal flex jcc alic">
+		<form class="group-modal-content flex jcsb fdc" name="addGroup">
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="groupTitle" class="uvm--input">
+				<label for="login" class="uvm--label">Назва</label>
+			</div>
+			<div class="uvm--select gr-group-select">
+				<div class="uvm--current-item">
+					Оберіть класного керівника
+				</div>
+				<div class="uvm--options">
+					<div class="uvm--search-container">
+						<input type="text" placeholder="Пошук..." class="uvm--input-search">
+					</div>
+					<ul class="uvm--options-list">
+						{% for teacher in users.teacher %}
+						    <li class="uvm--option teacher-option" data-teacherid="{{ teacher.Id }}">
+						    	{{ teacher.LastName }}
+						    	{{ teacher.FirstName }}
+						    	{{ teacher.MiddleName }}
+						    </li>
+						{% endfor %}						
+					</ul>
+				</div>
+			</div>
+			<div class="uvm--select spec-group-select">
+				<div class="uvm--current-item">
+					Оберіть спеціальність
+				</div>
+				<div class="uvm--options">
+					<div class="uvm--search-container">
+						<input type="text" placeholder="Пошук..." class="uvm--input-search">
+					</div>
+					<ul class="uvm--options-list">
+						{% for speciality in specialities %}
+						    <li class="uvm--option spec-option" data-specid="{{ speciality.Id }}">
+						    	{{ speciality.Title }}
+						    </li>
+						{% endfor %}						
+					</ul>
+				</div>
+			</div>
+			<div class="modal-controls flex jcsb">
+				<button class="close-modal">
+					Відміна
+				</button>
+				<button class="accept-group">
+					Додати
+				</button>
+			</div>
+		</form>
 	</div>
 	<script src="/scripts/uvm.js"></script>
 	<script src="/scripts/operator/tabSwitch.js"></script>
@@ -543,5 +594,6 @@
 	<script src="/scripts/operator/userStatus.js"></script>
 	<script src="/scripts/operator/accordion.js"></script>
 	<script src="/scripts/uvmSearchSelect.js"></script>
+	<script src="/scripts/modal.js"></script>
 </body>
 </html>

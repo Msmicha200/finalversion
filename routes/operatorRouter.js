@@ -17,4 +17,8 @@ router.post('/passed', operatorController.passed);
 
 router.post('/changeStatus', operatorController.status);
 
+router.post('/addStudent', operatorController.user);
+
+router.post('/addGroup', operatorController.newGroup);
+
 module.exports = router;

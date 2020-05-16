@@ -19,11 +19,12 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: flex-start;
-	border: 1px solid #E8E8E8;
+	border: 2px solid #E8E8E8;
 	border-radius: 5px;
 	width: 100%;
 	margin-top: 2vh;
 	color: #535353;
+	transition: .2s;
 }
 .uvm--search-container {
 	display: -webkit-flex;
@@ -55,14 +56,14 @@
 	transform-origin: 66% 66%;
 }
 .uvm--options {
-	outline: 1px solid #E8E8E8;
+	/*border: 2px solid #E8E8E8;*/
+	box-shadow: 0 0 0 2px #E8E8E8;
 	opacity: 0;
 	z-index: 2;
 	visibility: hidden;
 	position: absolute;	
 	transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;
 	top: 100%;
-	/*margin-top: 3px;*/
 	white-space: nowrap;
 	left: 0;
 	border-radius: 5px;
@@ -112,4 +113,7 @@
 .uvm--select.uvm--opened {
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
+}
+.uvm--select-error {
+	border-color: red;
 }

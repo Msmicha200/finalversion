@@ -1,6 +1,15 @@
 const User = require('../models/User');
 const Group = require('../models/Group');
 const Discipline = require('../models/Discipline');
+const regex = {
+    firstName: /^[А-я]{2,50}$/,
+    lastName: /^[А-я]{2,50}$/,
+    middleName: /^[А-я]{2,50}$/,
+    email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+    number: /^[0-9]{6,20}$/,
+    login: /^[A-z0-9]{3,64}$/,
+    password: /^.{6,64}$/
+};
 
 module.exports = class OperatorController {
 
@@ -8,7 +17,7 @@ module.exports = class OperatorController {
         if (req.session.operator) {
             const data = {
                 users: {
-                    adminstrator: [],
+                    administrator: [],
                     student: [],
                     operator: [],
                     teacher: []
@@ -169,6 +178,71 @@ module.exports = class OperatorController {
         }
         else {
             res.redirect('/notfound');
+        }
+    }
+
+    user (req, res) {
+        const { url } = req;
+        const { firstName, lastName, middleName, email, number, login,
+            password, groupId, groupTitle} = req.body;
+        const user = {
+            firstName,
+            lastName,
+            middleName,
+            email,
+            number,
+            login,
+            password
+        };
+
+        for (const data in user) {
+            if (!regex[data].test(user[data])) {
+                res.end('Error');
+                return;
+            }
+        }
+
+        res.end('Duplicate');
+        return;
+
+        if (url === '/addStudent') {
+            if (groupId && groupTitle) {
+                User.addUser(lastName, firstName, middleName, login,
+                    email, number, password, 3, groupId)
+                .then(([result]) => {
+                    user['groupId'] = groupId;
+                    user['groupTitle'] = groupTitle;
+                    user['id'] = result.insertId;
+                    res.render('operator/student.twig', { user });
+                })
+                .catch(error => {
+                    res.end('Duplicate');
+                });
+            }
+        }
+    }
+
+    newGroup (req, res) {
+        const { groupTitle, curatorId, curatorName, specId } = req.body;
+        const group = {
+            groupTitle,
+            curatorId,
+            curatorName,
+            specId
+        };
+        const regexTitle = /^[А-я0-9\-]{3,64}$/;
+
+        if (groupTitle && curatorId && curatorName && regexTitle
+            .test(groupTitle)) {
+
+            Group.addGroup(groupTitle, specId, curatorId)
+            .then(([result]) => {
+                group['Id'] = result.insertId;
+                res.render('operator/group.twig', { group });
+            })
+            .catch(error => {
+
+            });
         }
     }
 

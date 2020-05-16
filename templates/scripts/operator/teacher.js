@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const studentTable = uvm.q('.add-student');
-    
+	const acceptStudent = uvm.q('.accept-student');
+
+	acceptStudent.addEventListener('click', () => {
+		
+	});
 });

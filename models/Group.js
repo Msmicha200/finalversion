@@ -9,11 +9,10 @@ module.exports = class Group {
                             Groups(
                                 Title,
                                 SpecialityId,
-                                CuratorId,
-                                Course
+                                CuratorId
                             )
-                        VALUES(?, ?, ?, ?)`;
-        const data = [title, specialityId, curatorId, course];
+                        VALUES(?, ?, ?)`;
+        const data = [title, specialityId, curatorId];
 
         return db.query(sql, data);
     }
