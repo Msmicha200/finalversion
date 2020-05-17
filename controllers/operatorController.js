@@ -241,7 +241,46 @@ module.exports = class OperatorController {
                 res.render('operator/group.twig', { group });
             })
             .catch(error => {
+                res.end('Duplicate');
+            });
+        }
+    }
 
+    getTeachers (req, res) {
+        const { disciplineId } = req.body;
+
+        if (disciplineId) {
+            Discipline.getTeachers(disciplineId)
+            .then(([teachers]) => {
+                res.render('operator/disciplineTeachers.twig',
+                    { teachers });
+            })
+            .catch(error => {
+                console.log(error);
+                res.end('false');
+            });
+        }
+    }
+
+    dsiciplToGroup (req, res) {
+        const { disciplineId, teacherId, disciplTitle, 
+            groupId } = req.body;
+        const disciplines = {
+            Title: disciplTitle,
+            Passed: 0
+        };
+
+        if (disciplineId && teacherId && groupId && disciplTitle) {
+            Discipline.addToGroup(teacherId, groupId, disciplineId)
+            .then(([result]) => {
+                disciplines['Id'] = result.insertId;
+                res.render('operator/groupDiscipl.twig', { disciplines: {
+                    disciplines
+                }});
+            })
+            .catch(error => {
+                console.log(error);
+                res.end('Duplicate');
             });
         }
     }

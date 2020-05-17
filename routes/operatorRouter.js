@@ -21,4 +21,8 @@ router.post('/addStudent', operatorController.user);
 
 router.post('/addGroup', operatorController.newGroup);
 
+router.post('/getDisciplToTeacher', operatorController.getTeachers);
+
+router.post('/addDisciplToGroup', operatorController.dsiciplToGroup);
+
 module.exports = router;

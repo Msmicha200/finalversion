@@ -47,10 +47,10 @@ CREATE TABLE DisciplineToTeacher(
 ) CHARACTER SET utf8;
 CREATE TABLE DisciplineToGroup(
     Id INT PRIMARY KEY AUTO_INCREMENT,
-    DisciplineId INT NOT NULL,
+    DisciplineTeacherId INT NOT NULL,
     GroupId INT NOT NULL,
     Passed TINYINT NOT NULL DEFAULT 0,
-    FOREIGN KEY(DisciplineId) REFERENCES Disciplines(Id),
+    FOREIGN KEY(DisciplineTeacherId) REFERENCES DisciplineToTeacher(Id),
     FOREIGN KEY(GroupId) REFERENCES Groups(Id)
 ) CHARACTER SET utf8;
 CREATE TABLE WorkingProgram(

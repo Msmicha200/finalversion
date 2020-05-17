@@ -22,15 +22,19 @@ module.exports = class Discipline {
         
         if (groupId) {
             sql = `SELECT
-                        dg.Id,
-                        d.Id AS DisciplineId,
-                        d.Title,
-                        dg.Passed
-                    FROM
-                        Disciplines AS d,
-                        DisciplineToGroup AS dg
-                    WHERE
-                        dg.GroupId = ? AND d.Id = dg.DisciplineId`;
+                    dt.Id,
+                    d.Title,
+                    dg.Passed
+                FROM
+                    DisciplineToGroup AS dg
+                INNER JOIN DisciplineToTeacher AS dt
+                ON
+                    dg.DisciplineTeacherId = dt.Id
+                INNER JOIN Disciplines AS d
+                ON
+                    dt.DisciplineId = d.Id
+                WHERE
+                    dg.GroupId = ?`;
         
             return db.query(sql, [groupId]);
         }
@@ -70,16 +74,22 @@ module.exports = class Discipline {
         return db.query(sql, data);
     }
 
-    static addToGroup (groupId, disciplineId) {
+    static addToGroup (teacherId, groupId, disciplineId) {
         const db = Database.getConnection();
-        const sql = `INSERT
-                        INTO
-                            DisciplineToGroup(
-                                DisciplineId, 
-                                GroupId
-                            )
-                        VALUES(?, ?)`;
-        const data = [DisciplineId, disciplineId];
+        const sql = `INSERT INTO DisciplineToGroup
+        (DisciplineTeacherId, GroupId)
+                        VALUES(
+                            (
+                            SELECT
+                                Id
+                            FROM
+                                DisciplineToTeacher
+                            WHERE
+                                TeacherId = ? AND DisciplineId = ?
+                        ),
+                        ?
+                        )`;
+        const data = [teacherId, disciplineId, groupId];
 
         return db.query(sql, data);
     }
@@ -124,6 +134,20 @@ module.exports = class Discipline {
         return db.query(sql, data);
     }
 
+    static getTeachers (disciplineId) {
+        const db = Database.getConnection();
+        const sql = `SELECT
+                        a.Id,
+                        a.FirstName,
+                        a.LastName,
+                        a.MiddleName
+                    FROM
+                        Accounts AS a
+                    INNER JOIN DisciplineToTeacher AS dt
+                    ON
+                        a.Id = dt.TeacherId AND dt.DisciplineId = ?`;
 
+        return db.query(sql, [disciplineId]);
+    }
 
 }

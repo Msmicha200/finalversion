@@ -585,6 +585,48 @@
 			</div>
 		</form>
 	</div>
+	<div class="ds-group-modal-wrapper modal-wrapper ds-group-modal flex jcc alic">
+		<form class="ds-group-modal-content flex jcsb fdc" name="addDisciplToGroup">
+			<div class="uvm--select ds-group-select">
+				<div class="uvm--current-item">
+					Оберіть дисципліну
+				</div>
+				<div class="uvm--options">
+					<div class="uvm--search-container">
+						<input type="text" placeholder="Пошук..." class="uvm--input-search">
+					</div>
+					<ul class="uvm--options-list">
+						{% for discipline in disciplines %}
+						    <li class="uvm--option ds-group-option" data-disciplineid="{{ discipline.Id }}">
+						    	{{ discipline.Title }}
+						    </li>
+						{% endfor %}						
+					</ul>
+				</div>
+			</div>
+			<div class="uvm--select ds-teacher-select">
+				<div class="uvm--current-item">
+					Оберіть викладача
+				</div>
+				<div class="uvm--options">
+					<div class="uvm--search-container">
+						<input type="text" placeholder="Пошук..." class="uvm--input-search">
+					</div>
+					<ul class="uvm--options-list gr-ds-teachers">
+						
+					</ul>
+				</div>
+			</div>
+			<div class="modal-controls flex jcsb">
+				<button class="close-modal">
+					Відміна
+				</button>
+				<button class="accept-ds-group">
+					Додати
+				</button>
+			</div>
+		</form>
+	</div>
 	<script src="/scripts/uvm.js"></script>
 	<script src="/scripts/operator/tabSwitch.js"></script>
 	<script src="/scripts/operator/workingProgram.js"></script>
