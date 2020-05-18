@@ -25,4 +25,8 @@ router.post('/getDisciplToTeacher', operatorController.getTeachers);
 
 router.post('/addDisciplToGroup', operatorController.dsiciplToGroup);
 
+router.post('/addTeacher', operatorController.user);
+
+router.post('/addOperator', operatorController.user);
+
 module.exports = router;

@@ -1,30 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const addTeacher = uvm.q('.add-teacher');
+    const addOperator = uvm.q('.add-operator');
 
-    addTeacher.addEventListener('click', () => {
+    addOperator.addEventListener('click', () => {
         doc.classList.add('operator-modal');
     });
 
-    const acceptTeacher = uvm.q('.accept-teacher');
+    const acceptOperator = uvm.q('.accept-operator');
 
-    acceptTeacher.addEventListener('click', event => {
+    acceptOperator.addEventListener('click', event => {
         event.preventDefault();
 
-        const teacherForm = document.forms.addTeacher;
-        const inputs = uvm.qae(teacherForm, '.uvm--input-wrapper > input');
-        const data = new FormData(teacherForm);
+        const operatorForm = document.forms.addOperator;
+        const inputs = uvm.qae(operatorForm, '.uvm--input-wrapper > input');
+        const data = new FormData(operatorForm);
 
         if (uvm.valid(inputs)) {
 
             uvm.ajax({
-                url: '/operator/addTeacher',
+                url: '/operator/addOperator',
                 type: 'POST',
                 data: uvm.dataToObj(data)
             })
             .then(res => {
-                const teacherTable = uvm.q('.teacher-table');
-                const tbody = uvm.qe(teacherTable, 'tbody')
-                const tableWrapper = teacherTable.parentNode;
+                const operatorTable = uvm.q('.operator-table');
+                const tbody = uvm.qe(operatorTable, 'tbody')
+                const tableWrapper = operatorTable.parentNode;
 
                 if (res === 'Duplicate') {
                     console.log(res);
@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 tbody.innerHTML += res;
                 clearModal();
                 tableWrapper.scrollTop = tableWrapper.scrollHeight;
-
             })
             .catch(error => {
                 console.log('Internal server error' + error);

@@ -10,7 +10,8 @@ const regex = {
     login: /^[A-z0-9]{3,64}$/,
     password: /^.{6,64}$/
 };
-
+const Twig = require('twig');
+const fs = require('fs');
 module.exports = class OperatorController {
 
     index (req, res) {
@@ -202,9 +203,6 @@ module.exports = class OperatorController {
             }
         }
 
-        res.end('Duplicate');
-        return;
-
         if (url === '/addStudent') {
             if (groupId && groupTitle) {
                 User.addUser(lastName, firstName, middleName, login,
@@ -220,15 +218,39 @@ module.exports = class OperatorController {
                 });
             }
         }
+        else if (url === '/addTeacher') {
+            User.addUser(lastName, firstName, middleName, login,
+                email, number, password, 4)
+            .then(([result]) => {
+                user['id'] = result.insertId;
+                res.render('operator/teacher.twig', { user });
+            })
+            .catch(error => {
+                res.end('Duplicate');
+            });
+        }
+        else if (url === '/addOperator') {
+            User.addUser(lastName, firstName, middleName, login,
+                email, number, password, 2)
+            .then(([result]) => {
+                user['id'] = result.insertId;
+                res.render('operator/operator.twig', { user });
+            })
+            .catch(error => {
+                res.end('Duplicate');
+            });
+        }
     }
 
     newGroup (req, res) {
         const { groupTitle, curatorId, curatorName, specId } = req.body;
         const group = {
-            groupTitle,
+            Title: groupTitle,
             curatorId,
-            curatorName,
-            specId
+            LastName: curatorName,
+            MiddleName: '',
+            FirstName: '',
+            Course: 1
         };
         const regexTitle = /^[А-я0-9\-]{3,64}$/;
 
@@ -238,9 +260,10 @@ module.exports = class OperatorController {
             Group.addGroup(groupTitle, specId, curatorId)
             .then(([result]) => {
                 group['Id'] = result.insertId;
-                res.render('operator/group.twig', { group });
+                res.render('operator/groupResponse.twig', { group });
             })
             .catch(error => {
+                console.log(error);
                 res.end('Duplicate');
             });
         }
@@ -266,8 +289,7 @@ module.exports = class OperatorController {
         const { disciplineId, teacherId, disciplTitle, 
             groupId } = req.body;
         const disciplines = {
-            Title: disciplTitle,
-            Passed: 0
+            Title: disciplTitle
         };
 
         if (disciplineId && teacherId && groupId && disciplTitle) {

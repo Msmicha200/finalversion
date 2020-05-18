@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="/css/uvmSearchSelect.css">
 </head>
 <body>
+	{% import 'operator/group.twig' as groupImp %}
 	<div class="wrapper flex fdc">
 		<div class="header flex jcsa alic">
 			<div class="logo">
@@ -142,17 +143,7 @@
 								</thead>
 								<tbody>
 									{% for group in groups %}
-									    <tr data-groupid="{{ group.Id }}">
-									    	<td>{{ group.Id }}</td>
-									    	<td>{{ group.Title }}</td>
-									    	<td>{{ group.Course }}</td>
-									    	<td>{{ group.LastName  }} {{ group.FirstName }} {{ group.MiddleName }}</td>
-									    	<td align="center">
-									    		<button>
-									    			<img src="/images/edit.svg" alt="">
-									    		</button>
-									    	</td>
-									    </tr>
+										{{ groupImp.tableGroup(group) }}
 									{% endfor %}
 								</tbody>
 							</table>
@@ -514,12 +505,10 @@
 					<div class="uvm--search-container">
 						<input type="text" placeholder="Пошук..." class="uvm--input-search">
 					</div>
-					<ul class="uvm--options-list">
+					<ul class="st-gr uvm--options-list">
 						{% for group in groups %}
-						    <li class="uvm--option group-option" data-groupid="{{ group.Id }}">
-						    	{{ group.Title }}
-						    </li>
-						{% endfor %}						
+							{{ groupImp.selectGroup(group) }}
+						{% endfor %}
 					</ul>
 				</div>
 			</div>
@@ -600,7 +589,7 @@
 						    <li class="uvm--option ds-group-option" data-disciplineid="{{ discipline.Id }}">
 						    	{{ discipline.Title }}
 						    </li>
-						{% endfor %}						
+						{% endfor %}					
 					</ul>
 				</div>
 			</div>
@@ -627,15 +616,96 @@
 			</div>
 		</form>
 	</div>
+	<div class="teacher-modal-wrapper modal-wrapper teacher-modal flex jcc alic">
+		<form class="teacher-modal-content flex jcsb fdc" name="addTeacher">
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="firstName" class="uvm--input" >
+				<label for="login" class="uvm--label">Ім'я</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="lastName" class="uvm--input" >
+				<label for="login" class="uvm--label">Прізвище</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="middleName" class="uvm--input" >
+				<label for="login" class="uvm--label">По батькові</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="email" class="uvm--input" >
+				<label for="login" class="uvm--label">E-mail</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="number" class="uvm--input" >
+				<label for="login" class="uvm--label">Номер телефону</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="login" class="uvm--input" >
+				<label for="login" class="uvm--label">Логін</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" type="password" placeholder="Login" name="password" class="uvm--input">
+				<label for="login" class="uvm--label">Пароль</label>
+			</div>
+			<div class="modal-controls flex jcsb">
+				<button class="close-modal">
+					Відміна
+				</button>
+				<button class="accept-teacher">
+					Додати
+				</button>
+			</div>
+		</form>
+	</div>
+	<div class="operator-modal-wrapper modal-wrapper operator-modal flex jcc alic">
+		<form class="operator-modal-content flex jcsb fdc" name="addOperator">
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="firstName" class="uvm--input" >
+				<label for="login" class="uvm--label">Ім'я</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="lastName" class="uvm--input" >
+				<label for="login" class="uvm--label">Прізвище</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="middleName" class="uvm--input" >
+				<label for="login" class="uvm--label">По батькові</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="email" class="uvm--input" >
+				<label for="login" class="uvm--label">E-mail</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="number" class="uvm--input" >
+				<label for="login" class="uvm--label">Номер телефону</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="login" class="uvm--input" >
+				<label for="login" class="uvm--label">Логін</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" type="password" placeholder="Login" name="password" class="uvm--input">
+				<label for="login" class="uvm--label">Пароль</label>
+			</div>
+			<div class="modal-controls flex jcsb">
+				<button class="close-modal">
+					Відміна
+				</button>
+				<button class="accept-operator">
+					Додати
+				</button>
+			</div>
+		</form>
+	</div>
 	<script src="/scripts/uvm.js"></script>
+	<script src="/scripts/modal.js"></script>
 	<script src="/scripts/operator/tabSwitch.js"></script>
 	<script src="/scripts/operator/workingProgram.js"></script>
 	<script src="/scripts/operator/student.js"></script>
 	<script src="/scripts/operator/teacher.js"></script>
+	<script src="/scripts/operator/operator.js"></script>
 	<script src="/scripts/operator/group.js"></script>
 	<script src="/scripts/operator/userStatus.js"></script>
 	<script src="/scripts/operator/accordion.js"></script>
 	<script src="/scripts/uvmSearchSelect.js"></script>
-	<script src="/scripts/modal.js"></script>
 </body>
 </html>

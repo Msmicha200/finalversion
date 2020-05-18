@@ -72,16 +72,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 type: 'POST',
                 data: uvm.dataToObj(data)
             })
-            .then(res => {
-                const groupTable = uvm.q('.group-table');
-                const tbody = uvm.qe(groupTable, 'tbody')
-                const tableWrapper = groupTable.parentNode;
-
+            .then(res => {console.log(res);
                 if (res === 'Duplicate') {
                     return;
                 }
 
-                tbody.innerHTML += res;
+                const options = uvm.q('.st-gr.uvm--options-list');
+                const groupTable = uvm.q('.group-table');
+                const tbody = uvm.qe(groupTable, 'tbody')
+                const tableWrapper = groupTable.parentNode;
+                const div = document.createElement('div');
+                div.innerHTML = res;
+                console.log(div);
+
+                options.innerHTML += uvm.qe(div, 'div[data-groupselect]').innerHTML;
+                tbody.innerHTML += uvm.qe(div, 'table[data-grouptable]').innerHTML;
                 clearModal();
                 teacherSelect.innerHTML = 'Оберіть викладача';
                 specSelect.innerHTML = 'Оберіть спеціальність';
@@ -178,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 tableWrapper.scrollTop = tableWrapper.scrollHeight;
             })
             .catch(error => {
-
+                console.log(error);
             });
         }
         else {
