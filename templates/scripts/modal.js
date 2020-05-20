@@ -1,6 +1,6 @@
 const doc = document.documentElement;
 const modals = ['student-modal', 'group-modal', 'ds-group-modal', 
-    'teacher-modal', 'operator-modal'];
+    'teacher-modal', 'operator-modal', 'discipline-modal'];
 const clearModal = event => {
 
     modals.forEach(elem => {

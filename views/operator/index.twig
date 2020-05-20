@@ -13,6 +13,7 @@
 </head>
 <body>
 	{% import 'operator/group.twig' as groupImp %}
+	{% import 'operator/teacher.twig' as teacherImp %}
 	<div class="wrapper flex fdc">
 		<div class="header flex jcsa alic">
 			<div class="logo">
@@ -210,28 +211,7 @@
 							</thead>
 							<tbody>
 								{% for teacher in users.teacher %}
-								    <tr data-userId="{{ teacher.Id }}">
-								    	<td>{{ teacher.Id }}</td>
-								    	<td>{{ teacher.LastName  }} {{ teacher.FirstName }} {{ teacher.MiddleName }}</td>
-								    	<td>{{ teacher.Login }}</td>
-								    	<td>{{ teacher.Email }}</td>
-								    	<td>{{ teacher.PhoneNumber }}</td>
-								    	<td align="center">
-											<label class="uvm--toggle-container">
-												{% if teacher.IsActive == 1 %}
-													<input type="checkbox" hidden="" checked="" class="uvm--toggle">
-												{% else %}
-													<input type="checkbox" hidden="" class="uvm--toggle">
-												{% endif %}
-												<div class="uvm--round"></div>
-											</label>  		
-								    	</td>
-								    	<td align="center">
-								    		<button>
-								    			<img src="/images/edit.svg" alt="">
-								    		</button>
-								    	</td>
-								    </tr>
+									{{ teacherImp.tableTeacher(teacher) }}
 								{% endfor %}
 							</tbody>
 						</table>
@@ -589,7 +569,7 @@
 						    <li class="uvm--option ds-group-option" data-disciplineid="{{ discipline.Id }}">
 						    	{{ discipline.Title }}
 						    </li>
-						{% endfor %}					
+						{% endfor %}
 					</ul>
 				</div>
 			</div>
@@ -696,12 +676,44 @@
 			</div>
 		</form>
 	</div>
+	<div class="discipl-modal-wrapper modal-wrapper discipline-modal flex jcc alic">
+		<form class="discipl-modal-content flex jcsb fdc" name="addDiscipline">
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="groupTitle" class="uvm--input">
+				<label for="login" class="uvm--label">Назва</label>
+			</div>
+			<div class="uvm--select ds-select">
+				<div class="uvm--current-item">
+					Оберіть класного керівника
+				</div>
+				<div class="uvm--options">
+					<div class="uvm--search-container">
+						<input type="text" placeholder="Пошук..." class="uvm--input-search">
+					</div>
+					<ul class="uvm--options-list teacher-options">
+						{% for teacher in users.teacher %}
+							{{ teacherImp.teacherSelect(teacher) }}
+						{% endfor %}						
+					</ul>
+				</div>
+			</div>
+			<div class="modal-controls flex jcsb">
+				<button class="close-modal">
+					Відміна
+				</button>
+				<button class="accept-discipline">
+					Додати
+				</button>
+			</div>
+		</form>
+	</div>
 	<script src="/scripts/uvm.js"></script>
 	<script src="/scripts/modal.js"></script>
 	<script src="/scripts/operator/tabSwitch.js"></script>
 	<script src="/scripts/operator/workingProgram.js"></script>
 	<script src="/scripts/operator/student.js"></script>
 	<script src="/scripts/operator/teacher.js"></script>
+	<script src="/scripts/operator/discipline.js"></script>
 	<script src="/scripts/operator/operator.js"></script>
 	<script src="/scripts/operator/group.js"></script>
 	<script src="/scripts/operator/userStatus.js"></script>

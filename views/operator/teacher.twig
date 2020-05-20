@@ -1,18 +1,29 @@
-<tr data-userid="{{ user.id }}">
-	<td>{{ user.id }}</td>
-	<td>{{ user.lastName  }} {{ user.firstName }} {{ user.middleName }}</td>
-	<td>{{ user.login }}</td>
-	<td>{{ user.email }}</td>
-	<td>{{ user.number }}</td>
-	<td align="center">
-		<label class="uvm--toggle-container">
-			<input type="checkbox" hidden="" checked="" class="uvm--toggle">
-			<div class="uvm--round"></div>
-		</label>  		
-	</td>
-	<td align="center">
-		<button>
-			<img src="/images/edit.svg" alt="">
-		</button>
-	</td>
-</tr>
+
+{% macro tableTeacher(teacher) %}
+	<tr data-userid="{{ teacher.Id }}">
+		<td>{{ teacher.Id }}</td>
+		<td>{{ teacher.LastName  }} {{ teacher.FirstName }} {{ teacher.MiddleName }}</td>
+		<td>{{ teacher.Login }}</td>
+		<td>{{ teacher.Email }}</td>
+		<td>{{ teacher.PhoneNumber }}</td>
+		<td align="center">
+			<label class="uvm--toggle-container">
+				<input type="checkbox" hidden="" checked="" class="uvm--toggle">
+				<div class="uvm--round"></div>
+			</label>  		
+		</td>
+		<td align="center">
+			<button>
+				<img src="/images/edit.svg" alt="">
+			</button>
+		</td>
+	</tr>
+{% endmacro %}
+
+{% macro teacherSelect(teacher) %}
+	<li class="uvm--option teacher-option" data-teacherid="{{ teacher.Id }}">
+		{{ teacher.LastName }}
+		{{ teacher.FirstName }}
+		{{ teacher.MiddleName }}
+	</li>
+{% endmacro %}

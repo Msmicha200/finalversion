@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const addTeacher = uvm.q('.add-teacher');
 
     addTeacher.addEventListener('click', () => {
-        doc.classList.add('operator-modal');
+        doc.classList.add('teacher-modal');
     });
 
     const acceptTeacher = uvm.q('.accept-teacher');
@@ -22,10 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 data: uvm.dataToObj(data)
             })
             .then(res => {
-                const teacherTable = uvm.q('.teacher-table');
-                const tbody = uvm.qe(teacherTable, 'tbody')
-                const tableWrapper = teacherTable.parentNode;
-
+                console.log(res);             
                 if (res === 'Duplicate') {
                     console.log(res);
                     return;
@@ -36,7 +33,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                tbody.innerHTML += res;
+                const teacherTable = uvm.q('.teacher-table');
+                const tbody = uvm.qe(teacherTable, 'tbody')
+                const tableWrapper = teacherTable.parentNode;
+                const div = document.createElement('div');
+                const options = uvm.q('.teacher-options.uvm--options-list');
+
+                div.innerHTML = res;
+                options.innerHTML += uvm.qe(div, 'div[data-teacherselect]').innerHTML;
+                tbody.innerHTML += uvm.qe(div, 'table[data-teachertable]').innerHTML;
                 clearModal();
                 tableWrapper.scrollTop = tableWrapper.scrollHeight;
 

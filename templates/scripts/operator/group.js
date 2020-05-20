@@ -82,9 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const tbody = uvm.qe(groupTable, 'tbody')
                 const tableWrapper = groupTable.parentNode;
                 const div = document.createElement('div');
-                div.innerHTML = res;
-                console.log(div);
 
+                div.innerHTML = res;
                 options.innerHTML += uvm.qe(div, 'div[data-groupselect]').innerHTML;
                 tbody.innerHTML += uvm.qe(div, 'table[data-grouptable]').innerHTML;
                 clearModal();

@@ -2,13 +2,13 @@ const User = require('../models/User');
 const Group = require('../models/Group');
 const Discipline = require('../models/Discipline');
 const regex = {
-    firstName: /^[А-я]{2,50}$/,
-    lastName: /^[А-я]{2,50}$/,
-    middleName: /^[А-я]{2,50}$/,
-    email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-    number: /^[0-9]{6,20}$/,
-    login: /^[A-z0-9]{3,64}$/,
-    password: /^.{6,64}$/
+    FirstName: /^[А-я]{2,50}$/,
+    LastName: /^[А-я]{2,50}$/,
+    MiddleName: /^[А-я]{2,50}$/,
+    Email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+    PhoneNumber: /^[0-9]{6,20}$/,
+    Login: /^[A-z0-9]{3,64}$/,
+    Password: /^.{6,64}$/
 };
 const Twig = require('twig');
 const fs = require('fs');
@@ -187,13 +187,13 @@ module.exports = class OperatorController {
         const { firstName, lastName, middleName, email, number, login,
             password, groupId, groupTitle} = req.body;
         const user = {
-            firstName,
-            lastName,
-            middleName,
-            email,
-            number,
-            login,
-            password
+            FirstName: firstName,
+            LastName: lastName,
+            MiddleName: middleName,
+            Email: email,
+            PhoneNumber: number,
+            Login: login,
+            Password: password
         };
 
         for (const data in user) {
@@ -219,11 +219,14 @@ module.exports = class OperatorController {
             }
         }
         else if (url === '/addTeacher') {
+            const teacher = user;
+
             User.addUser(lastName, firstName, middleName, login,
                 email, number, password, 4)
             .then(([result]) => {
-                user['id'] = result.insertId;
-                res.render('operator/teacher.twig', { user });
+                user['Id'] = result.insertId;
+                console.log(user);
+                res.render('operator/teacherResponse.twig', { teacher });
             })
             .catch(error => {
                 res.end('Duplicate');

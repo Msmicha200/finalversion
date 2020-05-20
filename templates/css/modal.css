@@ -2,14 +2,16 @@ html.student-modal .wrapper,
 html.group-modal .wrapper,
 html.ds-group-modal .wrapper,
 html.teacher-modal .wrapper,
-html.operator-modal .wrapper {
+html.operator-modal .wrapper,
+html.discipline-modal .wrapper {
 	filter: blur(10px);
 }
 html.student-modal .student-modal-wrapper,
 html.group-modal .group-modal-wrapper,
 html.ds-group-modal .ds-group-modal-wrapper,
 html.teacher-modal .teacher-modal-wrapper,
-html.operator-modal .operator-modal-wrapper {
+html.operator-modal .operator-modal-wrapper,
+html.discipline-modal .discipl-modal-wrapper {
 	visibility: visible;
 	opacity: 1;
 }
@@ -32,7 +34,8 @@ html.operator-modal .operator-modal-wrapper {
 .group-modal-content,
 .ds-group-modal-content,
 .teacher-modal-content,
-.operator-modal-content {
+.operator-modal-content,
+.discipl-modal-content {
 	background: #FFFFFF;
 	width: 550px;
 	/*height: 450px;*/
