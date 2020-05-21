@@ -8,7 +8,8 @@ const regex = {
     Email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     PhoneNumber: /^[0-9]{6,20}$/,
     Login: /^[A-z0-9]{3,64}$/,
-    Password: /^.{6,64}$/
+    Password: /^.{6,64}$/,
+    Title: /^[А-я0-9\-]{3,256}$/
 };
 const Twig = require('twig');
 const fs = require('fs');
@@ -308,6 +309,29 @@ module.exports = class OperatorController {
                 res.end('Duplicate');
             });
         }
+    }
+
+    newDiscipline (req, res) {
+        const { title } = req.body;
+        const discipline = {
+            Title: title
+        };
+
+        for (const data in discipline) {
+            if (!regex[data].test(discipline[data])) {
+                res.end('Error');
+                return;
+            }
+        }
+
+        Discipline.addDiscipline(title)
+        .then(([result]) => {
+            discipline['Id'] = result.insertId;
+            res.render('operator/disciplineResponse.twig', { discipline });
+        })
+        .catch(error => {
+            console.log(error);
+        });
     }
 
 }

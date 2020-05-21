@@ -2,18 +2,16 @@ const Database = require('../components/Database');
 
 module.exports = class Discipline {
 
-    static addDiscipline (title, teacherId) {
+    static addDiscipline (title) {
         const db = Database.getConnection();
         const sql = `INSERT
                         INTO
                             Disciplines(
-                                Title, 
-                                TeacherId
+                                Title
                             )
-                        VALUES(?, ?)`;
-        const data = [title, teacherId];
+                        VALUES(?)`;
 
-        return db.query(sql, data);
+        return db.query(sql, [title]);
     }
 
     static getDisciplines (groupId = false) {
@@ -40,22 +38,9 @@ module.exports = class Discipline {
         }
 
         sql = `SELECT
-                    d.Id,
-                    d.Title,
-                    a.LastName,
-                    a.FirstName,
-                    a.MiddleName,
-                    dt.TeacherId
+                    *
                 FROM
-                    Disciplines AS d
-                INNER JOIN
-                    DisciplineToTeacher AS dt
-                ON
-                    d.Id = dt.DisciplineId
-                INNER JOIN
-                    Accounts AS a
-                ON
-                    dt.TeacherId = a.Id`;
+                    Disciplines`;
 
         return db.query(sql);
     }

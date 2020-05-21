@@ -14,6 +14,7 @@
 <body>
 	{% import 'operator/group.twig' as groupImp %}
 	{% import 'operator/teacher.twig' as teacherImp %}
+	{% import 'operator/discipline.twig' as disciplineImp %}
 	<div class="wrapper flex fdc">
 		<div class="header flex jcsa alic">
 			<div class="logo">
@@ -287,49 +288,70 @@
 				</div>
 			</div>
 			<div class="flex jcc alic content" id="discipline-content">
-				<div class="content-wrapper">
-					<div class="discipline-navigations flex jcsb">
-						<div class="search discipline flex alic">
-							<input type="text">
-							<span>Пошук...</span>
+				<div class="content-wrapper flex jcsb">
+					<div class="left-side">
+						<div class="discipline-navigations flex jcsb">
+							<div class="search discipline flex alic">
+								<input type="text">
+								<span>Пошук...</span>
+							</div>
+							<div class="add-discipline pointer">
+								<img src="/images/addToGroup.svg" alt="">
+							</div>
 						</div>
-						<div class="add-discipline pointer">
-							<img src="/images/addToGroup.svg" alt="">
+						<div class="table-wrapper">
+							<table class="discipline-table">
+								<thead>
+									<tr>
+										<td width="45px">
+											№
+										</td>
+										<td width="400px">
+											Назва дисципліни
+										</td>
+										<td width="100px">
+											Редагувати
+										</td>
+									</tr>
+								</thead>
+								<tbody>
+									{% for discipline in disciplines %}
+										{{ disciplineImp.tableDiscipline(discipline) }}
+									{% endfor %}
+								</tbody>
+							</table>
 						</div>
 					</div>
-					<div class="table-wrapper">
-						<table class="discipline-table">
-							<thead>
-								<tr>
-									<td width="45px">
-										№
-									</td>
-									<td width="400px">
-										Назва дисципліни
-									</td>
-									<td width="400px">
-										Викладач
-									</td>
-									<td width="100px">
-										Редагувати
-									</td>
-								</tr>
-							</thead>
-							<tbody>
-								{% for discipline in disciplines %}
-								    <tr>
-								    	<td>{{ discipline.Id }}</td>
-								    	<td>{{ discipline.Title }}</td>
-								    	<td>{{ discipline.LastName  }} {{ discipline.FirstName }} {{ discipline.MiddleName }}</td>
-								    	<td align="center">
-								    		<button data-groupId="{{ discipline.Id }}" data-teacherId="{{ discipline.TeacherId }}">
-												<img src="/images/edit.svg" alt="">
-								    		</button>
-								    	</td>
-								    </tr>
-								{% endfor %}
-							</tbody>
-						</table>
+					<div class="right-side">
+						<div class="discipline-navigations flex jcfe">
+							<div class="add-discipline pointer">
+								<img src="/images/addToGroup.svg" alt="">
+							</div>
+						</div>
+						<div class="table-wrapper">
+							<table class="discipline-table1">
+								<thead>
+									<tr>
+										<td width="45px">
+											№
+										</td>
+										<td width="400px">
+											Викладач
+										</td>
+									</tr>
+								</thead>
+								<tbody>
+									{% for discipline in disciplines %}
+									    <tr>
+									    	<td>{{ discipline.Id }}</td>
+									    	<td>{{ discipline.LastName  }} 
+									    		{{ discipline.FirstName }} 
+									    		{{ discipline.MiddleName }}</td>
+									    </tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -564,11 +586,9 @@
 					<div class="uvm--search-container">
 						<input type="text" placeholder="Пошук..." class="uvm--input-search">
 					</div>
-					<ul class="uvm--options-list">
+					<ul class="uvm--options-list ds-gr-options">
 						{% for discipline in disciplines %}
-						    <li class="uvm--option ds-group-option" data-disciplineid="{{ discipline.Id }}">
-						    	{{ discipline.Title }}
-						    </li>
+						    {{ disciplineImp.disciplineSelect(discipline) }}
 						{% endfor %}
 					</ul>
 				</div>
@@ -679,23 +699,8 @@
 	<div class="discipl-modal-wrapper modal-wrapper discipline-modal flex jcc alic">
 		<form class="discipl-modal-content flex jcsb fdc" name="addDiscipline">
 			<div class="uvm--input-wrapper">
-				<input autocomplete="off" placeholder="Login" name="groupTitle" class="uvm--input">
+				<input autocomplete="off" placeholder="Login" name="title" class="uvm--input">
 				<label for="login" class="uvm--label">Назва</label>
-			</div>
-			<div class="uvm--select ds-select">
-				<div class="uvm--current-item">
-					Оберіть класного керівника
-				</div>
-				<div class="uvm--options">
-					<div class="uvm--search-container">
-						<input type="text" placeholder="Пошук..." class="uvm--input-search">
-					</div>
-					<ul class="uvm--options-list teacher-options">
-						{% for teacher in users.teacher %}
-							{{ teacherImp.teacherSelect(teacher) }}
-						{% endfor %}						
-					</ul>
-				</div>
 			</div>
 			<div class="modal-controls flex jcsb">
 				<button class="close-modal">

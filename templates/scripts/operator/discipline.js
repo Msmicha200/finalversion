@@ -10,33 +10,31 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         
         const disciplForm = document.forms.addDiscipline;
-        const teacherSelect = uvm.q('.ds-select > .uvm--current-item');
         const inputs = uvm.qae(disciplForm, '.uvm--input-wrapper > input');
-        const teacher = uvm.q('.ds-teacher-option.uvm--selected') || false;
-        const data = new FormData();
+        const data = new FormData(disciplForm);
 
-        if (uvm.valid(inputs) && teacher) {
-            data.append('teacherId', teacher.dataset.teacherid);
-            data.append('groupId', group.dataset.groupid);
-
+        if (uvm.valid(inputs)) {
             uvm.ajax({
-                url: '/operator/addDisciplToGroup',
+                url: '/operator/addDiscipline',
                 type: 'POST',
                 data: uvm.dataToObj(data)
             })
             .then(res => {
-                const disciplTable = uvm.q('.group-disciplines');
-                const tbody = uvm.qe(disciplTable, 'tbody');
-                const tableWrapper = disciplTable.parentNode;
-
-                if (res === 'Duplicate') {
+                if (res === 'Duplicate' && res === 'Error') {
                     console.log(res);
                     return;
                 }
 
-                tbody.innerHTML += res;
+                const div = document.createElement('div');
+                const disciplTable = uvm.q('.discipline-table');
+                const tbody = uvm.qe(disciplTable, 'tbody');
+                const tableWrapper = disciplTable.parentNode;
+                const options = uvm.q('.ds-gr-options');
+
+                div.innerHTML = res;
+                tbody.innerHTML += uvm.qe(div, 'table[data-discipltable]').innerHTML;
+                options.innerHTML += uvm.qe(div, 'div[data-disciplselect]').innerHTML;
                 clearModal();
-                teacherSelect.innerHTML = 'Оберіть викладача';
                 tableWrapper.scrollTop = tableWrapper.scrollHeight;
             })
             .catch(error => {
@@ -44,12 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         else {
-            if (!teacher) {
-                uvm.selectErr(teacherSelect.parentNode);
-            }
-            if (!discipline) {
-                uvm.selectErr(disciplSelect.parentNode);
-            }
+
         }
     });
 });

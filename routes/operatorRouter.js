@@ -29,4 +29,6 @@ router.post('/addTeacher', operatorController.user);
 
 router.post('/addOperator', operatorController.user);
 
+router.post('/addDiscipline', operatorController.newDiscipline);
+
 module.exports = router;

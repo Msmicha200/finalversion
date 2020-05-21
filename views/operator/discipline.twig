@@ -1,0 +1,17 @@
+{% macro tableDiscipline(discipline) %}
+	<tr data-disciplineid="{{ discipline.Id }}">
+		<td>{{ discipline.Id }}</td>
+		<td>{{ discipline.Title }}</td>
+    	<td align="center">
+    		<button>
+				<img src="/images/edit.svg" alt="">
+    		</button>
+    	</td>
+	</tr>
+{% endmacro %}
+
+{% macro disciplineSelect(discipline) %}
+	<li class="uvm--option ds-group-option" data-disciplineid="{{ discipline.Id }}">
+		{{ discipline.Title }}
+	</li>
+{% endmacro %}
