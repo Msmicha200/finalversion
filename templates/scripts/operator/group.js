@@ -4,9 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     grouptable.addEventListener('click', event => {
         const { target } = event;
-        const groupId = target.parentNode.dataset.groupid;
 
-        if (target.parentNode.tagName === 'TR' && groupId) {
+        if (target.parentNode.tagName === 'TR') {
+            const groupId = target.parentNode.dataset.groupid || false;
+
+            if (!groupId) {
+                return;
+            }
+
             uvm.ajax({
                 url: '/operator/getDisciplToGroup',
                 type: 'POST',
@@ -72,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 type: 'POST',
                 data: uvm.dataToObj(data)
             })
-            .then(res => {console.log(res);
+            .then(res => {
                 if (res === 'Duplicate') {
                     return;
                 }
@@ -135,6 +140,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (res !== 'false') {
                     teachersWrapper.innerHTML = res;                    
                 }
+
+                const div = document.createElement('div');
+                
+                div.innerHTML = res;
+                teachersWrapper.innerHTML = uvm
+                    .qe(div, 'div[data-teacherselect]').innerHTML;
             })
             .catch(error => {
                 console.log(error);

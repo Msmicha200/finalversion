@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const addDiscipline = uvm.q('.add-discipline');
     const acceptDiscipline = uvm.q('.accept-discipline');
+    const disciplTable = uvm.q('.discipline-table');
 
     addDiscipline.addEventListener('click', () => {
         doc.classList.add('discipline-modal');
@@ -26,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 const div = document.createElement('div');
-                const disciplTable = uvm.q('.discipline-table');
                 const tbody = uvm.qe(disciplTable, 'tbody');
                 const tableWrapper = disciplTable.parentNode;
                 const options = uvm.q('.ds-gr-options');
@@ -43,6 +43,50 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         else {
 
+        }
+    });
+
+    disciplTable.addEventListener('click', event => {
+        const { target } = event;
+
+        if (target.parentNode.tagName === 'TR') {
+            const disciplId = target.parentNode.dataset.disciplineid || false;
+
+            if (!disciplId) {
+                return;
+            }
+
+            uvm.ajax({
+                url: '/operator/getDisciplToTeacher',
+                type: 'POST',
+                data: {
+                    disciplineId: disciplId
+                }
+            })
+            .then(res =>{
+                if (res === 'false') {
+                    console.log(res);
+                    return;
+                }
+
+                const selected = uvm.qe(disciplTable, '.selected');
+                const disciplTeachers = uvm.q('.ds-teacher-wrapper');
+                const div = document.createElement('div');
+                const tableWrapper = disciplTeachers.parentNode;
+                const tbody = uvm.qe(disciplTeachers, 'tbody')
+                
+                if (selected !== null) {
+                    selected.classList.remove('selected');
+                }
+
+                div.innerHTML = res;
+                target.parentNode.classList.add('selected');
+                tbody.innerHTML = uvm.qe(div, 'table[data-dstable]').innerHTML;
+                tableWrapper.scrollTop = tableWrapper.scrollHeight;
+            })
+            .catch(error => {
+                console.log(error);
+            });
         }
     });
 });

@@ -27,3 +27,16 @@
 		{{ teacher.MiddleName }}
 	</li>
 {% endmacro %}
+
+{% macro disciplineTeacher(teacher) %}
+	<tr data-userid="{{ teacher.Id }}">
+		<td align="center">
+			{{ teacher.Id }}
+		</td>
+		<td>
+			{{ teacher.LastName }}
+			{{ teacher.FirstName }}
+			{{ teacher.MiddleName }}
+		</td>
+	</tr>
+{% endmacro %}
