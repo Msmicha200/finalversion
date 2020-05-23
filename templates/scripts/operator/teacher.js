@@ -38,9 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const tableWrapper = teacherTable.parentNode;
                 const div = document.createElement('div');
                 const options = uvm.q('.teacher-options.uvm--options-list');
+                const dsTeachers = uvm.q('.ds-teachers-list.uvm--options-list');
 
                 div.innerHTML = res;
                 options.innerHTML += uvm.qe(div, 'div[data-teacherselect]').innerHTML;
+                dsTeachers.innerHTML += uvm.qe(div, 'div[data-disciplteacher]').innerHTML;
                 tbody.innerHTML += uvm.qe(div, 'table[data-teachertable]').innerHTML;
                 clearModal();
                 tableWrapper.scrollTop = tableWrapper.scrollHeight;

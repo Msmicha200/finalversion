@@ -46,6 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    const disciplTeachers = uvm.q('.ds-teacher-wrapper');
+    const tableWrapper = disciplTeachers.parentNode;
+    const tbody = uvm.qe(disciplTeachers, 'tbody')
+    
     disciplTable.addEventListener('click', event => {
         const { target } = event;
 
@@ -70,10 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 const selected = uvm.qe(disciplTable, '.selected');
-                const disciplTeachers = uvm.q('.ds-teacher-wrapper');
                 const div = document.createElement('div');
-                const tableWrapper = disciplTeachers.parentNode;
-                const tbody = uvm.qe(disciplTeachers, 'tbody')
                 
                 if (selected !== null) {
                     selected.classList.remove('selected');
@@ -82,6 +83,51 @@ document.addEventListener('DOMContentLoaded', () => {
                 div.innerHTML = res;
                 target.parentNode.classList.add('selected');
                 tbody.innerHTML = uvm.qe(div, 'table[data-dstable]').innerHTML;
+                tableWrapper.scrollTop = tableWrapper.scrollHeight;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
+    });
+
+    const addTeacher = uvm.q('.add-teacher-discipline');
+    const acceptTeacher = uvm.q('.accept-ds-teacher');
+
+    addTeacher.addEventListener('click', () => {
+        const discipline = uvm.qe(disciplTable, '.selected');
+
+        if (discipline && discipline.dataset.disciplineid) {
+            doc.classList.add('ds-teacher-modal');
+        }
+    });
+
+    acceptTeacher.addEventListener('click', event => {
+        event.preventDefault();
+        const discipline = uvm.qe(disciplTable, '.selected');
+        const teacher = uvm.q('.discipl-teacher.uvm--selected');
+        const data = new FormData();
+        const teacherSelect = uvm.q('.ds-teacher-select > .uvm--current-item');
+        if (discipline && teacher && discipline.dataset.disciplineid &&
+                teacher.dataset.teacherid) {
+            data.append('disciplineId', discipline.dataset.disciplineid);
+            data.append('teacherId', teacher.dataset.teacherid);
+            data.append('teacherName', teacher.textContent.trim());
+            uvm.ajax({
+                url: '/operator/addDisciplToTeacher',
+                type: 'POST',
+                data: uvm.dataToObj(data)
+            })
+            .then(res => {
+                console.log(teacherSelect);
+                if (res === 'Duplicate') {
+                    console.log(res);
+                    return;
+                }
+
+                tbody.innerHTML += res;
+                clearModal();
+                teacherSelect.innerHTML = 'Оберіть викладача';
                 tableWrapper.scrollTop = tableWrapper.scrollHeight;
             })
             .catch(error => {

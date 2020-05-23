@@ -334,4 +334,24 @@ module.exports = class OperatorController {
         });
     }
 
+    disciplToTeacher (req, res) {
+        const { disciplineId, teacherId, teacherName } = req.body;
+        const teacher = {
+            LastName: teacherName,
+            FirstName: '',
+            MiddleName: '',
+        }
+        if (disciplineId && teacherId) {
+            Discipline.addToTeacher(teacherId, disciplineId)
+            .then(([result]) => {
+                teacher['Id'] = result.insertId;
+                res.render('operator/teacherDiscipl.twig', { teacher });
+            })
+            .catch(error => {
+                console.log(error);
+                res.end('Duplicate');
+            })
+        }
+    }
+
 }

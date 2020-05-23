@@ -324,7 +324,7 @@
 					</div>
 					<div class="right-side">
 						<div class="discipline-navigations flex jcfe">
-							<div class="add-discipline pointer">
+							<div class="add-teacher-discipline pointer">
 								<img src="/images/addToGroup.svg" alt="">
 							</div>
 						</div>
@@ -531,14 +531,10 @@
 					<div class="uvm--search-container">
 						<input type="text" placeholder="Пошук..." class="uvm--input-search">
 					</div>
-					<ul class="uvm--options-list">
+					<ul class="uvm--options-list teacher-options">
 						{% for teacher in users.teacher %}
-						    <li class="uvm--option teacher-option" data-teacherid="{{ teacher.Id }}">
-						    	{{ teacher.LastName }}
-						    	{{ teacher.FirstName }}
-						    	{{ teacher.MiddleName }}
-						    </li>
-						{% endfor %}						
+								{{ teacherImp.teacherSelect(teacher, 'teacher-option') }}
+						{% endfor %}
 					</ul>
 				</div>
 			</div>
@@ -700,6 +696,33 @@
 					Відміна
 				</button>
 				<button class="accept-discipline">
+					Додати
+				</button>
+			</div>
+		</form>
+	</div>
+	<div class="ds-teacher-modal-wrapper modal-wrapper ds-teacher-modal flex jcc alic">
+		<form class="ds-teacher-modal-content flex jcsb fdc" name="addTeacherToDiscipl">
+			<div class="uvm--select ds-teacher-select">
+				<div class="uvm--current-item">
+					Оберіть викладача
+				</div>
+				<div class="uvm--options">
+					<div class="uvm--search-container">
+						<input type="text" placeholder="Пошук..." class="uvm--input-search">
+					</div>
+					<ul class="uvm--options-list ds-teachers-list">
+						{% for teacher in users.teacher %}
+								{{ teacherImp.teacherSelect(teacher, 'discipl-teacher') }}
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+			<div class="modal-controls flex jcsb">
+				<button class="close-modal">
+					Відміна
+				</button>
+				<button class="accept-ds-teacher">
 					Додати
 				</button>
 			</div>

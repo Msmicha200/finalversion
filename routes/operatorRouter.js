@@ -31,4 +31,6 @@ router.post('/addOperator', operatorController.user);
 
 router.post('/addDiscipline', operatorController.newDiscipline);
 
+router.post('/addDisciplToTeacher', operatorController.disciplToTeacher);
+
 module.exports = router;

@@ -1,5 +1,5 @@
 {% import 'operator/teacher.twig' as teacherImp %}
 
-<table data-dstable="">{{ teacherImp.disciplineTeacher(teachers) }}</table>
-<table data-teachertable="">{{ teacherImp.tableTeacher(teachers) }}</table>
-<div data-teacherselect="">{{ teacherImp.teacherSelect(teachers) }}</div>
+<table data-teachertable="">{{ teacherImp.tableTeacher(teacher) }}</table>
+<div data-teacherselect="">{{ teacherImp.teacherSelect(teacher, 'teacher-option') }}</div>
+<div data-disciplteacher="">{{ teacherImp.teacherSelect(teacher, 'discipl-teacher') }}</div>

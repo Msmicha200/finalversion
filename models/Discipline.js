@@ -62,7 +62,7 @@ module.exports = class Discipline {
     static addToGroup (teacherId, groupId, disciplineId) {
         const db = Database.getConnection();
         const sql = `INSERT INTO DisciplineToGroup
-        (DisciplineTeacherId, GroupId)
+            (DisciplineTeacherId, GroupId)
                         VALUES(
                             (
                             SELECT
@@ -133,6 +133,15 @@ module.exports = class Discipline {
                         a.Id = dt.TeacherId AND dt.DisciplineId = ?`;
 
         return db.query(sql, [disciplineId]);
+    }
+
+    static addToTeacher (teacherId, disciplineId) {
+        const db = Database.getConnection();
+        const sql = `INSERT INTO DisciplineToTeacher
+            (TeacherId, DisciplineId) VALUES(?, ?)`;
+        const data = [teacherId, disciplineId];
+
+        return db.query(sql, data);
     }
 
 }
