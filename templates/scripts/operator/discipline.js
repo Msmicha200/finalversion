@@ -107,7 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const discipline = uvm.qe(disciplTable, '.selected');
         const teacher = uvm.q('.discipl-teacher.uvm--selected');
         const data = new FormData();
-        const teacherSelect = uvm.q('.ds-teacher-select > .uvm--current-item');
+        const teacherSelect = uvm.q('.ds-teach-select > .uvm--current-item');
+
         if (discipline && teacher && discipline.dataset.disciplineid &&
                 teacher.dataset.teacherid) {
             data.append('disciplineId', discipline.dataset.disciplineid);
@@ -119,7 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 data: uvm.dataToObj(data)
             })
             .then(res => {
-                console.log(teacherSelect);
                 if (res === 'Duplicate') {
                     console.log(res);
                     return;

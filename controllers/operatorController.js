@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const Group = require('../models/Group');
+const Program = require('../models/Program');
 const Discipline = require('../models/Discipline');
 const regex = {
     FirstName: /^[А-я]{2,50}$/,
@@ -9,7 +10,8 @@ const regex = {
     PhoneNumber: /^[0-9]{6,20}$/,
     Login: /^[A-z0-9]{3,64}$/,
     Password: /^.{6,64}$/,
-    Title: /^[А-я0-9\-]{3,256}$/
+    Title: /^[А-я0-9\-]{3,256}$/,
+    Theme: /^.{6,512}$/
 };
 const Twig = require('twig');
 const fs = require('fs');
@@ -125,9 +127,9 @@ module.exports = class OperatorController {
 
             if (disciplineId && groupId) {
 
-                Discipline.program(disciplineId, groupId).
+                Program.getProgram(disciplineId, groupId).
                 then(([themes]) => {
-                    res.render('operator/programThemes.twig', 
+                    res.render('operator/themes.twig', 
                         { themes });
                 })
                 .catch(error => {
@@ -141,6 +143,30 @@ module.exports = class OperatorController {
         else {
             res.redirect('/notfound');
         }
+    }
+
+    newTheme (req, res) {
+        const { theme, disciplineId, groupId } = req.body;
+        const themeData = {
+            Theme: theme
+        };
+
+        for (const data in themeData) {
+            if (!regex[data].test(themeData[data])) {
+                res.end('Error');
+                return;
+            }
+        }
+
+        Program.addTheme(disciplineId, groupId, theme)
+        .then(([result]) => {
+            themeData['Id'] = result.insertId;
+            res.render('operator/newTheme.twig', { themeData });
+        })
+        .catch(error => {
+            console.log(error);
+            res.end('Error');
+        });
     }
 
     passed (req, res) {

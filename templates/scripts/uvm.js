@@ -88,7 +88,8 @@ class uvm {
         login: /^[A-z0-9]{3,64}$/,
         password: /^.{6,64}$/,
         groupTitle: /^[А-я0-9\-]{3,64}$/,
-        title: /^[А-я0-9\-]{3,256}$/
+        title: /^[А-я0-9\-]{3,256}$/,
+        theme: /^.{6,512}$/
     };
 
     inputs.forEach(elem => {

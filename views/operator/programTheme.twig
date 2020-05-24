@@ -1,5 +1,5 @@
-{% for theme in themes %}
-    <tr>
+{% macro themes(theme) %}
+    <tr data-themeid="{{ theme.Id }}">
     	<td>{{ theme.Theme }}</td>
     	<td align="center">
     		<button data-groupId="{{ theme.Id }}">
@@ -7,4 +7,4 @@
     		</button>
     	</td>
     </tr>
-{% endfor %}
+{% endmacro %}

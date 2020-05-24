@@ -106,19 +106,6 @@ module.exports = class Discipline {
         return db.query(sql, data);
     }
 
-    static program (disciplineId, groupId) {
-        const db = Database.getConnection();
-        const sql = `SELECT
-                        Theme
-                    FROM
-                        WorkingProgram
-                    WHERE
-                        DisciplineId = ? AND GroupId = ?`;
-        const data = [disciplineId, groupId];
-
-        return db.query(sql, data);
-    }
-
     static getTeachers (disciplineId) {
         const db = Database.getConnection();
         const sql = `SELECT
