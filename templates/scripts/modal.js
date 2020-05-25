@@ -21,6 +21,12 @@ const clearModal = event => {
     });
 };
 
+const passInput = (form, status) => {
+    const input = uvm.qe(form, 'input[type="password"]').parentNode;
+    status ? input.classList.remove('none') : 
+        input.classList.add('none');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const closeModal = uvm.qa('.close-modal');
 

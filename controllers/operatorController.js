@@ -15,6 +15,8 @@ const regex = {
 };
 const Twig = require('twig');
 const fs = require('fs');
+const errno = 1062;
+
 module.exports = class OperatorController {
 
     index (req, res) {
@@ -272,6 +274,43 @@ module.exports = class OperatorController {
         }
     }
 
+    editStudent (req, res) {
+        if (req.session.operator) {
+            const { id, firstName, lastName, middleName, email, number, 
+                login, groupId } = req.body;
+            const user = {
+                FirstName: firstName,
+                LastName: lastName,
+                MiddleName: middleName,
+                Email: email,
+                PhoneNumber: number,
+                Login: login
+            };
+
+            for (const data in user) {
+                if (!regex[data].test(user[data])) {
+                    res.end('Error');
+                    return;
+                }
+            }
+
+            User.editUser(id, lastName, firstName, middleName, login,
+                email, number, groupId)
+            .then(([result]) => {
+                res.end('true');
+            })
+            .catch(error => {
+                console.log(error);
+                if (error.errno === errno) {
+                    res.end('Duplicate');
+                }
+                else {
+                    res.end('Error');
+                }
+            });
+        }
+    }
+
     newGroup (req, res) {
         const { groupTitle, curatorId, curatorName, specId } = req.body;
         const group = {
@@ -356,7 +395,12 @@ module.exports = class OperatorController {
             res.render('operator/disciplineResponse.twig', { discipline });
         })
         .catch(error => {
-            console.log(error);
+            if (error.errno === errno) {
+                res.end('Duplicate');
+            }
+            else {
+                res.end('false');
+            }
         });
     }
 

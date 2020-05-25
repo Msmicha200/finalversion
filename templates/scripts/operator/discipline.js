@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 data: uvm.dataToObj(data)
             })
             .then(res => {
-                if (res === 'Duplicate' && res === 'Error') {
+                if (res === 'Duplicate' || res === 'Error') {
                     console.log(res);
                     return;
                 }
@@ -121,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(res => {
                 if (res === 'Duplicate') {
+                    uvm.selectErr(teacherSelect.parentNode);
                     console.log(res);
                     return;
                 }

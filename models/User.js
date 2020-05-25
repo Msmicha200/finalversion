@@ -84,7 +84,7 @@ module.exports = class User {
     }
 
     static editUser (id, lastName, firstName, middleName, login, 
-        email, phoneNumber, password, groupId) {
+        email, phoneNumber, groupId) {
         const db = Database.getConnection();
         const sql = `UPDATE
                         Accounts
@@ -95,15 +95,12 @@ module.exports = class User {
                         Login = ?,
                         Email = ?,
                         PhoneNumber = ?,
-                        Password = ?,
                         GroupId = ?
                     WHERE
                         Id = ?`;
 
-        password = this.getHash(password);
-
         const data = [lastName, firstName, middleName, login, email,
-            phoneNumber, password, groupId, id];
+            phoneNumber, groupId, id];
 
         return db.query(sql, data);
     }

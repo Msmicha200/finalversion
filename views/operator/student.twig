@@ -1,10 +1,18 @@
 <tr data-userid="{{ user.id }}">
 	<td>{{ user.id }}</td>
-	<td>{{ user.lastName  }} {{ user.firstName }} {{ user.middleName }}</td>
-	<td>{{ user.login }}</td>
-	<td>{{ user.email }}</td>
-	<td>{{ user.number }}</td>
-	<td>{{ user.groupTitle }}</td>
+	<td class="editable">
+		{{ user.LastName  }}
+	</td>		
+	<td class="editable">
+		{{ user.FirstName }}	
+	</td>
+	<td class="editable">
+		{{ user.MiddleName }}	
+	</td>
+	<td class="editable">{{ user.Email }}</td>
+	<td class="editable">{{ user.Login }}</td>
+	<td class="editable">{{ user.PhoneNumber }}</td>
+	<td class="st-group">{{ user.groupTitle }}</td>
 	<td align="center">
 		<label class="uvm--toggle-container">
 			<input type="checkbox" hidden="" checked="" class="uvm--toggle">

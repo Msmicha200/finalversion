@@ -284,6 +284,9 @@ table > tbody > tr > td:last-child > button img {
 .discipline-program {
 	pointer-events: none;
 }
+.none {
+	display: none !important;
+}
 .selected {
 
 }

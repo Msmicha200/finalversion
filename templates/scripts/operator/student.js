@@ -1,19 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
     const addStudent = uvm.q('.add-student');
     const doc = document.documentElement;
+    const hiddenInput = uvm.byId('inputId');
+    const studentForm = document.forms.addStudent;
+    const inputs = uvm.qae(studentForm, '.uvm--input-wrapper > input');
+    const groupSelect = uvm.q('.st-group-select > .uvm--current-item');
+    const acceptEdit = uvm.q('.accept-edit');
+    const acceptStudent = uvm.q('.accept-student');
 
     addStudent.addEventListener('click', () => {
+        acceptEdit.classList.add('none');
+        acceptStudent.classList.remove('none');
         doc.classList.add('student-modal');
+        passInput(studentForm, true);
     });
 
-    const acceptStudent = uvm.q('.accept-student');
+    const studentTable = uvm.q('.student-table');
 
     acceptStudent.addEventListener('click', event => {
         event.preventDefault();
 
-        const studentForm = document.forms.addStudent;
-        const inputs = uvm.qae(studentForm, '.uvm--input-wrapper > input');
-        const groupSelect = uvm.q('.st-group-select > .uvm--current-item');
         const group = uvm.q('.uvm--option.uvm--selected.group-option') || false;
         const data = new FormData(studentForm);
 
@@ -26,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 data: uvm.dataToObj(data)
             })
             .then(res => {
-                const studentTable = uvm.q('.student-table');
+                console.log(res);
                 const tbody = uvm.qe(studentTable, 'tbody')
                 const tableWrapper = studentTable.parentNode;
 
@@ -57,5 +63,76 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    let student;
+    let group;
+
+    studentTable.addEventListener('click', event => {
+        const { target } = event;
+
+        if (target.classList.contains('edit-student')) {
+            student = target.parentNode.parentNode;
+            group = uvm.qe(student, '.st-group');
+
+            const data = uvm.qae(student, '.editable');
+            const groups = uvm.qa('.st-gr.uvm--options-list > li');
+
+            passInput(studentForm, false);
+            acceptStudent.classList.add('none');
+            acceptEdit.classList.remove('none');
+
+            for (const gr of groups) {
+                if (group.innerText === gr.textContent.trim()) {
+                    gr.classList.add('uvm--selected');
+                    groupSelect.innerHTML = gr.innerHTML;
+                    break;
+                }
+            }
+
+            data.forEach((elem, index) => {
+                inputs[index].value = elem.innerText;
+            });
+            doc.classList.add('student-modal');
+        }
+    });
+
+    acceptEdit.addEventListener('click', event => {
+        event.preventDefault();
+
+        const data = new FormData(studentForm);
+        const groupOption = uvm.q('.uvm--selected.group-option') || false;
+
+        data.delete('password');
+        if (uvm.valid(inputs, false)) {
+            data.append('groupId', groupOption.dataset.groupid);
+            data.append('id', student.dataset.userid);
+
+            const td = uvm.qae(student, '.editable');
+            
+            uvm.ajax({
+                url: '/operator/editStudent',
+                type: 'POST',
+                data: uvm.dataToObj(data)
+            })
+            .then(res => {
+                if (res === 'Duplicate' || res === 'Error') {
+                    console.log(res);
+                    return;
+                }
+
+                const td = uvm.qae(student, '.editable');
+
+                td.forEach((elem, index) => {
+                    elem.textContent = inputs[index].value;
+                });
+
+                group.textContent = groupOption.textContent.trim();
+                clearModal();
+                groupSelect.innerHTML = 'Оберіть групу';
+            })
+            .catch(error => {
+                console.log('Internal server error' + error);
+            });
+        }
+    });
 
 });

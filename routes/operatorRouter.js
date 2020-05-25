@@ -35,4 +35,6 @@ router.post('/addDisciplToTeacher', operatorController.disciplToTeacher);
 
 router.post('/addTheme', operatorController.newTheme);
 
+router.post('/editStudent', operatorController.editStudent);
+
 module.exports = router;

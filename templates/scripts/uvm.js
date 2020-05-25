@@ -76,7 +76,7 @@ class uvm {
     }, 1500);
   }
 
-  static valid (inputs) {
+  static valid (inputs, checkPass = true) {
     let isCorrect = true;
     const timeout = 1500;
     const regex = {
@@ -92,17 +92,21 @@ class uvm {
         theme: /^.{6,512}$/
     };
 
-    inputs.forEach(elem => {
-        if (!regex[elem.getAttribute('name')].test(elem.value)) {
-            elem.classList.add('error');
+    for (const input of inputs) {
+      if (!regex[input.getAttribute('name')].test(input.value)) {
+            if (!checkPass) {
+              continue;
+            }
+
+            input.classList.add('error');
             isCorrect = false;
 
             setTimeout(() => {
-                elem.classList.remove('error');
+                input.classList.remove('error');
                 isCorrect = true;
-            }, 1500);
-        }
-    });
+            }, 1500);        
+      }
+    }
 
     return isCorrect;
   }
