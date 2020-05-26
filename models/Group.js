@@ -17,18 +17,17 @@ module.exports = class Group {
         return db.query(sql, data);
     }
 
-    static editGroup (id, title, specialityId, curatorId, course) {
+    static editGroup (id, title, specialityId, curatorId) {
         const db = Database.getConnection();
         const sql = `UPDATE
                         Groups
                     SET
                         Title = ?,
                         SpecialityId = ?,
-                        CuratorId = ?,
-                        Course = ?
+                        CuratorId = ?
                     WHERE
                         Id = ?`;
-        const data = [title, specialityId, curatorId, course, id];
+        const data = [title, specialityId, curatorId, id];
 
         return db.query(sql, data);
     }
@@ -61,13 +60,16 @@ module.exports = class Group {
                     a.LastName,
                     a.FirstName,
                     a.MiddleName,
+                    s.Id AS SpecId,
                     g.Course
                 FROM
                     Groups AS g
-                INNER JOIN
-                    Accounts AS a
+                INNER JOIN Accounts AS a
                 ON
-                    g.CuratorId = a.Id`;
+                    g.CuratorId = a.Id
+                INNER JOIN Specialities AS s
+                ON
+                    s.Id = g.SpecialityId;`;
 
         return db.query(sql);
     }

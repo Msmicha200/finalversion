@@ -2,17 +2,9 @@ const User = require('../models/User');
 const Group = require('../models/Group');
 const Program = require('../models/Program');
 const Discipline = require('../models/Discipline');
-const regex = {
-    FirstName: /^[А-я]{2,50}$/,
-    LastName: /^[А-я]{2,50}$/,
-    MiddleName: /^[А-я]{2,50}$/,
-    Email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-    PhoneNumber: /^[0-9]{6,20}$/,
-    Login: /^[A-z0-9]{3,64}$/,
-    Password: /^.{6,64}$/,
-    Title: /^[А-я0-9\-]{3,256}$/,
-    Theme: /^.{6,512}$/
-};
+const Tools = require('../components/Tools.js');
+
+const groupRegex = /^[А-я0-9\-]{3,64}$/;
 const Twig = require('twig');
 const fs = require('fs');
 const errno = 1062;
@@ -225,11 +217,9 @@ module.exports = class OperatorController {
             Password: password
         };
 
-        for (const data in user) {
-            if (!regex[data].test(user[data])) {
-                res.end('Error');
-                return;
-            }
+        if (!Tools.valid(user)) {
+            res.end('Error');
+            return;
         }
 
         if (url === '/addStudent') {
@@ -243,6 +233,7 @@ module.exports = class OperatorController {
                     res.render('operator/student.twig', { user });
                 })
                 .catch(error => {
+                    console.log(error);
                     res.end('Duplicate');
                 });
             }
@@ -287,27 +278,30 @@ module.exports = class OperatorController {
                 Login: login
             };
 
-            for (const data in user) {
-                if (!regex[data].test(user[data])) {
-                    res.end('Error');
-                    return;
-                }
+            if (!Tools.valid(user)) {
+                res.end('Error');
+                return;
             }
 
-            User.editUser(id, lastName, firstName, middleName, login,
-                email, number, groupId)
-            .then(([result]) => {
-                res.end('true');
-            })
-            .catch(error => {
-                console.log(error);
-                if (error.errno === errno) {
-                    res.end('Duplicate');
-                }
-                else {
-                    res.end('Error');
-                }
-            });
+            if (id && groupId) {
+                User.editUser(id, lastName, firstName, middleName, login,
+                    email, number, groupId)
+                .then(([result]) => {
+                    res.end('true');
+                })
+                .catch(error => {
+                    console.log(error);
+                    if (error.errno === errno) {
+                        res.end('Duplicate');
+                    }
+                    else {
+                        res.end('Error');
+                    }
+                });
+            }
+            else {
+                res.end('Error');
+            }
         }
     }
 
@@ -321,9 +315,8 @@ module.exports = class OperatorController {
             FirstName: '',
             Course: 1
         };
-        const regexTitle = /^[А-я0-9\-]{3,64}$/;
 
-        if (groupTitle && curatorId && curatorName && regexTitle
+        if (groupTitle && curatorId && curatorName && groupRegex
             .test(groupTitle)) {
 
             Group.addGroup(groupTitle, specId, curatorId)
@@ -335,6 +328,31 @@ module.exports = class OperatorController {
                 console.log(error);
                 res.end('Duplicate');
             });
+        }
+    }
+
+    editGroup (req, res) {
+        if (req.session.operator) {
+            const {id, groupTitle, specId, curatorId} = req.body;
+            console.log(id, groupTitle, specId, curatorId);
+            if (groupRegex.test(groupTitle) && id && curatorId && specId) {
+                Group.editGroup(id, groupTitle, specId, curatorId)
+                .then(([result]) => {
+                    res.end('true');
+                })
+                .catch(error => {
+                    console.log(error);
+                    if (error.errno === errno) {
+                        res.end('Duplicate');
+                    }
+                    else {
+                        res.end('Error');
+                    }
+                });
+            }
+        }
+        else {
+            res.end('Error');
         }
     }
 

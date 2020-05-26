@@ -2,9 +2,11 @@
 {% macro tableTeacher(teacher) %}
 	<tr data-userid="{{ teacher.Id }}">
 		<td>{{ teacher.Id }}</td>
-		<td>{{ teacher.LastName  }} {{ teacher.FirstName }} {{ teacher.MiddleName }}</td>
-		<td>{{ teacher.Login }}</td>
+		<td>{{ teacher.LastName  }}</td>
+		<td>{{ teacher.FirstName }}</td>
+		<td>{{ teacher.MiddleName }}</td>
 		<td>{{ teacher.Email }}</td>
+		<td>{{ teacher.Login }}</td>
 		<td>{{ teacher.PhoneNumber }}</td>
 		<td align="center">
 			<label class="uvm--toggle-container">
@@ -21,10 +23,8 @@
 {% endmacro %}
 
 {% macro teacherSelect(teacher, cls) %}
-	<li class="uvm--option {{ cls }}" data-teacherid="{{ teacher.Id }}">
-		{{ teacher.LastName }}
-		{{ teacher.FirstName }}
-		{{ teacher.MiddleName }}
+	<li class="uvm--option {{ cls }}" data-userid="{{ teacher.Id }}">
+		{{ teacher.LastName }} {{ teacher.FirstName }} {{ teacher.MiddleName }}
 	</li>
 {% endmacro %}
 
@@ -34,9 +34,7 @@
 			{{ teacher.Id }}
 		</td>
 		<td>
-			{{ teacher.LastName }}
-			{{ teacher.FirstName }}
-			{{ teacher.MiddleName }}
+			{{ teacher.LastName }} {{ teacher.FirstName }} {{ teacher.MiddleName }}
 		</td>
 	</tr>
 {% endmacro %}

@@ -37,4 +37,6 @@ router.post('/addTheme', operatorController.newTheme);
 
 router.post('/editStudent', operatorController.editStudent);
 
+router.post('/editGroup', operatorController.editGroup);
+
 module.exports = router;

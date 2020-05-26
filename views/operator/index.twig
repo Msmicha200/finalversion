@@ -170,7 +170,7 @@
 								<thead>
 									<td width="550px">Назва дисципліни</td>
 									<td width="100px">Відчитано</td>
-									<td width="100px">Редагувати</td>
+									{# <td width="100px">Редагувати</td> #}
 								</thead>
 								<tbody>
 									
@@ -198,7 +198,7 @@
 									<td width="45px">
 										№
 									</td>
-									<td width="400px">
+									<td width="400px" colspan="3">
 										ПІБ
 									</td>
 									<td width="250px">
@@ -473,12 +473,12 @@
 	<div class="student-modal-wrapper modal-wrapper student-modal flex jcc alic">
 		<form class="student-modal-content flex jcsb fdc" name="addStudent">
 			<div class="uvm--input-wrapper">
-				<input autocomplete="off" placeholder="Login" name="firstName" class="uvm--input" >
-				<label for="login" class="uvm--label">Ім'я</label>
-			</div>
-			<div class="uvm--input-wrapper">
 				<input autocomplete="off" placeholder="Login" name="lastName" class="uvm--input" >
 				<label for="login" class="uvm--label">Прізвище</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="firstName" class="uvm--input" >
+				<label for="login" class="uvm--label">Ім'я</label>
 			</div>
 			<div class="uvm--input-wrapper">
 				<input autocomplete="off" placeholder="Login" name="middleName" class="uvm--input" >
@@ -523,7 +523,7 @@
 					<button class="accept-student">
 						Додати
 					</button>
-					<button class="accept-edit">
+					<button class="accept-edit-student">
 						Підтвердити
 					</button>
 				</div>
@@ -559,7 +559,7 @@
 					<div class="uvm--search-container">
 						<input type="text" placeholder="Пошук..." class="uvm--input-search">
 					</div>
-					<ul class="uvm--options-list">
+					<ul class="uvm--options-list spec-options">
 						{% for speciality in specialities %}
 						    <li class="uvm--option spec-option" data-specid="{{ speciality.Id }}">
 						    	{{ speciality.Title }}
@@ -572,9 +572,14 @@
 				<button class="close-modal">
 					Відміна
 				</button>
-				<button class="accept-group">
-					Додати
-				</button>
+				<div>
+					<button class="accept-group">
+						Додати
+					</button>
+					<button class="accept-edit-group">
+						Підтвердити
+					</button>
+				</div>
 			</div>
 		</form>
 	</div>
@@ -590,7 +595,7 @@
 					</div>
 					<ul class="uvm--options-list ds-gr-options">
 						{% for discipline in disciplines %}
-						    {{ disciplineImp.disciplineSelect(discipline) }}
+							{{ disciplineImp.disciplineSelect(discipline) }}
 						{% endfor %}
 					</ul>
 				</div>
@@ -621,12 +626,12 @@
 	<div class="teacher-modal-wrapper modal-wrapper teacher-modal flex jcc alic">
 		<form class="teacher-modal-content flex jcsb fdc" name="addTeacher">
 			<div class="uvm--input-wrapper">
-				<input autocomplete="off" placeholder="Login" name="firstName" class="uvm--input" >
-				<label for="login" class="uvm--label">Ім'я</label>
-			</div>
-			<div class="uvm--input-wrapper">
 				<input autocomplete="off" placeholder="Login" name="lastName" class="uvm--input" >
 				<label for="login" class="uvm--label">Прізвище</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="firstName" class="uvm--input" >
+				<label for="login" class="uvm--label">Ім'я</label>
 			</div>
 			<div class="uvm--input-wrapper">
 				<input autocomplete="off" placeholder="Login" name="middleName" class="uvm--input" >
@@ -637,12 +642,12 @@
 				<label for="login" class="uvm--label">E-mail</label>
 			</div>
 			<div class="uvm--input-wrapper">
-				<input autocomplete="off" placeholder="Login" name="number" class="uvm--input" >
-				<label for="login" class="uvm--label">Номер телефону</label>
-			</div>
-			<div class="uvm--input-wrapper">
 				<input autocomplete="off" placeholder="Login" name="login" class="uvm--input" >
 				<label for="login" class="uvm--label">Логін</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="number" class="uvm--input" >
+				<label for="login" class="uvm--label">Номер телефону</label>
 			</div>
 			<div class="uvm--input-wrapper">
 				<input autocomplete="off" type="password" placeholder="Login" name="password" class="uvm--input">
@@ -661,12 +666,12 @@
 	<div class="operator-modal-wrapper modal-wrapper operator-modal flex jcc alic">
 		<form class="operator-modal-content flex jcsb fdc" name="addOperator">
 			<div class="uvm--input-wrapper">
-				<input autocomplete="off" placeholder="Login" name="firstName" class="uvm--input" >
-				<label for="login" class="uvm--label">Ім'я</label>
-			</div>
-			<div class="uvm--input-wrapper">
 				<input autocomplete="off" placeholder="Login" name="lastName" class="uvm--input" >
 				<label for="login" class="uvm--label">Прізвище</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="firstName" class="uvm--input" >
+				<label for="login" class="uvm--label">Ім'я</label>
 			</div>
 			<div class="uvm--input-wrapper">
 				<input autocomplete="off" placeholder="Login" name="middleName" class="uvm--input" >
@@ -677,12 +682,12 @@
 				<label for="login" class="uvm--label">E-mail</label>
 			</div>
 			<div class="uvm--input-wrapper">
-				<input autocomplete="off" placeholder="Login" name="number" class="uvm--input" >
-				<label for="login" class="uvm--label">Номер телефону</label>
-			</div>
-			<div class="uvm--input-wrapper">
 				<input autocomplete="off" placeholder="Login" name="login" class="uvm--input" >
 				<label for="login" class="uvm--label">Логін</label>
+			</div>
+			<div class="uvm--input-wrapper">
+				<input autocomplete="off" placeholder="Login" name="number" class="uvm--input" >
+				<label for="login" class="uvm--label">Номер телефону</label>
 			</div>
 			<div class="uvm--input-wrapper">
 				<input autocomplete="off" type="password" placeholder="Login" name="password" class="uvm--input">

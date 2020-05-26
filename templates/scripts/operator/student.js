@@ -1,11 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     const addStudent = uvm.q('.add-student');
     const doc = document.documentElement;
-    const hiddenInput = uvm.byId('inputId');
     const studentForm = document.forms.addStudent;
     const inputs = uvm.qae(studentForm, '.uvm--input-wrapper > input');
     const groupSelect = uvm.q('.st-group-select > .uvm--current-item');
-    const acceptEdit = uvm.q('.accept-edit');
+    const acceptEdit = uvm.q('.accept-edit-student');
     const acceptStudent = uvm.q('.accept-student');
 
     addStudent.addEventListener('click', () => {
@@ -32,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 data: uvm.dataToObj(data)
             })
             .then(res => {
-                console.log(res);
                 const tbody = uvm.qe(studentTable, 'tbody')
                 const tableWrapper = studentTable.parentNode;
 
