@@ -1,8 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     const addTeacher = uvm.q('.add-teacher');
+    const teacherTable = uvm.q('.teacher-table');
+    const acceptEdit = uvm.q('.accept-edit-teacher');
+    const teacherForm = document.forms.addTeacher;
+    const inputs = uvm.qae(teacherForm, '.uvm--input-wrapper > input');
 
     addTeacher.addEventListener('click', () => {
+        acceptEdit.classList.add('none');
+        acceptTeacher.classList.remove('none');
         doc.classList.add('teacher-modal');
+        passInput(teacherForm, true);
     });
 
     const acceptTeacher = uvm.q('.accept-teacher');
@@ -10,8 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
     acceptTeacher.addEventListener('click', event => {
         event.preventDefault();
 
-        const teacherForm = document.forms.addTeacher;
-        const inputs = uvm.qae(teacherForm, '.uvm--input-wrapper > input');
         const data = new FormData(teacherForm);
 
         if (uvm.valid(inputs)) {
@@ -33,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                const teacherTable = uvm.q('.teacher-table');
                 const tbody = uvm.qe(teacherTable, 'tbody')
                 const tableWrapper = teacherTable.parentNode;
                 const div = document.createElement('div');
@@ -47,6 +51,68 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearModal();
                 tableWrapper.scrollTop = tableWrapper.scrollHeight;
 
+            })
+            .catch(error => {
+                console.log('Internal server error' + error);
+            });
+        }
+    });
+
+    let teacher;
+
+    teacherTable.addEventListener('click', event => {
+        const { target } = event;
+
+        if (target.classList.contains('edit-teacher')) {
+            teacher = target.parentNode.parentNode;
+
+            const data = uvm.qae(teacher, '.editable');
+
+            passInput(teacherForm, false);
+            acceptTeacher.classList.add('none');
+            acceptEdit.classList.remove('none');
+
+            data.forEach((elem, index) => {
+                inputs[index].value = elem.innerText;
+            });
+            doc.classList.add('teacher-modal');
+        }
+    });
+
+    acceptEdit.addEventListener('click', () => {
+        const data = new FormData(teacherForm);
+
+        data.delete('password');
+        if (uvm.valid(inputs, false)) {
+            data.append('id', teacher.dataset.userid);
+
+            const td = uvm.qae(teacher, '.editable');
+            
+            uvm.ajax({
+                url: '/operator/editTeacher',
+                type: 'POST',
+                data: uvm.dataToObj(data)
+            })
+            .then(res => {
+                if (res === 'Duplicate' || res === 'Error') {
+                    console.log(res);
+                    return;
+                }
+
+                const td = uvm.qae(teacher, '.editable');
+
+                td.forEach((elem, index) => {
+                    elem.textContent = inputs[index].value;
+                });
+
+                const nodes = uvm.qa(`.teacher[data-userid="${data.get('id')}"]`); 
+
+                nodes.forEach(elem => {
+                    elem.textContent = `${data.get('lastName')} 
+                    ${data.get('firstName')} ${data.get('middleName')}`;
+                });
+
+                clearModal();
             })
             .catch(error => {
                 console.log('Internal server error' + error);

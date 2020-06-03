@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 data: uvm.dataToObj(data)
             })
             .then(res => {
+                console.log(res);
                 if (res === 'Duplicate' || res === 'Error') {
                     console.log(res);
                     return;
@@ -236,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (discipline && teacher && group) {
             data.append('disciplineId', discipline.dataset.disciplineid);
             data.append('disciplTitle', discipline.textContent.trim());
-            data.append('teacherId', teacher.dataset.teacherid);
+            data.append('teacherId', teacher.dataset.userid);
             data.append('groupId', group.dataset.groupid);
 
             uvm.ajax({

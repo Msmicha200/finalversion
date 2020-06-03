@@ -305,6 +305,119 @@ module.exports = class OperatorController {
         }
     }
 
+    editTeacher (req, res) {
+        if (req.session.operator) {
+            const { id, firstName, lastName, middleName, email, number, 
+                login } = req.body;
+            const user = {
+                FirstName: firstName,
+                LastName: lastName,
+                MiddleName: middleName,
+                Email: email,
+                PhoneNumber: number,
+                Login: login
+            };
+
+            if (!Tools.valid(user)) {
+                res.end('Error');
+                return;
+            }
+
+            if (id) {
+                User.editUser(id, lastName, firstName, middleName, login,
+                    email, number)
+                .then(([result]) => {
+                    res.end('true');
+                })
+                .catch(error => {
+                    console.log(error);
+                    if (error.errno === errno) {
+                        res.end('Duplicate');
+                    }
+                    else {
+                        res.end('Error');
+                    }
+                });
+            }
+            else {
+                res.end('Error');
+            }
+        }
+    }
+
+    editOperator (req, res) {
+        if (req.session.operator) {
+            const { id, firstName, lastName, middleName, email, number, 
+                login } = req.body;
+            const user = {
+                FirstName: firstName,
+                LastName: lastName,
+                MiddleName: middleName,
+                Email: email,
+                PhoneNumber: number,
+                Login: login
+            };
+
+            if (!Tools.valid(user)) {
+                res.end('Error');
+                return;
+            }
+
+            if (id) {
+                User.editUser(id, lastName, firstName, middleName, login,
+                    email, number)
+                .then(([result]) => {
+                    res.end('true');
+                })
+                .catch(error => {
+                    console.log(error);
+                    if (error.errno === errno) {
+                        res.end('Duplicate');
+                    }
+                    else {
+                        res.end('Error');
+                    }
+                });
+            }
+            else {
+                res.end('Error');
+            }
+        }
+    }
+
+    editDiscipline (req, res) {
+        if (req.session.operator) {
+            const { id, title } = req.body;
+            const discipline = {
+                Title: title
+            };
+
+            if (!Tools.valid(discipline)) {
+                res.end('Error');
+                return;
+            }
+
+            if (id) {
+                Discipline.editDiscipline(id, title)
+                .then(([result]) => {
+                    res.end('true');
+                })
+                .catch(error => {
+                    console.log(error);
+                    if (error.errno === errno) {
+                        res.end('Duplicate');
+                    }
+                    else {
+                        res.end('Error');
+                    }
+                });
+            }
+            else {
+                res.end('Error');
+            }
+        }
+    }
+
     newGroup (req, res) {
         const { groupTitle, curatorId, curatorName, specId } = req.body;
         const group = {
@@ -334,7 +447,7 @@ module.exports = class OperatorController {
     editGroup (req, res) {
         if (req.session.operator) {
             const {id, groupTitle, specId, curatorId} = req.body;
-            console.log(id, groupTitle, specId, curatorId);
+
             if (groupRegex.test(groupTitle) && id && curatorId && specId) {
                 Group.editGroup(id, groupTitle, specId, curatorId)
                 .then(([result]) => {
@@ -400,11 +513,9 @@ module.exports = class OperatorController {
             Title: title
         };
 
-        for (const data in discipline) {
-            if (!regex[data].test(discipline[data])) {
-                res.end('Error');
-                return;
-            }
+        if (!Tools.valid(discipline)) {
+            res.end('Error');
+            return;
         }
 
         Discipline.addDiscipline(title)

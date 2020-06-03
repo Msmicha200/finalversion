@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const addDiscipline = uvm.q('.add-discipline');
     const acceptDiscipline = uvm.q('.accept-discipline');
     const disciplTable = uvm.q('.discipline-table');
+    const disciplForm = document.forms.addDiscipline;
+    const inputs = uvm.qae(disciplForm, '.uvm--input-wrapper > input');
+    const acceptEdit = uvm.q('.accept-edit-discipline');
 
     addDiscipline.addEventListener('click', () => {
         doc.classList.add('discipline-modal');
@@ -9,9 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     acceptDiscipline.addEventListener('click', event => {
         event.preventDefault();
-        
-        const disciplForm = document.forms.addDiscipline;
-        const inputs = uvm.qae(disciplForm, '.uvm--input-wrapper > input');
+
         const data = new FormData(disciplForm);
 
         if (uvm.valid(inputs)) {
@@ -49,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const disciplTeachers = uvm.q('.ds-teacher-wrapper');
     const tableWrapper = disciplTeachers.parentNode;
     const tbody = uvm.qe(disciplTeachers, 'tbody')
+    let discipline;
     
     disciplTable.addEventListener('click', event => {
         const { target } = event;
@@ -87,6 +89,58 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => {
                 console.log(error);
+            });
+        }
+        else if (target.classList.contains('edit-discipline')) {
+            discipline = target.parentNode.parentNode;
+
+            const data = uvm.qae(discipline, '.editable');
+
+            acceptDiscipline.classList.add('none');
+            acceptEdit.classList.remove('none');
+
+            data.forEach((elem, index) => {
+                inputs[index].value = elem.innerText;
+            });
+            doc.classList.add('discipline-modal');
+        }
+    });
+
+    acceptEdit.addEventListener('click', () => {
+        const data = new FormData(disciplForm);
+
+        if (uvm.valid(inputs)) {
+            data.append('id', discipline.dataset.disciplineid);
+
+            const td = uvm.qae(discipline, '.editable');
+
+            uvm.ajax({
+                url: '/operator/editDiscipline',
+                type: 'POST',
+                data: uvm.dataToObj(data)
+            })
+            .then(res => {
+                if (res === 'Duplicate' || res === 'Error') {
+                    console.log(res);
+                    return;
+                }
+
+                const td = uvm.qae(discipline, '.editable');
+
+                td.forEach((elem, index) => {
+                    elem.textContent = inputs[index].value;
+                });
+
+                const nodes = uvm.qa(`.discipline[data-disciplineid="${data.get('id')}"]`);
+
+                nodes.forEach(elem => {
+                    elem.textContent = data.get('title');
+                });
+
+                clearModal();
+            })
+            .catch(error => {
+                console.log('Internal server error' + error);
             });
         }
     });

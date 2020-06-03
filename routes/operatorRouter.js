@@ -39,4 +39,10 @@ router.post('/editStudent', operatorController.editStudent);
 
 router.post('/editGroup', operatorController.editGroup);
 
+router.post('/editTeacher', operatorController.editTeacher);
+
+router.post('/editOperator', operatorController.editOperator);
+
+router.post('/editDiscipline', operatorController.editDiscipline)
+
 module.exports = router;

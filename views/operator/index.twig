@@ -202,10 +202,10 @@
 										ПІБ
 									</td>
 									<td width="250px">
-										Логін
+										E-mail
 									</td>
 									<td width="250px">
-										E-mail
+										Логін
 									</td>
 									<td width="200px">
 										Телефон
@@ -245,14 +245,14 @@
 									<td width="45px">
 										№
 									</td>
-									<td width="400px">
+									<td width="400px" colspan="3">
 										ПІБ
 									</td>
 									<td width="250px">
-										Логін
+										E-mail
 									</td>
 									<td width="250px">
-										E-mail
+										Логін
 									</td>
 									<td width="200px">
 										Телефон
@@ -269,10 +269,12 @@
 								{% for operator in users.operator %}
 								    <tr data-userid="{{ operator.Id }}">
 								    	<td>{{ operator.Id }}</td>
-								    	<td>{{ operator.LastName  }} {{ operator.FirstName }} {{ operator.MiddleName }}</td>
-								    	<td>{{ operator.Login }}</td>
-								    	<td>{{ operator.Email }}</td>
-								    	<td>{{ operator.PhoneNumber }}</td>
+								    	<td class="editable">{{ operator.LastName  }}</td>
+								    	<td class="editable">{{ operator.FirstName }}</td>
+								    	<td class="editable">{{ operator.MiddleName }}</td>
+								    	<td class="editable">{{ operator.Email }}</td>
+								    	<td class="editable">{{ operator.Login }}</td>
+								    	<td class="editable">{{ operator.PhoneNumber }}</td>
 								    	<td align="center">
 											<label class="uvm--toggle-container">
 												{% if operator.IsActive == 1 %}
@@ -284,7 +286,7 @@
 											</label>								    		
 								    	</td>
 								    	<td align="center">
-								    		<button>
+								    		<button class="edit-operator">
 								    			<img src="/images/edit.svg" alt="">
 								    		</button>
 								    	</td>
@@ -657,9 +659,14 @@
 				<button class="close-modal">
 					Відміна
 				</button>
-				<button class="accept-teacher">
-					Додати
-				</button>
+				<div>
+					<button class="accept-teacher">
+						Додати
+					</button>
+					<button type="button" class="accept-edit-teacher">
+						Підтвердити
+					</button>
+				</div>
 			</div>
 		</form>
 	</div>
@@ -697,9 +704,14 @@
 				<button class="close-modal">
 					Відміна
 				</button>
+				<div>
 				<button class="accept-operator">
 					Додати
 				</button>
+				<button type="button" class="accept-edit-operator">
+					Підтвердити
+				</button>
+				</div>
 			</div>
 		</form>
 	</div>
@@ -713,9 +725,14 @@
 				<button class="close-modal">
 					Відміна
 				</button>
-				<button class="accept-discipline">
-					Додати
-				</button>
+				<div>
+					<button class="accept-discipline">
+						Додати
+					</button>
+					<button type="button" class="accept-edit-discipline">
+						Підтвердити
+					</button>
+				</div>
 			</div>
 		</form>
 	</div>

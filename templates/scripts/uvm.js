@@ -94,7 +94,7 @@ class uvm {
 
     for (const input of inputs) {
       if (!regex[input.getAttribute('name')].test(input.value)) {
-            if (!checkPass) {
+            if (input.getAttribute('name') === 'password' && !checkPass) {
               continue;
             }
 

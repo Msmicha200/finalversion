@@ -45,16 +45,15 @@ module.exports = class Discipline {
         return db.query(sql);
     }
 
-    static editDisciplines (id, title, teacherId) {
+    static editDiscipline (id, title) {
         const db = Database.getConnection();
         const sql = `UPDATE
                         Disciplines
                     SET
-                        Title = ?,
-                        TeacherId = ?
+                        Title = ?
                     WHERE
                         Id = ?`;
-        const data = [title, teacherId, id];
+        const data = [title, id];
 
         return db.query(sql, data);
     }

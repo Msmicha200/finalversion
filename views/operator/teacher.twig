@@ -2,12 +2,12 @@
 {% macro tableTeacher(teacher) %}
 	<tr data-userid="{{ teacher.Id }}">
 		<td>{{ teacher.Id }}</td>
-		<td>{{ teacher.LastName  }}</td>
-		<td>{{ teacher.FirstName }}</td>
-		<td>{{ teacher.MiddleName }}</td>
-		<td>{{ teacher.Email }}</td>
-		<td>{{ teacher.Login }}</td>
-		<td>{{ teacher.PhoneNumber }}</td>
+		<td class="editable">{{ teacher.LastName  }}</td>
+		<td class="editable">{{ teacher.FirstName }}</td>
+		<td class="editable">{{ teacher.MiddleName }}</td>
+		<td class="editable">{{ teacher.Email }}</td>
+		<td class="editable">{{ teacher.Login }}</td>
+		<td class="editable">{{ teacher.PhoneNumber }}</td>
 		<td align="center">
 			<label class="uvm--toggle-container">
 				<input type="checkbox" hidden="" checked="" class="uvm--toggle">
@@ -15,7 +15,7 @@
 			</label>  		
 		</td>
 		<td align="center">
-			<button>
+			<button class="edit-teacher">
 				<img src="/images/edit.svg" alt="">
 			</button>
 		</td>
@@ -23,7 +23,7 @@
 {% endmacro %}
 
 {% macro teacherSelect(teacher, cls) %}
-	<li class="uvm--option {{ cls }}" data-userid="{{ teacher.Id }}">
+	<li class="uvm--option {{ cls }} teacher" data-userid="{{ teacher.Id }}">
 		{{ teacher.LastName }} {{ teacher.FirstName }} {{ teacher.MiddleName }}
 	</li>
 {% endmacro %}
@@ -33,7 +33,7 @@
 		<td align="center">
 			{{ teacher.Id }}
 		</td>
-		<td>
+		<td class="teacher" data-userid="{{ teacher.Id }}">
 			{{ teacher.LastName }} {{ teacher.FirstName }} {{ teacher.MiddleName }}
 		</td>
 	</tr>
