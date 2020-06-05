@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const userRouter = require('./routes/userRouter');
 const adminRouter = require('./routes/adminRouter');
 const operatorRouter = require('./routes/operatorRouter');
+const teacherRouter = require('./routes/teacherRouter');
 const session = require('express-session');
 const redisStorage = require('connect-redis')(session);
 const redis = require('redis');
@@ -42,6 +43,8 @@ app.use('/user', userRouter);
 app.use('/admin', adminRouter)
 
 app.use('/operator', operatorRouter);
+
+app.use('/teacher', teacherRouter);
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}...`);

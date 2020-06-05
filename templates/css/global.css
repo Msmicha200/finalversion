@@ -7,6 +7,9 @@
 	margin: 0;
 	padding: 0;
 }
+html {
+	--main: #7E9AE4;
+}
 .flex {
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -42,4 +45,7 @@
 }
 .pointer {
 	cursor: pointer;
+}
+.full-w {
+	width: 100%;
 }

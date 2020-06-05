@@ -1,0 +1,8 @@
+.wrapper {
+	height: 100vh;
+}
+
+.header {
+	height: 200px;
+	background: var(--main);
+}

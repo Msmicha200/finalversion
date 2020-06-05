@@ -5,8 +5,6 @@ const Discipline = require('../models/Discipline');
 const Tools = require('../components/Tools.js');
 
 const groupRegex = /^[А-я0-9\-]{3,64}$/;
-const Twig = require('twig');
-const fs = require('fs');
 const errno = 1062;
 
 module.exports = class OperatorController {
