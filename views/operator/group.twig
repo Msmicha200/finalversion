@@ -1,20 +1,20 @@
 
 {% macro tableGroup(group) %}
-	<tr data-groupid="{{ group.Id }}">
-		<td>{{ group.Id }}</td>
-		<td class="editable">{{ group.Title }}</td>
-		<td>{{ group.Course }}</td>
-		<td class="teacherName teacher" data-userid="{{ group.CuratorId }}" data-specid="{{ group.SpecId }}">{{ group.LastName }} {{ group.FirstName }} {{ group.MiddleName }}</td>
-		<td align="center">
-			<button class="edit-group">
-				<img src="/images/edit.svg" alt="">
-			</button>
-		</td>
-	</tr>	
+    <tr data-groupid="{{ group.Id }}">
+        <td>{{ group.Id }}</td>
+        <td class="editable">{{ group.Title }}</td>
+        <td>{{ group.Course }}</td>
+        <td class="teacherName teacher" data-userid="{{ group.CuratorId }}" data-specid="{{ group.SpecId }}">{{ group.LastName }} {{ group.FirstName }} {{ group.MiddleName }}</td>
+        <td align="center">
+            <button class="edit-group">
+                <img src="/images/edit.svg" alt="">
+            </button>
+        </td>
+    </tr>   
 {% endmacro %}
 
 {% macro selectGroup(group) %}
     <li class="uvm--option group-option" data-groupid="{{ group.Id }}">
-    	{{ group.Title }}
+        {{ group.Title }}
     </li>
 {% endmacro %}

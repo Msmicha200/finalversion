@@ -1,16 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<link rel="stylesheet" href="css/global.css">
-	<link rel="stylesheet" href="css/teacher.css">
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/uvmSearchSelect.css">
+    <link rel="stylesheet" href="css/teacher.css">
 </head>
 <body>
-	<div class="wrapper full-w">
-		<div class="header full-w">
-			
-		</div>
-	</div>
+    <div class="wrapper full-w">
+        <div class="header full-w flex alic jcsa">
+            <div class="logo">
+                <img src="images/logo.svg" alt="">
+            </div>
+            <div class="status">
+                <div class="flex jcc">
+                    <div class="online-container flex">
+                        <div class="online-label flex alic">В мережі</div>
+                        <div class="online flex alic">
+                            Красковська Н. О.
+                        </div>
+                    </div>
+                    <a href="/logout" class="logout">Вийти</a>
+                </div>
+                <div class="flex discipl-container">
+                    <div class="discipl-label flex alic">Дисципліна</div>
+                    <div class="uvm--select discipl-select">
+                        <div class="uvm--current-item">
+                            Оберіть групу
+                        </div>
+                        <div class="uvm--options disciplines">
+                            <div class="uvm--search-container">
+                                <input type="text" placeholder="Пошук..." class="uvm--input-search">
+                            </div>
+                            <ul class="uvm--options-list">
+                                <li class="uvm--option">
+                                    teacher
+                                </li>
+                                <li class="uvm--option">
+                                    teacher
+                                </li>
+                                <li class="uvm--option">
+                                    teacher
+                                </li>
+                                <li class="uvm--option">
+                                    teacher
+                                </li>
+                                <li class="uvm--option">
+                                    teacher
+                                </li>
+                                <li class="uvm--option">
+                                    teacher
+                                </li>
+                            </ul>
+                        </div>
+                    </div>                
+                </div>
+            </div>
+            <div class="program-button flex fdc alic">
+                <p class="report-label">Відомість</p>
+                <div class="full-w flex fdc alic">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <div class="main full-w flex jcc">
+            <div class="grades-table-wrapper">
+                <table class="grades-table">
+                    <thead>
+                        <tr>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                1
+                            </td> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                1
+                            </td> 
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/uvmSearchSelect.js"></script>
 </body>
 </html>
