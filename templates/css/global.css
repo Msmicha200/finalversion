@@ -21,6 +21,10 @@ a{
 	display: -o-flex;
 	display: flex;
 }
+.alifs {
+	-ms-align-items: flex-start;
+	align-items: flex-start;
+}
 .alic {
 	-ms-align-items: center;
 	align-items: center;

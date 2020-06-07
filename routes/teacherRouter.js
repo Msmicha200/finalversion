@@ -5,4 +5,6 @@ const teacherController = new TeacherController();
 
 router.get('/', teacherController.index);
 
+router.post('/getGroups', teacherController.getGroups)
+
 module.exports = router;

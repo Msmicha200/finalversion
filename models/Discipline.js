@@ -14,7 +14,7 @@ module.exports = class Discipline {
         return db.query(sql, [title]);
     }
 
-    static getDisciplines (groupId = false) {
+    static getDisciplines (groupId = false, teacherId = false) {
         const db = Database.getConnection();
         let sql = '';
         
@@ -35,6 +35,20 @@ module.exports = class Discipline {
                     dg.GroupId = ?`;
         
             return db.query(sql, [groupId]);
+        }
+        else if (teacherId) {
+            sql = `SELECT
+                    d.Id,
+                    d.Title
+                FROM
+                    Disciplines AS d
+                INNER JOIN DisciplineToTeacher AS dt
+                ON
+                    dt.DisciplineId = d.Id
+                WHERE
+                    dt.TeacherId = ?`;
+
+            return db.query(sql, [teacherId]);
         }
 
         sql = `SELECT

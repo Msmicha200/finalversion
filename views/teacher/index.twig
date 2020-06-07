@@ -34,24 +34,11 @@
                                 <input type="text" placeholder="Пошук..." class="uvm--input-search">
                             </div>
                             <ul class="uvm--options-list">
-                                <li class="uvm--option">
-                                    teacher
-                                </li>
-                                <li class="uvm--option">
-                                    teacher
-                                </li>
-                                <li class="uvm--option">
-                                    teacher
-                                </li>
-                                <li class="uvm--option">
-                                    teacher
-                                </li>
-                                <li class="uvm--option">
-                                    teacher
-                                </li>
-                                <li class="uvm--option">
-                                    teacher
-                                </li>
+                                {% for discipl in disciplines %}
+                                    <li class="uvm--option" data-disciplid="{{ discipl.Id }}">
+                                        {{ discipl.Title }}
+                                    </li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>                
@@ -67,12 +54,24 @@
             </div>
         </div>
         <div class="main full-w flex jcc">
-            <div class="grades-table-wrapper">
+            <div class="grades-table-wrapper flex fdc alifs">
+                <div class="add-lesson flex jcc alic">
+                    Додати пару
+                </div>
                 <table class="grades-table">
                     <thead>
                         <tr>
                             <td>
-                                1
+                                <div class="uvm--select group-select">
+                                    <div class="uvm--current-item">
+                                        Група
+                                    </div>
+                                    <div class="uvm--options">
+                                        <ul class="uvm--options-list groups">
+                                            Груп нема
+                                        </ul>
+                                    </div>
+                                </div> 
                             </td>
                             <td>
                                 1
@@ -80,6 +79,12 @@
                             <td>
                                 1
                             </td>
+                            <td>
+                                1
+                            </td> 
+                            <td>
+                                1
+                            </td> 
                             <td>
                                 1
                             </td> 
@@ -91,20 +96,188 @@
                                 1
                             </td>
                             <td>
-                                1
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
                             </td>
+                            <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>
                                 1
                             </td>
                             <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 1
-                            </td> 
+                            </td>
+                            <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="" class="grade-select" id="">
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                    <option value="">5</option>
+                                </select>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+    <script src="scripts/uvm.js"></script>
     <script src="scripts/uvmSearchSelect.js"></script>
+    <script src="scripts/teacher/teacher.js"></script>
 </body>
 </html>
