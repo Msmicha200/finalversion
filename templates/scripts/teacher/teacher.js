@@ -14,8 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
             .then(res => {
-                if (res !== 'false' && res) {
-                    console.log(res);
+                if (res !== 'false' && res.length > 1) {
                     groups.innerHTML = res;
                 }
                 else {
