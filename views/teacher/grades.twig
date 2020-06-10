@@ -1,0 +1,46 @@
+{% macro lessons(lesson) %}
+	<td valign="bottom" {% if lesson.Title == 'lec' %}
+			title="Лекція"
+		{% elseif lesson.Title == 'iw' %}
+			title="Самостійна робота"	
+		{% elseif lesson.Title == 'pw' %}
+			title="Практична робота" 
+		{% elseif lesson.Title == 'lab' %}
+			title="Лабараторна робота" 
+		{% endif %}>
+		<div class="month">
+			{{ lesson.Datetime|date("m") }}
+		</div>
+		<div class="day">
+			{{ lesson.Datetime|date("d") }}
+		</div>
+	</td>
+{% endmacro %}
+
+{% macro colors(cls) %}
+	<col class="{{ cls }}">
+{% endmacro %}
+
+{% macro students(student) %}
+		<tr data-studentid="{{ student.Id }}">
+			<td>
+				{{ student.LastName }} {{ student.FirstName[1:1] }}. {{ student.MiddleName[1:1] }}.
+			</td>
+			{% for gr in student.grades %}
+				<td {% if gr.Grade == 2 %}
+						class="bad"
+					{% endif %}>
+					<select name="" data-gradeid="{{ gr.Id }}" class="grade-select" id="">
+						<option value="" hidden="" selected=""></option>
+						{% for value in 2..5 %}
+							<option value="{{ value }}" {% if gr.Grade == value %}
+							selected
+						{% endif %}>
+							{{ value }}
+						</option>
+						{% endfor %}
+					</select>
+				</td>
+			{% endfor %}
+		</tr>
+{% endmacro %}

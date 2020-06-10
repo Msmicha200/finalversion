@@ -1,0 +1,20 @@
+{% import 'teacher/grades.twig' as st %}
+
+
+<table class="grades">
+	{% for student in result.students %}
+		{{ st.students(student) }}
+	{% endfor %}
+</table>
+
+<table class="lessons">
+	{% for lesson in result.lessons %}
+		{{ st.lessons(lesson) }}
+	{% endfor %}
+</table>
+
+<table class="cols">
+	{% for lesson in result.lessons %}
+		{{ st.colors(lesson.Title) }}
+	{% endfor %}
+</table>

@@ -11,7 +11,7 @@ module.exports = class Discipline {
                     FROM
                         Accounts
                     WHERE
-                        GroupId = 1`;
+                        GroupId = ?`;
 
         return db.query(sql, [groupId]);
     }
@@ -46,7 +46,7 @@ module.exports = class Discipline {
                     ON
                         g.LessonId = l.Id
                     WHERE
-                        l.GroupId = 1`;
+                        l.GroupId = ?`;
 
         return db.query(sql, [groupId]);
     }
@@ -54,10 +54,10 @@ module.exports = class Discipline {
     static bind(students, lessons, grades) {
         for (const student of students) {
             student['grades'] = [];
-
             for (const lesson of lessons) {
-                const grade = grades.find(grade => grade.studentId == student.Id
-                    && grade.lessonId == lesson.Id);
+                const grade = grades.find(grade => grade.StudentId == student.Id
+                    && grade.LessonId == lesson.Id);
+
                 student.grades.push(grade);
             }
         }
@@ -65,5 +65,18 @@ module.exports = class Discipline {
         return new Promise((resolve, reject)=> {
             resolve({students, lessons});
         });
+    }
+
+    static setGrade(studentId, gradeId, grade) {
+        const db = Database.getConnection();
+        const sql = `UPDATE
+                        Grades
+                    SET
+                        Grade = ?
+                    WHERE
+                        StudentId = ? AND Id = ?`;
+        const data = [grade, studentId, gradeId];
+
+        return db.query(sql, data);
     }
 }

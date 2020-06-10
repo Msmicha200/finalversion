@@ -126,6 +126,7 @@
 .grades-table {
 	border-collapse: collapse;
 	border: 2px solid var(--main);
+	margin-bottom: 50px;
 }
 
 .grades-table td {
@@ -147,12 +148,21 @@
 }
 
 .grades-table thead > tr:first-child {
-	background: #E5E5E5;
+	border-bottom: 2px solid var(--main);
 }
 
-.grades-table tr:nth-child(2n) {
-	background: #E5E5E5;
+.grades-table tbody > tr {
+	border-bottom: 1px solid var(--main);
+	color: #555353;
 }
+
+.grades-table tbody > tr:hover {
+	background: purple;
+}
+
+/*.grades-table tr:nth-child(2n) {
+	background: #E5E5E5;
+}*/
 
 .grade-select {
 	border: none;
@@ -178,6 +188,7 @@
 }
 
 select {
+	color: #555353;
 	font-size: 18px;
 	font-weight: normal;
     -webkit-appearance: none;
@@ -201,7 +212,37 @@ select {
 	font-weight: 800;
 }
 
+.month,
+.day {
+	font-size: 11px;
+	color: #555353;
+}
+
+.day {
+	margin-top: 8px;
+}
+
 .add-lesson:hover {
 	color: #fff;
 	background: var(--main);
+}
+
+.lec {
+	background: #fff;
+}
+
+.iw {
+	background: #E4C575;
+}
+
+.pw {
+	background: #76BE74;
+}
+
+.lab {
+	background: #67C4B9; 
+}
+
+.bad {
+	background: #FF7171;
 }

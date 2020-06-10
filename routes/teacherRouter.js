@@ -9,4 +9,6 @@ router.post('/getGroups', teacherController.getGroups);
 
 router.get('/grades', teacherController.grades);
 
+router.post('/setGrade', teacherController.setGrade);
+
 module.exports = router;
