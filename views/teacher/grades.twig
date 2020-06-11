@@ -1,5 +1,5 @@
 {% macro lessons(lesson) %}
-	<td valign="bottom" {% if lesson.Title == 'lec' %}
+	<td valign="bottom" class="removable" {% if lesson.Title == 'lec' %}
 			title="Лекція"
 		{% elseif lesson.Title == 'iw' %}
 			title="Самостійна робота"	
@@ -7,6 +7,16 @@
 			title="Практична робота" 
 		{% elseif lesson.Title == 'lab' %}
 			title="Лабараторна робота" 
+		{% elseif lesson.Title == 'bc' %}
+			title="Рубіжний контроль"
+		{% elseif lesson.Title == 'ret' %}
+			title="Переатестація"
+		{% elseif lesson.Title == 'tc' %}
+			title="Тематичная атестація"
+		{% elseif lesson.Title == 'cw' %}
+			title="Контроль робота"
+		{% elseif lesson.Title == 'sc' %}
+			title="Семестрова атестація"
 		{% endif %}>
 		<div class="month">
 			{{ lesson.Datetime|date("m") }}
@@ -21,26 +31,32 @@
 	<col class="{{ cls }}">
 {% endmacro %}
 
+{% macro grade(gr) %}
+	<td {% if gr.Grade == 2 %}
+			class="bad"
+		{% endif %}>
+		<select name="" data-gradeid="{{ gr.Id }}" class="grade-select" id="">
+			<option value="" hidden="" selected=""></option>
+			{% for value in 2..5 %}
+				<option value="{{ value }}" {% if gr.Grade == value %}
+				selected
+			{% endif %}>
+				{{ value }}
+			</option>
+			{% endfor %}
+		</select>
+	</td>
+{% endmacro %}
+
 {% macro students(student) %}
+		{% import _self as this %}
+		
 		<tr data-studentid="{{ student.Id }}">
 			<td>
 				{{ student.LastName }} {{ student.FirstName[1:1] }}. {{ student.MiddleName[1:1] }}.
 			</td>
 			{% for gr in student.grades %}
-				<td {% if gr.Grade == 2 %}
-						class="bad"
-					{% endif %}>
-					<select name="" data-gradeid="{{ gr.Id }}" class="grade-select" id="">
-						<option value="" hidden="" selected=""></option>
-						{% for value in 2..5 %}
-							<option value="{{ value }}" {% if gr.Grade == value %}
-							selected
-						{% endif %}>
-							{{ value }}
-						</option>
-						{% endfor %}
-					</select>
-				</td>
+				{{ this.grade(gr) }}
 			{% endfor %}
 		</tr>
 {% endmacro %}

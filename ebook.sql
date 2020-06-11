@@ -68,7 +68,7 @@ CREATE TABLE LessonTypes(
 CREATE TABLE Lessons(
     Id INT PRIMARY KEY AUTO_INCREMENT,
     `Datetime` TIMESTAMP NOT NULL,
-    DisciplineId INT NOT NULL,
+    DisciplineTeId INT NOT NULL,
     GroupId INT NOT NULL,
     LessonTypeId INT NOT NULL,
     FOREIGN KEY(DisciplineId) REFERENCES Disciplines(Id),

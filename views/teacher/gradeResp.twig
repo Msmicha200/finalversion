@@ -7,6 +7,12 @@
 	{% endfor %}
 </table>
 
+<table class="inserted-grades">
+	{% for grade in result.grades %}
+		{{ st.grade(grade) }}
+	{% endfor %}
+</table>
+
 <table class="lessons">
 	{% for lesson in result.lessons %}
 		{{ st.lessons(lesson) }}

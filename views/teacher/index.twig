@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/uvmSearchSelect.css">
     <link rel="stylesheet" href="css/teacher.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/uvmInput.css">
 </head>
 <body>
     <div class="wrapper full-w">
@@ -44,14 +46,14 @@
                     </div>                
                 </div>
             </div>
-            <div class="program-button flex fdc alic">
+            {# <div class="program-button flex fdc alic">
                 <p class="report-label">Відомість</p>
                 <div class="full-w flex fdc alic">
                     <div></div>
                     <div></div>
                     <div></div>
                 </div>
-            </div>
+            </div> #}
         </div>
         <div class="main full-w flex jcc">
             <div class="grades-table-wrapper flex fdc alifs">
@@ -84,7 +86,41 @@
             </div>
         </div>
     </div>
+	<div class="grade-modal-wrapper modal-wrapper grade-modal flex jcc alic">
+		<form class="grade-modal-content flex jcsb fdc" name="addTheme">
+			<div class="uvm--select ds-teach-select">
+				<div class="uvm--current-item">
+					Тип заняття
+				</div>
+				<div class="uvm--options">
+					<div class="uvm--search-container">
+						<input type="text" placeholder="Пошук..." class="uvm--input-search">
+					</div>
+					<ul class="uvm--options-list ds-teachers-list">
+						<li class="uvm--option lesson-type" data-lessonType="1">Лекція</li>
+                        <li class="uvm--option lesson-type" data-lessonType="2">Тематична атестація</li>
+                        <li class="uvm--option lesson-type" data-lessonType="3">Практична робота</li>
+                        <li class="uvm--option lesson-type" data-lessonType="4">Самостійна</li>
+                        <li class="uvm--option lesson-type" data-lessonType="5">Контрольна робота</li>
+                        <li class="uvm--option lesson-type" data-lessonType="6">Лабораторна робота</li>
+                        <li class="uvm--option lesson-type" data-lessonType="7">Переатестація</li>
+                        <li class="uvm--option lesson-type" data-lessonType="8">Семестрова атестація</li>
+                        <li class="uvm--option lesson-type" data-lessonType="9">Рубіжний контроль</li>
+					</ul>
+				</div>
+			</div>
+			<div class="modal-controls flex jcsb">
+				<button class="cls-lesson-modal">
+					Відміна
+				</button>
+				<button class="accept-lesson" type="button">
+					Додати
+				</button>
+			</div>
+		</form>
+	</div>
     <script src="scripts/uvm.js"></script>
+    <script src="scripts/modal.js"></script>
     <script src="scripts/uvmSearchSelect.js"></script>
     <script src="scripts/teacher/teacher.js"></script>
 </body>

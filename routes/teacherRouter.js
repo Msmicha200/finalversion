@@ -7,8 +7,10 @@ router.get('/', teacherController.index);
 
 router.post('/getGroups', teacherController.getGroups);
 
-router.get('/grades', teacherController.grades);
+router.post('/grades', teacherController.grades);
 
 router.post('/setGrade', teacherController.setGrade);
+
+router.post('/addLesson', teacherController.addLesson);
 
 module.exports = router;

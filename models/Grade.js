@@ -16,26 +16,13 @@ module.exports = class Discipline {
         return db.query(sql, [groupId]);
     }
 
-    static getLessons (groupId, disciplineId) {
+    static getGrades (groupId = false, lessonId = false) {
         const db = Database.getConnection();
-        const sql = `SELECT
-                        l.Id,
-                        lt.Title,
-                        l.Datetime
-                    FROM
-                        Lessons AS l
-                    INNER JOIN LessonTypes AS lt
-                    ON
-                        l.LessonTypeId = lt.Id
-                    WHERE
-                        l.GroupId = ? AND l.DisciplineId = ?`;
+        const data = [];
+        let sql = '';
 
-        return db.query(sql, [groupId, disciplineId]);
-    }
-
-    static getGrades (groupId) {
-        const db = Database.getConnection();
-        const sql = `SELECT
+        if (groupId) {
+            sql = `SELECT
                         g.Id,
                         g.Grade,
                         l.Id AS LessonId,
@@ -47,8 +34,20 @@ module.exports = class Discipline {
                         g.LessonId = l.Id
                     WHERE
                         l.GroupId = ?`;
+            data.push(groupId);
+        }
+        else if (lessonId) {
+            sql = `SELECT
+                        Id,
+                        Grade
+                    FROM
+                        Grades
+                    WHERE
+                        LessonId = ?`;
+            data.push(lessonId);
+        }
 
-        return db.query(sql, [groupId]);
+        return db.query(sql, data);
     }
 
     static bind(students, lessons, grades) {

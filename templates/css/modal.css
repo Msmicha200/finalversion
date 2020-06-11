@@ -5,6 +5,7 @@ html.teacher-modal .wrapper,
 html.operator-modal .wrapper,
 html.discipline-modal .wrapper,
 html.ds-teacher-modal .wrapper,
+html.program-modal .wrapper,
 html.program-modal .wrapper {
 	filter: blur(10px);
 }
@@ -15,7 +16,8 @@ html.teacher-modal .teacher-modal-wrapper,
 html.operator-modal .operator-modal-wrapper,
 html.discipline-modal .discipl-modal-wrapper,
 html.ds-teacher-modal .ds-teacher-modal-wrapper,
-html.program-modal .program-modal-wrapper {
+html.program-modal .program-modal-wrapper,
+html.grade-modal .grade-modal-wrapper {
 	visibility: visible;
 	opacity: 1;
 }
@@ -41,7 +43,8 @@ html.program-modal .program-modal-wrapper {
 .operator-modal-content,
 .discipl-modal-content,
 .ds-teacher-modal-content,
-.program-modal-content {
+.program-modal-content,
+.grade-modal-content {
 	background: #FFFFFF;
 	width: 550px;
 	/*height: 450px;*/
@@ -63,6 +66,10 @@ html.program-modal .program-modal-wrapper {
 	color: #FF7171;
 }
 .modal-controls div > button {
+	border: 1px solid #2DC82D !important;
+	color: #2DC82D !important;
+}
+.accept-lesson {
 	border: 1px solid #2DC82D !important;
 	color: #2DC82D !important;
 }
