@@ -140,6 +140,11 @@
 
 .grades-table tbody > tr > td {
 	font-size: 18px;
+	transition: 0.2s;
+}
+
+.grades-table tbody > tr > td:first-child {
+	padding-left: 8px;
 }
 
 .grades-table tr > td:first-child {
@@ -158,7 +163,7 @@
 }
 
 .grades-table tbody > tr:hover {
-	background: purple;
+	background: rgba(126, 154, 228, 0.5);;
 }
 
 /*.grades-table tr:nth-child(2n) {
@@ -255,10 +260,11 @@ select {
 }
 
 .lec {
-	background: #AFFFAD;
+	background: #fff;
 }
 
-.ret {
+.ret,
+.retA {
 	background: #FFC6AD;
 }
 

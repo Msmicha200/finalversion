@@ -100,6 +100,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (grade == 2) {
                 target.parentNode.classList.add('bad');
             }
+
+            if (grade > 2 && target.parentNode.classList.contains('bad')) {
+                target.parentNode.classList.remove('bad');
+            }
+
             if (res === 'false') {
                 return;
             }
@@ -130,19 +135,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     div.innerHTML = res;
 
-                    const newCol = uvm.qe(div, '.cols col');
-                    const newHead = uvm.qe(div, '.lessons td');
+                    const newCol = uvm.qae(div, '.cols col');
+                    const newHead = uvm.qae(div, '.lessons td');
                     const newGrades = uvm.qae(uvm.qe(div, '.inserted-grades'), 'td');
                     const trs = uvm.qae(gradesTable, 'tbody tr');
                     const thTr = uvm.qe(gradesTable, 'thead tr');
                     const cols = uvm.qe(gradesTable, '.cols');
+                    
+                    if ((newGrades.length / trs.length) == 2) {
+                        const data = [];
 
-                    newGrades.forEach((td, idx) => {
-                        trs[idx].appendChild(td);
+                        trs.forEach((tr, idx) => {
+                            tr.appendChild(newGrades[idx]);
+                        });
+
+                        for (let i = (newGrades.length / 2); i < newGrades.length; i++) {
+                            data.push(newGrades[i]);
+                        }     
+
+                        trs.forEach((tr, idx) => {  
+                            tr.appendChild(data[idx]);
+                        });
+                    }
+                    else {
+                        trs.forEach((tr, idx) => {
+                            tr.appendChild(newGrades[idx]);
+                        })
+                    }
+                    
+                    newCol.forEach(col => {
+                        cols.appendChild(col);
                     });
-                    thTr.append(newHead);
-                    console.log(newCol)
-                    cols.appendChild(newCol);
+                    
+                    newHead.forEach(lesson => {
+                        thTr.append(lesson);
+                    });
+
                     doc.classList.remove('grade-modal');
                 }
             })

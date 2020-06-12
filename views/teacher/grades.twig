@@ -9,7 +9,7 @@
 			title="Лабараторна робота" 
 		{% elseif lesson.Title == 'bc' %}
 			title="Рубіжний контроль"
-		{% elseif lesson.Title == 'ret' %}
+		{% elseif lesson.Title == 'ret' or lesson.Title == 'retA' %}
 			title="Переатестація"
 		{% elseif lesson.Title == 'tc' %}
 			title="Тематичная атестація"
@@ -37,11 +37,15 @@
 		{% endif %}>
 		<select name="" data-gradeid="{{ gr.Id }}" class="grade-select" id="">
 			<option value="" hidden="" selected=""></option>
-			{% for value in 2..5 %}
+			{% for value in 1..5 %}
 				<option value="{{ value }}" {% if gr.Grade == value %}
 				selected
 			{% endif %}>
-				{{ value }}
+				{% if value == 1 %}
+					НБ
+				{% else %}
+					{{ value }}
+				{% endif %}
 			</option>
 			{% endfor %}
 		</select>

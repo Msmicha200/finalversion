@@ -14,10 +14,13 @@ const types = {
     6: 'lab',
     7: 'ret',
     8: 'sc',
-    9: 'bc'
+    9: 'bc',
+    10: 'retA'
 };
+const LESSON_TYPE = 7;
 
 module.exports = class TeacherController {
+
     index (req, res) {
         if (req.session.teacher) {
             Discipline.getDisciplines(false, req.session.teacher)
@@ -92,32 +95,59 @@ module.exports = class TeacherController {
         }
     }
 
-    addLesson (req, res) {
-        if (req.session.teacher) {
-            const { groupId, disciplineId, typeId } = req.body;
+    async addLesson (req, res) {
+        if (!req.session.teacher) return;
 
-            if (groupId && disciplineId && typeId) {
-                Lesson.addLesson(groupId, disciplineId, typeId)
-                .then(([lesson]) => {
-                    Grade.getGrades(false, lesson.insertId)
-                    .then(([grades]) => {
-                        const result = {
-                            grades,
-                            lessons: [
-                                {
-                                    Title: types[typeId]
-                                }
-                            ]
-                        };
+        const { groupId, disciplineId, typeId } = req.body;
 
-                        res.render('teacher/gradeResp.twig', { result });
-                    });
-                })
-                .catch(error => {
-                    console.log(error);
-                    res.end('false');
-                });
+        if (!groupId || !disciplineId || !typeId) return;
+
+        const [ lesson ] = await Lesson.addLesson(groupId, disciplineId, typeId);
+        const [ grades ] = await Grade.getGrades(false, lesson.insertId);
+        const [ students ] = await Grade.getStudents(groupId);
+        
+        const result = {
+            grades,
+            lessons: [{ Title: types[typeId] }]
+        };
+
+        if (typeId == 2) {
+            students.forEach(async (st, idx) => {
+                const entity = grades[idx];
+
+                if (st.Id == entity.StudentId) {
+
+                    let [ [{ gr: grade }] ] = await Grade.getAvgTheme(st.Id, disciplineId);
+                    
+                    if (grade == null) {
+                        grade = 2;
+                    }
+
+                    entity.Grade = grade;
+                    Grade.setGrade(st.Id, entity.Id, grade);
+                }
+            });
+
+            const [ { insertId } ] = await Lesson.addLesson(groupId, disciplineId, LESSON_TYPE);
+            const [ retGrades ] = await Grade.getGrades(false, insertId);
+            result.grades.push(...retGrades);
+            result.lessons.push({ Title: types[LESSON_TYPE] });
+        }
+        else if (typeId == 8) {
+
+            for (let i = 0; i < students.length; ++i)
+            {
+                const st = students[i];
+                const entity = grades[i];
+    
+                if (st.Id == entity.StudentId) {
+                    const sem = await Grade.getSem(st.Id, disciplineId, groupId, lesson.insertId);
+                    entity.Grade = sem;
+                    Grade.setGrade(st.Id, entity.Id, sem);
+                }
             }
         }
+
+        res.render('teacher/gradeResp.twig', { result });
     }
 }
