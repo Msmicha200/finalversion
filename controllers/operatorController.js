@@ -9,8 +9,20 @@ const errno = 1062;
 
 module.exports = class OperatorController {
 
-    index (req, res) {
-        if (req.session.operator) {
+    async index (req, res) {
+        if (!req.session.operator) {
+            res.redirect('/user');
+            return;
+        }
+        
+        const [status] = await User.statusCheck(req.session.operator);
+
+        if (!status[0].IsActive) {
+            req.session.destroy();
+            res.redirect('/user');
+            return;
+        }
+        else {
             const data = {
                 users: {
                     administrator: [],
@@ -49,10 +61,10 @@ module.exports = class OperatorController {
             )
             .then(() => 
                 res.render('operator/index.twig', data)
-            );
-        }
-        else {
-            res.redirect('/user');
+            ).catch(err => {
+                console.log(err);
+                res.end('Internal server error');1
+            })
         }
     }
 

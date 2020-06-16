@@ -6,7 +6,8 @@ module.exports = class Lesson {
         const sql = `SELECT
                         l.Id,
                         lt.Title,
-                        l.Datetime
+                        l.Datetime,
+                        lt.External
                     FROM
                         Lessons AS l
                     INNER JOIN LessonTypes AS lt

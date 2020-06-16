@@ -23,12 +23,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
             .then(res => {
-                if (res !== 'false' && res.length > 1) {
+                const tbody = uvm.qe(gradesTable, 'tbody');
+                const lessons = uvm.qae(gradesTable, '.removable');
+                const thead = uvm.qe(gradesTable, 'thead tr');
+
+                if (res != 'false' && res.length > 1) {
                     groups.innerHTML = res;
                 }
                 else {
                     groups.innerHTML = 'Груп нема'
                 }
+                lessons.forEach(elem => {
+                    thead.removeChild(elem);
+                });
+                addLesson.classList.remove('active-element');
+                tbody.innerHTML = '';
+                gradesTable.classList.add('active-element');
             })
             .catch(error => {
                 console.log(error);

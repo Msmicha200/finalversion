@@ -97,6 +97,7 @@
 }
 .uvm--selected,
 .edit-selected {
+	pointer-events: none;
 	font-weight: bold;
 	background: #f6f7f9;
 }

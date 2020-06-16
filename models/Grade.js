@@ -11,7 +11,7 @@ module.exports = class Grade {
                     FROM
                         Accounts
                     WHERE
-                        GroupId = ?`;
+                        GroupId = ? AND IsActive = 1`;
 
         return db.query(sql, [groupId]);
     }

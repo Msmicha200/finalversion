@@ -170,5 +170,16 @@ module.exports = class User {
         return db.query(sql, data);
     }
 
+    static statusCheck (id) {
+        const db = Database.getConnection();
+        const sql = `SELECT
+                        IsActive
+                    FROM
+                        Accounts
+                    WHERE
+                        Id = ?`;
+        
+        return db.query(sql, [id]);
+    }
 
 }

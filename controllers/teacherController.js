@@ -6,23 +6,35 @@ const Tools = require('../components/Tools.js');
 const Grade = require('../models/Grade');
 const Lesson = require('../models/Lesson');
 const types = {
-    1: 'lec',
-    2: 'tc',
-    3: 'pw',
-    4: 'iw',
-    5: 'cw',
-    6: 'lab',
-    7: 'ret',
-    8: 'sc',
-    9: 'bc',
+    1: ['lec', 'ЛК'],
+    2: ['tc', 'ТА'],
+    3: ['pw', 'ПР'],
+    4: ['iw', 'СР'],
+    5: ['cw', 'КР'],
+    6: ['lab', 'ЛР'],
+    7: ['ret', 'ПА'],
+    8: ['sc', 'СА'],
+    9: ['bc', 'РК'],
     10: 'retA'
 };
 const LESSON_TYPE = 7;
 
 module.exports = class TeacherController {
 
-    index (req, res) {
-        if (req.session.teacher) {
+    async index (req, res) {
+        if (!req.session.teacher) {
+            res.redirect('/user');
+            return;
+        }
+        
+        const [status] = await User.statusCheck(req.session.teacher);
+
+        if (!status[0].IsActive) {
+            req.session.destroy();
+            res.redirect('/user');
+            return;
+        }
+        else {
             Discipline.getDisciplines(false, req.session.teacher)
             .then(([disciplines]) => {
                 res.render('teacher/index.twig', { disciplines });
@@ -32,15 +44,12 @@ module.exports = class TeacherController {
                 res.end('false');
             });
         }
-        else {
-            res.redirect('/user');
-        }
     }
 
     getGroups (req, res) {
         if (req.session.teacher) {
             if (req.body.disciplineId) {
-                Group.getGroups(false, req.body.disciplineId)
+                Group.getGroups(false, req.body.disciplineId, req.session.teacher)
                 .then(([groups]) => {
                     res.render('teacher/groupResponse.twig', { groups });
                 })
@@ -108,7 +117,10 @@ module.exports = class TeacherController {
         
         const result = {
             grades,
-            lessons: [{ Title: types[typeId] }]
+            lessons: [{ 
+                Title: types[typeId][0],
+                External: types[typeId][1] 
+            }]
         };
 
         if (typeId == 2) {
@@ -131,7 +143,10 @@ module.exports = class TeacherController {
             const [ { insertId } ] = await Lesson.addLesson(groupId, disciplineId, LESSON_TYPE);
             const [ retGrades ] = await Grade.getGrades(false, insertId);
             result.grades.push(...retGrades);
-            result.lessons.push({ Title: types[LESSON_TYPE] });
+            result.lessons.push({ 
+                Title: types[LESSON_TYPE][0],
+                External: types[LESSON_TYPE][1]
+            });
         }
         else if (typeId == 8) {
 

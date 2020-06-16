@@ -9,7 +9,7 @@
 			title="Лабараторна робота" 
 		{% elseif lesson.Title == 'bc' %}
 			title="Рубіжний контроль"
-		{% elseif lesson.Title == 'ret' or lesson.Title == 'retA' %}
+		{% elseif lesson.Title == 'ret' %}
 			title="Переатестація"
 		{% elseif lesson.Title == 'tc' %}
 			title="Тематичная атестація"
@@ -18,6 +18,9 @@
 		{% elseif lesson.Title == 'sc' %}
 			title="Семестрова атестація"
 		{% endif %}>
+		<div class="type">
+			{{ lesson.External }}
+		</div>
 		<div class="month">
 			{{ lesson.Datetime|date("m") }}
 		</div>

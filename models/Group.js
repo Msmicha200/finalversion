@@ -32,7 +32,7 @@ module.exports = class Group {
         return db.query(sql, data);
     }
 
-    static getGroups (params = false, disciplineId = false) {
+    static getGroups (params = false, disciplineId = false, teacherId = false) {
         const db = Database.getConnection();
         let sql = '';
 
@@ -52,25 +52,24 @@ module.exports = class Group {
             
             return db.query(sql, data);
         }
-        else if (disciplineId) {
+        else if (disciplineId && teacherId) {
             sql = `SELECT
                         g.Id,
                         g.Title
                     FROM
-                        Disciplines AS d
-                    INNER JOIN DisciplineToTeacher AS dt
-                    ON
-                        d.Id = dt.Id
-                    INNER JOIN DisciplineToGroup AS dg
-                    ON
-                        dg.DisciplineTeacherId = dt.Id
-                    INNER JOIN Groups AS g
+                        Groups AS g
+                    INNER JOIN
+                        DisciplineToGroup AS dg
                     ON
                         dg.GroupId = g.Id
+                    INNER JOIN
+                        DisciplineToTeacher AS dt
+                    ON
+                        dg.DisciplineTeacherId = dt.Id
                     WHERE
-                        dt.DisciplineId = ?`;
+                        dt.DisciplineId = ? AND dg.Passed = 0 AND dt.TeacherId = ?`;
 
-            return db.query(sql, [disciplineId]);
+            return db.query(sql, [disciplineId, teacherId]);
         }
 
         sql = `SELECT
