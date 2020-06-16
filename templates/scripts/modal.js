@@ -1,7 +1,8 @@
 const doc = document.documentElement;
 const modals = ['student-modal', 'group-modal', 'ds-group-modal', 
     'teacher-modal', 'operator-modal', 'discipline-modal', 
-    'ds-teacher-modal', 'program-modal', 'grade-modal'];
+    'ds-teacher-modal', 'program-modal', 'grade-modal', 
+    'newnotif-modal'];
 const clearModal = event => {
 
     modals.forEach(elem => {
@@ -44,12 +45,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         elem.addEventListener('click', clearModal);
-    });
-
-    const lessonModal = uvm.q('.cls-lesson-modal');
-
-    lessonModal.addEventListener('click', event => {
-        event.preventDefault();
-        closeTeacher();
     });
 });

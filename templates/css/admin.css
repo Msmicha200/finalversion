@@ -1,0 +1,15 @@
+.notif-text-area {
+    resize: none;
+    font-family: Roboto;
+    color: #000;
+    border-radius: 10px;
+    border: 1px solid #B7B7B7;
+    padding: 10px;
+    width: 100%;
+    height: 150px;
+}
+
+.newnotif-modal-content {
+    padding: 60px 80px 60px;
+    width: 550px;
+}

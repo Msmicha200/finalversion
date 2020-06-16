@@ -6,7 +6,8 @@ html.operator-modal .wrapper,
 html.discipline-modal .wrapper,
 html.ds-teacher-modal .wrapper,
 html.program-modal .wrapper,
-html.program-modal .wrapper {
+html.program-modal .wrapper,
+html.newnotif-modal .wrapper {
 	filter: blur(10px);
 }
 html.student-modal .student-modal-wrapper,
@@ -17,7 +18,8 @@ html.operator-modal .operator-modal-wrapper,
 html.discipline-modal .discipl-modal-wrapper,
 html.ds-teacher-modal .ds-teacher-modal-wrapper,
 html.program-modal .program-modal-wrapper,
-html.grade-modal .grade-modal-wrapper {
+html.grade-modal .grade-modal-wrapper,
+html.newnotif-modal .newnotif-modal-wrapper {
 	visibility: visible;
 	opacity: 1;
 }
@@ -44,7 +46,8 @@ html.grade-modal .grade-modal-wrapper {
 .discipl-modal-content,
 .ds-teacher-modal-content,
 .program-modal-content,
-.grade-modal-content {
+.grade-modal-content,
+.newnotif-modal-content {
 	background: #FFFFFF;
 	width: 550px;
 	/*height: 450px;*/
@@ -69,7 +72,8 @@ html.grade-modal .grade-modal-wrapper {
 	border: 1px solid #2DC82D !important;
 	color: #2DC82D !important;
 }
-.accept-lesson {
+.accept-lesson,
+.accept-notif {
 	border: 1px solid #2DC82D !important;
 	color: #2DC82D !important;
 }

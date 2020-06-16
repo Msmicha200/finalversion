@@ -1,0 +1,60 @@
+{% macro lessons(lesson) %}
+	<td valign="bottom" class="removable" {% if lesson.Title == 'lec' %}
+			title="Лекція"
+		{% elseif lesson.Title == 'iw' %}
+			title="Самостійна робота"	
+		{% elseif lesson.Title == 'pw' %}
+			title="Практична робота" 
+		{% elseif lesson.Title == 'lab' %}
+			title="Лабараторна робота" 
+		{% elseif lesson.Title == 'bc' %}
+			title="Рубіжний контроль"
+		{% elseif lesson.Title == 'ret' %}
+			title="Переатестація"
+		{% elseif lesson.Title == 'tc' %}
+			title="Тематичная атестація"
+		{% elseif lesson.Title == 'cw' %}
+			title="Контроль робота"
+		{% elseif lesson.Title == 'sc' %}
+			title="Семестрова атестація"
+		{% endif %}>
+		<div class="type">
+			{{ lesson.External }}
+		</div>
+		<div class="month">
+			{{ lesson.Datetime|date("m") }}
+		</div>
+		<div class="day">
+			{{ lesson.Datetime|date("d") }}
+		</div>
+	</td>
+{% endmacro %}
+
+{% macro colors(cls) %}
+	<col class="{{ cls }}">
+{% endmacro %}
+
+{% macro grade(gr) %}
+	<td {% if gr.Grade == 2 %}
+			class="bad"
+		{% endif %}>
+		{% if gr.Grade == 1 %}
+			НБ
+		{% else %}
+			{{ gr.Grade }}
+		{% endif %}
+	</td>
+{% endmacro %}
+
+{% macro students(student) %}
+		{% import _self as this %}
+		
+		<tr data-studentid="{{ student.Id }}">
+			<td>
+				{{ student.LastName }} {{ student.FirstName[1:1] }}. {{ student.MiddleName[1:1] }}.
+			</td>
+			{% for gr in student.grades %}
+				{{ this.grade(gr) }}
+			{% endfor %}
+		</tr>
+{% endmacro %}

@@ -173,6 +173,9 @@ module.exports = class User {
     static statusCheck (id) {
         const db = Database.getConnection();
         const sql = `SELECT
+                        LastName,
+                        FirstName,
+                        MiddleName,
                         IsActive
                     FROM
                         Accounts

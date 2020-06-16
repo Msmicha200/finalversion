@@ -1,10 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="">
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/uvmSearchSelect.css">
+    <link rel="stylesheet" href="css/teacher.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/uvmInput.css">
+    <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
-	
+    <div class="wrapper full-w">
+        <div class="header full-w flex alic jcsa">
+            <div class="logo">
+                <img src="images/logo.svg" alt="">
+            </div>
+            <div class="status">
+                <div class="flex jcc">
+                    <div class="online-container flex">
+                        <div class="online-label flex alic">В мережі</div>
+                        <div class="online flex alic">
+                            {{ name }}
+                        </div>
+                    </div>
+                    <a href="/user/logout" class="logout">Вийти</a>
+                </div>
+                <div class="flex discipl-container">
+                    <div class="discipl-label flex alic">Дисципліна</div>
+                    <div class="uvm--select discipl-select">
+                        <div class="uvm--current-item">
+                            Оберіть дисципліну
+                        </div>
+                        <div class="uvm--options disciplines">
+                            <div class="uvm--search-container">
+                                <input type="text" placeholder="Пошук..." class="uvm--input-search">
+                            </div>
+                            <ul class="uvm--options-list">
+                                {% for discipl in disciplines %}
+                                    <li class="uvm--option" data-disciplid="{{ discipl.Id }}">
+                                        {{ discipl.Title }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>                
+                </div>
+            </div>
+        </div>
+        <div class="main full-w flex jcc">
+            <div class="grades-table-wrapper flex fdc alifs">
+                <div class="add-notification flex jcc alic">
+                    Повідомлення
+                </div>
+                <table class="grades-table">
+                    <colgroup class="cols">
+                    <col>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <td>
+                                <div class="uvm--select group-select">
+                                    <div class="uvm--current-item">
+                                        Група
+                                    </div>
+                                    <div class="uvm--options">
+                                        <ul class="uvm--options-list groups">
+                                            Груп нема
+                                        </ul>
+                                    </div>
+                                </div> 
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+	<div class="newnotif-modal-wrapper modal-wrapper newnotif-modal flex jcc alic">
+		<form class="newnotif-modal-content flex jcsb fdc" name="addTheme">
+            <textarea class="notif-text-area" id="messageText" maxlength="512" placeholder="Залиште повідомлення для викладача"></textarea>
+			<div class="modal-controls flex jcsb">
+				<button class="new-notif-cls" type="button">
+					Відміна
+				</button>
+				<button class="accept-notif" type="button">
+					Підтвердити
+				</button>
+			</div>
+		</form>
+	</div>
+    <script src="scripts/uvm.js"></script>
+    <script src="scripts/modal.js"></script>
+    <script src="scripts/uvmSearchSelect.js"></script>
+    <script src="scripts/admin/admin.js"></script>
 </body>
 </html>

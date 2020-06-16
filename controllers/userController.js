@@ -1,7 +1,7 @@
 const User = require('../models/User');
 
 const users = {
-    admin: 'admin',
+    administrator: 'admin',
     student: 'student',
     operator: 'operator',
     teacher: 'teacher'
@@ -30,7 +30,7 @@ module.exports = class UserController {
                     const row = rows[0];
 
                     for (const user in users) {
-                        if (row.Title === user) {
+                        if (row.Title == user) {
                             req.session[users[user]] = row.Id;
                             res.end(users[user]);    
                         }

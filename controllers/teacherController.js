@@ -37,7 +37,16 @@ module.exports = class TeacherController {
         else {
             Discipline.getDisciplines(false, req.session.teacher)
             .then(([disciplines]) => {
-                res.render('teacher/index.twig', { disciplines });
+                const data = {
+                    disciplines: disciplines,
+                    name: {
+                        LastName: status[0].LastName,
+                        FirstName: status[0].FirstName,
+                        MiddleName: status[0].MiddleName
+                    }
+                }
+                console.log(data);
+                res.render('teacher/index.twig', data);
             })
             .catch(error => {
                 console.log(error);
@@ -106,7 +115,6 @@ module.exports = class TeacherController {
 
     async addLesson (req, res) {
         if (!req.session.teacher) return;
-
         const { groupId, disciplineId, typeId } = req.body;
 
         if (!groupId || !disciplineId || !typeId) return;

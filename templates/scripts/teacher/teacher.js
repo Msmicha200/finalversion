@@ -46,6 +46,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    const lessonModal = uvm.q('.cls-lesson-modal');
+
+    lessonModal.addEventListener('click', event => {
+        event.preventDefault();
+        closeTeacher();
+    });
+
+    const notifications = uvm.q('.notifications');
+
     groups.addEventListener('click', event => {
         const { target } = event;
 
@@ -82,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     colWrapper.innerHTML = cols.innerHTML;
                     thead.insertAdjacentHTML('beforeend', lessons.innerHTML);
                     addLesson.classList.add('active-element');
+                    notifications.classList.add('active-element');
                 }
             }).
             catch(err => {

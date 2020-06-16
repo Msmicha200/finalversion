@@ -20,7 +20,7 @@
                     <div class="online-container flex">
                         <div class="online-label flex alic">В мережі</div>
                         <div class="online flex alic">
-                            Красковська Н. О.
+                            {{ name.LastName }} {{ name.FirstName[0:1] }}.{{ name.MiddleName[0:1] }}.
                         </div>
                     </div>
                     <a href="/user/logout" class="logout">Вийти</a>
@@ -29,7 +29,7 @@
                     <div class="discipl-label flex alic">Дисципліна</div>
                     <div class="uvm--select discipl-select">
                         <div class="uvm--current-item">
-                            Оберіть групу
+                            Оберіть дисципліну
                         </div>
                         <div class="uvm--options disciplines">
                             <div class="uvm--search-container">
@@ -56,6 +56,11 @@
             </div> #}
         </div>
         <div class="main full-w flex jcc">
+            <div class="notifications">
+                <div class="bell">
+                    <img src="images/bell.svg" alt="">
+                </div>
+            </div>
             <div class="grades-table-wrapper flex fdc alifs">
                 <div class="add-lesson flex jcc alic">
                     Додати пару
@@ -90,7 +95,7 @@
 		<form class="grade-modal-content flex jcsb fdc" name="addTheme">
 			<div class="uvm--select ds-teach-select">
 				<div class="uvm--current-item">
-					Тип заняття
+					Оберіть тип заняття
 				</div>
 				<div class="uvm--options">
 					<div class="uvm--search-container">

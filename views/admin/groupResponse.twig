@@ -1,0 +1,5 @@
+{% import 'admin/group.twig' as group %}
+
+{% for elem in groups %}
+	{{ group.groupSelect(elem, 'group') }}
+{% endfor %}
