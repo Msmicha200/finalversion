@@ -2,7 +2,7 @@ const doc = document.documentElement;
 const modals = ['student-modal', 'group-modal', 'ds-group-modal', 
     'teacher-modal', 'operator-modal', 'discipline-modal', 
     'ds-teacher-modal', 'program-modal', 'grade-modal', 
-    'newnotif-modal'];
+    'newnotif-modal', 'notif-modal'];
 const clearModal = event => {
 
     modals.forEach(elem => {

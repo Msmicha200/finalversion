@@ -6,6 +6,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const groupSelect = uvm.q('.st-group-select > .uvm--current-item');
     const acceptEdit = uvm.q('.accept-edit-student');
     const acceptStudent = uvm.q('.accept-student');
+    const searchSt = uvm.byId('search-student');
+
+    searchSt.addEventListener('input', () => {
+        const all = uvm.qa('.student-table tbody tr > td');
+
+            all.forEach(elem => {
+                if (elem.textContent.toLowerCase().includes(searchSt.value)) {
+                    elem.parentNode.style.display = 'table-row';
+                }
+                else {
+                    elem.parentNode.style.display = 'none';
+                }
+            });
+    });
 
     addStudent.addEventListener('click', () => {
         acceptEdit.classList.add('none');

@@ -295,6 +295,28 @@ select {
 	top: 35vh;
 }
 
+.right-message-container {
+	font-size: 14px;
+	padding: 0 0 0 20px;
+}
+
+.admin-name {
+	color: #a2a2a2;
+}
+
+.message {
+	color: #515151;
+	margin-top: 5px;
+}
+
+.accept-notify-teacher img {
+	pointer-events: none;
+}
+
+.accept-notify-teacher {
+	cursor: pointer;
+}
+
 .active-element {
 	opacity: 1;
 	visibility: visible;

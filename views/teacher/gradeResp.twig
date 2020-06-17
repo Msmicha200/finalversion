@@ -1,6 +1,5 @@
 {% import 'teacher/grades.twig' as st %}
 
-
 <table class="grades">
 	{% for student in result.students %}
 		{{ st.students(student) }}
@@ -24,3 +23,9 @@
 		{{ st.colors(lesson.Title) }}
 	{% endfor %}
 </table>
+
+<div class="notifications">
+	{% for notif in notifications %}
+		{{ st.notifs(notif) }}
+	{% endfor %}
+</div>

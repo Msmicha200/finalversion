@@ -7,7 +7,8 @@ html.discipline-modal .wrapper,
 html.ds-teacher-modal .wrapper,
 html.program-modal .wrapper,
 html.program-modal .wrapper,
-html.newnotif-modal .wrapper {
+html.newnotif-modal .wrapper,
+html.notif-modal .wrapper {
 	filter: blur(10px);
 }
 html.student-modal .student-modal-wrapper,
@@ -19,7 +20,8 @@ html.discipline-modal .discipl-modal-wrapper,
 html.ds-teacher-modal .ds-teacher-modal-wrapper,
 html.program-modal .program-modal-wrapper,
 html.grade-modal .grade-modal-wrapper,
-html.newnotif-modal .newnotif-modal-wrapper {
+html.newnotif-modal .newnotif-modal-wrapper,
+html.notif-modal .notif-modal-wrapper {
 	visibility: visible;
 	opacity: 1;
 }
@@ -47,11 +49,37 @@ html.newnotif-modal .newnotif-modal-wrapper {
 .ds-teacher-modal-content,
 .program-modal-content,
 .grade-modal-content,
-.newnotif-modal-content {
+.newnotif-modal-content,
+.notif-modal-content {
 	background: #FFFFFF;
 	width: 550px;
 	/*height: 450px;*/
 	padding: 20px 80px;
+}
+.notif-modal-content {
+	position: relative;
+	height: 300px;
+	padding: 20px 50px;
+}
+.close-notifs {
+	cursor: pointer;
+	position: absolute;
+	right: 25px;
+	width: 20px;
+	top: 15px;
+}
+.close-notifs::after,
+.close-notifs::before {
+	content: '';
+	height: 20px;
+	width: 1px;
+	background: #c4c4c4;
+}
+.close-notifs::after {
+	transform: rotate(45deg);
+}
+.close-notifs::before {
+	transform: rotate(-45deg);
 }
 .modal-controls {
 	margin: 20px 0;

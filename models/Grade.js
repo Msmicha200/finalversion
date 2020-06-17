@@ -16,6 +16,18 @@ module.exports = class Grade {
         return db.query(sql, [groupId]);
     }
 
+    static getNonActive (groupId) {
+        const db = Database.getConnection();
+        const sql = `SELECT
+                        Id
+                    FROM
+                        Accounts
+                    WHERE
+                        GroupId = ? AND IsActive = 0`;
+        
+        return db.query(sql, [groupId]);
+    }
+
     static getGrades (groupId = false, lessonId = false) {
         const db = Database.getConnection();
         const data = [];

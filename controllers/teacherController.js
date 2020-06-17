@@ -5,6 +5,7 @@ const Discipline = require('../models/Discipline');
 const Tools = require('../components/Tools.js');
 const Grade = require('../models/Grade');
 const Lesson = require('../models/Lesson');
+const Notification = require('../models/Notification');
 const types = {
     1: ['lec', 'ЛК'],
     2: ['tc', 'ТА'],
@@ -45,7 +46,6 @@ module.exports = class TeacherController {
                         MiddleName: status[0].MiddleName
                     }
                 }
-                console.log(data);
                 res.render('teacher/index.twig', data);
             })
             .catch(error => {
@@ -70,28 +70,23 @@ module.exports = class TeacherController {
         }
     }
 
-    grades (req, res) {
+    async grades (req, res) {
         if (req.session.teacher) {
             const { disciplineId, groupId} = req.body;
 
             if (disciplineId && groupId) {
-                Grade.getStudents(groupId)
-                .then(([students]) => {
-                    Lesson.getLessons(groupId, disciplineId)
-                    .then(([lessons]) => {
-                        Grade.getGrades(groupId)
-                        .then(([grades]) => {
-                            Grade.bind(students, lessons, grades)
-                            .then(result => {
-                                res.render('teacher/gradeResp.twig', { result });
-                            })
-                        })
-                    });
-                })
-                .catch (error => {
-                    console.log('Grades error');
-                    res.end('false');
-                })
+                const [ students ] = await Grade.getStudents(groupId);
+                const [ lessons ] = await Lesson.getLessons(groupId, disciplineId);
+                const [ grades ] = await Grade.getGrades(groupId);
+                const [ notifications ] = await Notification.
+                    getNotifications(groupId, disciplineId);
+                const   result = await Grade.bind(students, lessons, grades);
+                const data = {
+                    result,
+                    notifications
+                }
+
+                res.render('teacher/gradeResp.twig', data);
             }
         }
     }
@@ -122,7 +117,7 @@ module.exports = class TeacherController {
         const [ lesson ] = await Lesson.addLesson(groupId, disciplineId, typeId);
         const [ grades ] = await Grade.getGrades(false, lesson.insertId);
         const [ students ] = await Grade.getStudents(groupId);
-        
+        const [ nonActive ] = await Grade.getNonActive(groupId);
         const result = {
             grades,
             lessons: [{ 
@@ -171,6 +166,16 @@ module.exports = class TeacherController {
             }
         }
 
+        // result.grades.forEach((gr, idx) => {
+        //     if (gr.StudentId == 121) {
+        //         console.log(gr)
+        //     }
+        //     nonActive.forEach((us) => {
+        //         if (gr.StudentId == us.Id) {
+        //             result.grades.splice(idx, 1);
+        //         }
+        //     })
+        // });
         res.render('teacher/gradeResp.twig', { result });
     }
 }

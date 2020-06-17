@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const notifications = uvm.q('.notifications');
+    const notifWrapper = uvm.q('.messages-container');
 
     groups.addEventListener('click', event => {
         const { target } = event;
@@ -74,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const div = document.createElement('div');
                     
                     div.innerHTML = res;
-    
+                    const notifs = uvm.qe(div, '.notifications');
                     const grades = uvm.qe(div, '.grades');
                     const lessons = uvm.qe(div, '.lessons');
                     const cols = uvm.qe(div, '.cols');
@@ -92,12 +93,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     thead.insertAdjacentHTML('beforeend', lessons.innerHTML);
                     addLesson.classList.add('active-element');
                     notifications.classList.add('active-element');
+                    notifWrapper.innerHTML = notifs.innerHTML;
                 }
             }).
             catch(err => {
                 console.log(err);
             });
         }
+    });
+
+    notifications.addEventListener('click', () => {
+        doc.classList.add('notif-modal');
     });
 
     gradesTable.addEventListener('change', event => {
@@ -161,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const trs = uvm.qae(gradesTable, 'tbody tr');
                     const thTr = uvm.qe(gradesTable, 'thead tr');
                     const cols = uvm.qe(gradesTable, '.cols');
-                    
+                    console.log(trs.length)
                     if ((newGrades.length / trs.length) == 2) {
                         const data = [];
 
