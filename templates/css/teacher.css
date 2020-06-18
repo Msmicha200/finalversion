@@ -134,15 +134,15 @@
 }
 
 .grades-table td {
-	height: 30px;
-	width: 30px;
+	height: 33px;
+	width: 33px;
 	border-right: 1px solid black;
 	border-left: 1px solid black;
 	text-align: center;
 }
 
 .grades-table tbody > tr > td {
-	font-size: 16px;
+	font-size: 14px;
 	transition: 0.2s;
 }
 
@@ -198,11 +198,11 @@
 
 select {
 	color: #555353;
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: normal;
     -webkit-appearance: none;
     -moz-appearance: none;
-    text-indent: 1px;
+    /* text-indent: 1px; */
     width: 100%;
     height: 100%;
 	text-align: center;
@@ -295,6 +295,22 @@ select {
 	top: 35vh;
 }
 
+.bell {
+	position: relative;
+}
+
+.notif-dot {
+	position: absolute;
+	height: 15px;
+	width: 15px;
+	background: red;
+	border-radius: 50%;
+	border: 2px solid #fff;
+	right: 3px;
+	visibility: hidden;
+	opacity: 0;
+}
+
 .right-message-container {
 	font-size: 14px;
 	padding: 0 0 0 20px;
@@ -309,12 +325,27 @@ select {
 	margin-top: 5px;
 }
 
+.messages-container {
+	overflow: auto;
+}
+
+.message-container {
+	transition: 0.2s;
+	margin-top: 20px;
+	padding: 20px 50px;
+}
+
 .accept-notify-teacher img {
 	pointer-events: none;
 }
 
 .accept-notify-teacher {
 	cursor: pointer;
+}
+
+.accepted-message {
+	visibility: hidden;
+	opacity: 0;
 }
 
 .active-element {

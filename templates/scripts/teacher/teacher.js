@@ -55,10 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const notifications = uvm.q('.notifications');
     const notifWrapper = uvm.q('.messages-container');
+    const dot = uvm.q('.notif-dot');
 
     groups.addEventListener('click', event => {
         const { target } = event;
 
+        dot.classList.remove('active-element');
         if (target.classList.contains('uvm--option')) {
             groupId = target.dataset.groupid;
 
@@ -71,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
             .then(res => {
+
                 if (res != 'false') {
                     const div = document.createElement('div');
                     
@@ -94,6 +97,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     addLesson.classList.add('active-element');
                     notifications.classList.add('active-element');
                     notifWrapper.innerHTML = notifs.innerHTML;
+
+                    if (uvm.qae(notifWrapper, '.message-container').length > 0) {
+                        dot.classList.add('active-element');
+                    }
                 }
             }).
             catch(err => {
@@ -203,6 +210,41 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => {
                 console.log(err)
             })
+        }
+    });
+
+    const clsModal = uvm.q('.close-notifs');
+
+    clsModal.addEventListener('click', () => {
+        doc.classList.remove('notif-modal');
+    });
+
+    const modalContent = uvm.q('.notif-modal-content');
+
+    modalContent.addEventListener('click', event => {
+        const { target } = event;
+
+        if (target.classList.contains('accept-notify-teacher')) {
+            const { id } = target.dataset;
+            
+            uvm.ajax({
+                type: 'POST',
+                url: '/teacher/removeNotif',
+                data: {
+                    id
+                }
+            })
+            .then(res => {
+                if (res == 'true') {
+                    target.parentNode.classList.add('accepted-message');
+                    setTimeout(() => {
+                        target.parentNode.style.display = 'none';
+                    }, 150);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
         }
     });
 });

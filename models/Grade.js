@@ -50,13 +50,17 @@ module.exports = class Grade {
         }
         else if (lessonId) {
             sql = `SELECT
-                        Id,
-                        StudentId,
-                        Grade
+                        g.Id,
+                        g.StudentId,
+                        g.Grade
                     FROM
-                        Grades
+                        Grades AS g
+                    INNER JOIN
+                        Accounts AS a
+                    ON
+                        a.Id = g.StudentId
                     WHERE
-                        LessonId = ?`;
+                        LessonId = ? AND a.IsActive = 1`;
             data.push(lessonId);
         }
 
@@ -101,9 +105,14 @@ module.exports = class Grade {
                         ROUND(AVG(g.Grade)) AS gr
                     FROM
                         Grades AS g
-                    INNER JOIN Lessons AS l
+                    INNER JOIN
+                        Lessons AS l
                     ON
                         g.LessonId = l.Id
+                    INNER JOIN
+                        Accounts AS a
+                    ON
+                        a.Id = g.StudentId
                     WHERE
                         l.Datetime >(
                         SELECT DATETIME
@@ -113,14 +122,14 @@ module.exports = class Grade {
                         LessonTypeId = 7
                     ORDER BY DATETIME
                     DESC
-                    LIMIT 1
-                    )
-                    AND g.StudentId = ?
-                    AND l.DisciplineId = ?
-                    AND l.LessonTypeId != 7
-                    AND l.LessonTypeId != 8
-                    AND l.lessonTypeId != 1
-                    AND g.Grade != 1`;
+                    LIMIT 1) 
+                    AND g.StudentId = ? 
+                    AND l.DisciplineId = ? 
+                    AND l.LessonTypeId != 7 
+                    AND l.LessonTypeId != 8 
+                    AND l.lessonTypeId != 1 
+                    AND g.Grade != 1 
+                    AND a.IsActive = 1`;
         const data = [studentId, disciplineId];
 
         return db.query(sql, data);
@@ -158,7 +167,7 @@ module.exports = class Grade {
                         AND g.StudentId = ?
                         AND l.GroupId = ?
                         AND DATETIME > ?
-                        AND (g.Grade != 1 OR g.Grade IS NULL)
+                        AND (g.Grade != 1 OR g.Grade IS NULL OR g.Grade != -1)
                     ORDER BY
                         g.Id`;
 
@@ -192,7 +201,7 @@ module.exports = class Grade {
             avg = Math.round(sum / (grades.length / 2));
         }
         else {
-            avg = 2;
+            avg = 0;
         }
 
         return avg;

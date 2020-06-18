@@ -59,7 +59,7 @@ html.notif-modal .notif-modal-wrapper {
 .notif-modal-content {
 	position: relative;
 	height: 300px;
-	padding: 20px 50px;
+	padding: 0;
 }
 .close-notifs {
 	cursor: pointer;

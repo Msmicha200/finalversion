@@ -40,6 +40,8 @@
 		{% endif %}>
 		{% if gr.Grade == 1 %}
 			НБ
+		{% elseif gr.Grade == 0 %}
+			Н/А
 		{% else %}
 			{{ gr.Grade }}
 		{% endif %}

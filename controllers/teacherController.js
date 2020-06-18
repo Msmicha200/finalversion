@@ -91,6 +91,23 @@ module.exports = class TeacherController {
         }
     }
 
+    removeNotif (req, res) {
+        if (req.session.teacher) {
+            const { id } = req.body;
+
+            if (id) {
+                Notification.watched(id)
+                .then(([result]) => {
+                    res.end('true');
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.end('false');
+                });
+            }
+        }
+    }
+
     setGrade (req, res) {
         if (req.session.teacher) {
             const {studentid, grade, gradeid } = req.body;

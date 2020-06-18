@@ -13,4 +13,6 @@ router.post('/setGrade', teacherController.setGrade);
 
 router.post('/addLesson', teacherController.addLesson);
 
+router.post('/removeNotif', teacherController.removeNotif);
+
 module.exports = router;

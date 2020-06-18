@@ -39,7 +39,11 @@
 			class="bad"
 		{% endif %}>
 		<select name="" data-gradeid="{{ gr.Id }}" class="grade-select" id="">
-			<option value="" hidden="" selected=""></option>
+			<option value="" hidden="" selected="">
+				{% if gr.Grade == 0 %}
+					Н/А
+				{% endif %}
+			</option>
 			{% for value in 1..5 %}
 				<option value="{{ value }}" {% if gr.Grade == value %}
 				selected
