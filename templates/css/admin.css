@@ -23,17 +23,31 @@
 }
 
 .report-wrapper {
+    opacity: 0;
+    visibility: hidden;
     height: 100%;
     background-color: #fff;
     position: absolute;
+    transition: 0.3s;
 }
 
-.report-table {
-    margin-top: 40px;
+.back-grades {
+    position: absolute;
+    left: 3%;
+    top: 2%;
+    cursor: pointer;
+}
+
+.table-wrapper {
+    margin-top: 110px;
     max-height: 70vh;
     width: 90%;
     border: 3px solid var(--main);
     overflow: auto;
+}
+
+.report-table {
+    padding: 20px;
 }
 
 .static {

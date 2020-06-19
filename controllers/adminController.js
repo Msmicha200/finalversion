@@ -58,28 +58,22 @@ module.exports = class AdminController {
         }
     }
 
-    grades (req, res) {
+    async grades (req, res) {
         if (req.session.admin) {
             const { disciplineId, groupId} = req.body;
-
+    
             if (disciplineId && groupId) {
-                Grade.getStudents(groupId)
-                .then(([students]) => {
-                    Lesson.getLessons(groupId, disciplineId)
-                    .then(([lessons]) => {
-                        Grade.getGrades(groupId)
-                        .then(([grades]) => {
-                            Grade.bind(students, lessons, grades)
-                            .then(result => {
-                                res.render('admin/gradeResp.twig', { result });
-                            })
-                        })
-                    });
-                })
-                .catch (error => {
-                    console.log('Grades error');
-                    res.end('false');
-                })
+                const [ students ] = await Grade.getStudents(groupId);
+                const [ lessons ] = await Lesson.getLessons(groupId, disciplineId);
+                const [ grades ] = await Grade.getGrades(groupId);
+                const [ report ] = await Grade.report(disciplineId, groupId);
+                const binded = await Grade.bind(students, lessons, grades);
+                const data = {
+                    result: binded,
+                    report
+                };
+
+                res.render('admin/gradeResp.twig', data);
             }
         }
     }

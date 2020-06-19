@@ -206,4 +206,72 @@ module.exports = class Grade {
 
         return avg;
     }
+
+    static report (disciplineId, groupId) {
+        const db = Database.getConnection();
+        const sql = `SELECT
+                        (
+                        SELECT
+                            CONCAT(
+                                LastName,
+                                ' ',
+                                FirstName,
+                                ' ',
+                                MiddleName
+                            )
+                        FROM
+                            Accounts AS u
+                        WHERE
+                            u.Id = g.StudentId
+                    ) AS Student,
+                    r.Grade,
+                    dp.Title,
+                    l.Datetime,
+                    (
+                    SELECT
+                        CONCAT(
+                            LastName,
+                            ' ',
+                            FirstName,
+                            ' ',
+                            MiddleName
+                        )
+                    FROM
+                        Accounts AS u
+                    WHERE
+                        u.Id = dtt.TeacherId
+                    ) AS Teacher
+                    FROM
+                        Report AS r
+                    INNER JOIN
+                        Grades AS g
+                    ON
+                        r.GradeId = g.Id
+                    INNER JOIN
+                        Lessons AS l
+                    ON
+                        g.LessonId = l.Id
+                    INNER JOIN
+                        DisciplineToGroup AS dtg
+                    ON
+                        dtg.GroupId = l.GroupId
+                    INNER JOIN
+                        DisciplineToTeacher AS dtt
+                    ON
+                        dtt.Id = dtg.DisciplineTeacherId
+                    INNER JOIN
+                        Disciplines AS dp
+                    ON
+                        l.DisciplineId = dp.Id
+                    WHERE
+                        l.DisciplineId = 2 AND 
+                        l.GroupId = 1 AND 
+                        dtt.DisciplineId = l.DisciplineId AND 
+                        dtg.GroupId = l.GroupId
+                    ORDER BY
+                        r.Datetime`;
+        const data = [disciplineId, groupId];
+        
+        return db.query(sql, data);
+    }
 }

@@ -5,20 +5,28 @@ const modals = ['student-modal', 'group-modal', 'ds-group-modal',
     'newnotif-modal', 'notif-modal'];
 const clearModal = event => {
 
-    modals.forEach(elem => {
-        const inputs = uvm.qae(uvm.q(`.${elem}`), 'input') || false;
+    for(const elem of modals) {
+        const inputs = uvm.qae(uvm.q(`.${elem}`) || false, 'input') || [];
         const selects = uvm.qa('.uvm--current-item');
         const selected = uvm.qa('.uvm--selected');
 
         doc.classList.remove(elem);
-    
-        inputs.forEach(elem => {
-            elem.value = '';
-        });
 
-        selected.forEach (elem => {
-            elem.classList.remove('uvm--selected');
-        });
+        if (inputs.length > 0) {
+            inputs.forEach(elem => {
+                elem.value = '';
+            });
+        }
+
+        if (selected.length > 0) {
+            selected.forEach (elem => {
+                elem.classList.remove('uvm--selected');
+            });
+        }
+    }
+
+    modals.forEach(elem => {
+
     });
 };
 

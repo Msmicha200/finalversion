@@ -235,7 +235,8 @@ select {
 	margin-top: 4px;
 }
 
-.add-lesson:hover {
+.add-lesson:hover,
+.add-notification:hover  {
 	color: #fff;
 	background: var(--main);
 }
@@ -343,12 +344,16 @@ select {
 	cursor: pointer;
 }
 
+.report-wrapper {
+	transition: 0.2s;
+}
+
 .accepted-message {
 	visibility: hidden;
 	opacity: 0;
 }
 
 .active-element {
-	opacity: 1;
-	visibility: visible;
+	opacity: 1 !important;
+	visibility: visible !important;
 }

@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     const disciplines = uvm.q('.disciplines');
     const groups = uvm.q('.groups');
@@ -42,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 lessons.forEach(elem => {
                     thead.removeChild(elem);
                 });
+                reportTable.innerHTML = '';
                 tbody.innerHTML = '';
                 gradesTable.classList.add('active-element');
             })
@@ -50,6 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    const reportTable = uvm.q('.report-table');
 
     groups.addEventListener('click', event => {
         const { target } = event;
@@ -70,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const div = document.createElement('div');
                     
                     div.innerHTML = res;
-    
+                    
                     const grades = uvm.qe(div, '.grades');
                     const lessons = uvm.qe(div, '.lessons');
                     const cols = uvm.qe(div, '.cols');
@@ -78,15 +82,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     const thTd = uvm.qae(gradesTable,  'thead tr .removable');
                     const colWrapper = uvm.q('.cols');
                     const tbody = uvm.qe(gradesTable, 'tbody');
-                    
+                    const report = uvm.qe(div, '.report');
+
                     thTd.forEach(elem => {
                         thead.removeChild(elem);
                     });
                     tbody.innerHTML = grades.innerHTML;
                     cols.insertAdjacentHTML('afterbegin', '<col>');
                     colWrapper.innerHTML = cols.innerHTML;
+                    reportTable.innerHTML = report.innerHTML;
                     thead.insertAdjacentHTML('beforeend', lessons.innerHTML);
                     addNotification.classList.add('active-element');
+
                 }
             }).
             catch(err => {
@@ -120,6 +127,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log(err);
             })
         }
-    })
+    });
+
+    const reportButton = uvm.q('.report-button');
+
+    reportButton.addEventListener('click', () => {
+        reportTable.parentNode.parentNode.classList.add('active-element');
+    });
+
+    const back = uvm.q('.back-grades');
+
+    back.addEventListener('click', () => {
+        reportTable.parentNode.parentNode.classList.remove('active-element');
+    });
 
 });

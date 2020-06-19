@@ -61,6 +61,9 @@ class uvm {
   }
 
   static qae (element, selector) {
+    if (element == false) {
+      return;
+    }
     return element.querySelectorAll(selector);
   }
 
@@ -80,14 +83,14 @@ class uvm {
     let isCorrect = true;
     const timeout = 1500;
     const regex = {
-        firstName: /^[А-я]{2,50}$/,
-        lastName: /^[А-я]{2,50}$/,
-        middleName: /^[А-я]{2,50}$/,
+        firstName: /^[А-яа-щА-ЩЬьЮюЯяЇїІіЄєҐґ]{2,50}$/,
+        lastName: /^[А-яа-щА-ЩЬьЮюЯяЇїІіЄєҐґ]{2,50}$/,
+        middleName: /^[А-яа-щА-ЩЬьЮюЯяЇїІіЄєҐґ]{2,50}$/,
         email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         number: /^[0-9]{6,20}$/,
         login: /^[A-z0-9]{3,64}$/,
         password: /^.{6,64}$/,
-        groupTitle: /^[А-я0-9\-]{3,64}$/,
+        groupTitle: /^[А-яА-яа-щА-ЩЬьЮюЯяЇїІіЄєҐґ0-9\-]{3,64}$/,
         title: /^[А-я0-9\-]{3,256}$/,
         theme: /^.{6,512}$/
     };

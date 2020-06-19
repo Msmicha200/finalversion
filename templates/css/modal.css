@@ -101,7 +101,9 @@ html.notif-modal .notif-modal-wrapper {
 	color: #2DC82D !important;
 }
 .accept-lesson,
-.accept-notif {
+.accept-notif,
+.accept-ds-group,
+.accept-ds-teacher {
 	border: 1px solid #2DC82D !important;
 	color: #2DC82D !important;
 }
