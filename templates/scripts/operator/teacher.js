@@ -4,6 +4,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const acceptEdit = uvm.q('.accept-edit-teacher');
     const teacherForm = document.forms.addTeacher;
     const inputs = uvm.qae(teacherForm, '.uvm--input-wrapper > input');
+    const searchTeach = uvm.byId('search-teacher');
+
+    searchTeach.addEventListener('input', () => {
+        const all = uvm.qa('.teacher-table tbody tr');
+
+            all.forEach(elem => {
+                if (elem.textContent.trim().toLowerCase()
+                    .includes(searchTeach.value.toLowerCase())) {
+                    elem.style.display = 'table-row';
+                }
+                else {
+                    elem.style.display = 'none';
+                }
+            });
+    });
 
     addTeacher.addEventListener('click', () => {
         acceptEdit.classList.add('none');

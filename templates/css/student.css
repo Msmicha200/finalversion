@@ -1,0 +1,7 @@
+.group-title {
+    color: #FFFFFF;
+    font-size: 30px;
+    background: var(--main);
+    padding: 15px 25px;
+    text-align: center !important;
+}

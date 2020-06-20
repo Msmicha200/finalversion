@@ -51,4 +51,26 @@ module.exports = class StudentController {
             });
         }
     }
+
+    async getGrades (req, res) {
+        if (!req.session.student) {
+            res.redirect('/user');
+            return;
+        }
+
+        const { disciplineId } = req.body;
+        const [ student ] = await Grade.getStudents(false, req.session.student); 
+        const [ lessons ] = await Lesson.getLessons(student[0].GroupId, disciplineId);
+        const [ grades ] = await Grade.getGrades(false, false, {
+            Id: req.session.student,
+            disciplId: disciplineId
+        });
+        const binded = await Grade.bind(student, lessons, grades);
+        const result = {
+            result: binded,
+            group: student[0].Title
+        };
+
+        res.render('student/gradeResp.twig',  result);
+    } 
 }

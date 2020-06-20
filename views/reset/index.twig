@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" class>
+<head>
+	<meta charset="UTF-8">
+	<title>Reset</title>
+	<link rel="stylesheet" href="/css/global.css">
+	<link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/uvmInput.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/modal.css">
+</head>
+<body>
+	<div class="wrapper flex jcc">
+		<div class="login-wrapper flex alic fdc jcsb">
+			<div class="inputs flex fdc alic jcc">
+				<div class="uvm--input-wrapper">
+					<input autocomplete="off" type="Login" id="email" placeholder="Login" class="uvm--input" required>
+					<label for="login" class="uvm--label">E-mail</label>
+				</div>
+			</div>
+			<div class="buttons flex">
+				<a href="/user" class="flex jcc alic" id="remember-pass">Відміна</a>
+				<button id="remember">Підтвердити</button>
+			</div>
+		</div>
+    </div>
+	<div class="success-modal-wrapper modal-wrapper success-modal flex jcc alic">
+		<form class="success-modal-content flex jcsb fdc alic">
+            <p>На Вашу пошту було відправлено лист з</p>
+            <p>посиланням та подальшими інструкціями</p>
+			<div class="modal-controls flex jcsb">
+				<a href="/user" class="accept-modal">
+					Добре
+				</a>
+			</div>
+		</form>
+	</div>
+    <div class="success-reset">
+    </div>
+	<script src="/scripts/uvm.js"></script>
+	<script src="/scripts/reset.js"></script>
+</body>
+</html>

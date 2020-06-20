@@ -5,6 +5,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const operatorForm = document.forms.addOperator;
     const operatorTable = uvm.q('.operator-table');
     const inputs = uvm.qae(operatorForm, '.uvm--input-wrapper > input');
+    const searchOper = uvm.byId('search-operator');
+
+    searchOper.addEventListener('input', () => {
+        const all = uvm.qa('.operator-table tbody tr');
+
+            all.forEach(elem => {
+                if (elem.textContent.trim().toLowerCase()
+                    .includes(searchOper.value.toLowerCase())) {
+                    elem.style.display = 'table-row';
+                }
+                else {
+                    elem.style.display = 'none';
+                }
+            });
+    });
 
     addOperator.addEventListener('click', () => {
         acceptEdit.classList.add('none');

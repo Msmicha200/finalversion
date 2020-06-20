@@ -17,6 +17,7 @@ module.exports = class Discipline {
     static getForSt (id) {
         const db = Database.getConnection();
         const sql = `SELECT
+                    d.Id,
                     d.Title
                 FROM
                     Accounts AS a

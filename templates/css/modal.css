@@ -8,7 +8,8 @@ html.ds-teacher-modal .wrapper,
 html.program-modal .wrapper,
 html.program-modal .wrapper,
 html.newnotif-modal .wrapper,
-html.notif-modal .wrapper {
+html.notif-modal .wrapper,
+html.success-modal .wrapper {
 	filter: blur(10px);
 }
 html.student-modal .student-modal-wrapper,
@@ -21,7 +22,8 @@ html.ds-teacher-modal .ds-teacher-modal-wrapper,
 html.program-modal .program-modal-wrapper,
 html.grade-modal .grade-modal-wrapper,
 html.newnotif-modal .newnotif-modal-wrapper,
-html.notif-modal .notif-modal-wrapper {
+html.notif-modal .notif-modal-wrapper,
+html.success-modal .success-modal-wrapper {
 	visibility: visible;
 	opacity: 1;
 }
@@ -50,7 +52,8 @@ html.notif-modal .notif-modal-wrapper {
 .program-modal-content,
 .grade-modal-content,
 .newnotif-modal-content,
-.notif-modal-content {
+.notif-modal-content,
+.success-modal-content {
 	background: #FFFFFF;
 	width: 550px;
 	/*height: 450px;*/
@@ -103,7 +106,18 @@ html.notif-modal .notif-modal-wrapper {
 .accept-lesson,
 .accept-notif,
 .accept-ds-group,
-.accept-ds-teacher {
+.accept-ds-teacher,
+.accept-modal {
 	border: 1px solid #2DC82D !important;
 	color: #2DC82D !important;
+}
+.accept-modal {
+	background: #fff;
+	border-radius: 5px;
+	padding: 7px 60px;
+	cursor: pointer;
+	font-size: 14px;
+	outline: none;
+	text-decoration: none;
+	margin-top: 20px;
 }
