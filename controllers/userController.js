@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Mail = require('../components/Mail.js');
 
 const users = {
     administrator: 'admin',
@@ -44,6 +45,68 @@ module.exports = class UserController {
                 res.end('false');
                 console.log('We got an error: ' + err);
             });
+        }
+    }
+
+    reset (req, res) {
+        for (const user in users) {
+            if (req.session[users[user]]) {
+                res.redirect(`/${users[user]}`);
+                return;
+            }
+        }
+        
+        res.render('reset/index.twig');
+    }
+
+    async resetpass (req, res) {
+        const { email } = req.body;
+
+        if (email) {
+            const token = User.generateToken();
+            const result = await User.resetPassOnEmail(email, token);
+
+            if (result[0].affectedRows > 0) {
+                Mail.sendMail(email, token)
+                .then(mailed => {
+                    res.end('true');
+                });
+            }
+            else {
+                res.end('false');
+            }
+        }
+    }
+
+    newPass (req, res) {
+        if (!req.query.token) {
+            res.redirect('/user');
+            return;
+        }
+
+        res.render('newpass/index.twig', {
+            token: req.query.token
+        });
+
+    }
+
+    setPass (req, res) {
+        const { token, password } = req.body;
+
+        if (token && password) {
+            User.setPassword(token, password)
+            .then(result => {
+                if (result[0].affectedRows > 0) {
+                    res.end('true');
+                }
+                else {
+                    res.end('false');
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                res.end('false');
+            })
         }
     }
 

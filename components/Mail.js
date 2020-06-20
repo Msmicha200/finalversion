@@ -1,18 +1,19 @@
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-	host: 'smtp',
-	port: 587, // or 465
-	secure: false, // or true if port is 465
+	host: 'scp66.hosting.reg.ru',
+	port: 465,
+	secure: true,
 	auth: {
-		user: 'Login',
-		pass: 'Password'
+		user: 'test@uvmtest.space',
+		pass: '123456789q'
 	} 
 });
 
-const from = 'mail from';
+const from = 'test@uvmtest.space';
 const subject = 'Password reseting';
-const text = 'For resetting your password visit ';
+const text = 'Ваш токен для сброса пароля ';
+
 module.exports = class Mail {
 	static sendMail (email, link) {
 		return transporter.sendMail({
@@ -21,11 +22,5 @@ module.exports = class Mail {
 			subject: subject,
 			text: text + link
 		})
-		.then(result => {
-			return true;
-		})
-		.catch(err => {
-			console.log('Error during the sending ' + err);
-		});
 	}
 }

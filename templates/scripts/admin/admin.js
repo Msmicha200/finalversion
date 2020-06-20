@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     const disciplines = uvm.q('.disciplines');
     const groups = uvm.q('.groups');

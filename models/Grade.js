@@ -1,9 +1,12 @@
 const Database = require('../components/Database');
 
 module.exports = class Grade {
-    static getStudents (groupId) {
+    static getStudents (groupId = false, id = false) {
         const db = Database.getConnection();
-        const sql = `SELECT
+        let sql = ``;
+
+        if (groupId) {
+            sql = `SELECT
                         Id,
                         LastName,
                         FirstName,
@@ -11,9 +14,32 @@ module.exports = class Grade {
                     FROM
                         Accounts
                     WHERE
-                        GroupId = ? AND IsActive = 1`;
+                        GroupId = ? AND IsActive = 1`
 
-        return db.query(sql, [groupId]);
+            return db.query(sql, [groupId]);        
+        }
+        else if (id) {
+            sql = `SELECT
+                        a.Id,
+                        a.LastName,
+                        a.FirstName,
+                        a.MiddleName,
+                        a.GroupId,
+                        g.Title
+                    FROM
+                        Accounts AS a
+                    INNER JOIN Groups AS g
+                    ON
+                        a.GroupId = g.Id
+                    WHERE
+                        a.Id = ?`;
+
+            return db.query(sql, [id]);
+        }
+    }
+
+    static getForSt (studentId) {
+        const db = Database.getConnection();
     }
 
     static getNonActive (groupId) {
@@ -28,7 +54,7 @@ module.exports = class Grade {
         return db.query(sql, [groupId]);
     }
 
-    static getGrades (groupId = false, lessonId = false) {
+    static getGrades (groupId = false, lessonId = false, stId = false) {
         const db = Database.getConnection();
         const data = [];
         let sql = '';
@@ -63,11 +89,28 @@ module.exports = class Grade {
                         LessonId = ? AND a.IsActive = 1`;
             data.push(lessonId);
         }
+        else if (stId.disciplId && stId.Id) {
+            sql = `SELECT
+                        g.Id,
+                        l.Id AS LessonId,
+                        g.Grade,
+                        g.StudentId
+                    FROM
+                        Grades AS g
+                    INNER JOIN Lessons AS l
+                    ON
+                        l.Id = g.LessonId
+                    WHERE
+                        g.StudentId = ? AND l.DisciplineId = ?`;
+            
+            data.push(stId.Id, stId.disciplId);
+        }
 
         return db.query(sql, data);
     }
 
     static bind (students, lessons, grades) {
+        console.log(grades);
         for (const student of students) {
             student['grades'] = [];
             for (const lesson of lessons) {

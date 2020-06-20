@@ -31,11 +31,14 @@ body {
 	font-size: 16px;
 }
 #remember-pass {
+	color: #fff;
 	background: #B9C4E3;
 	width: 45%;
 	border-radius: 0 0 0 15px;
 }
-#log-in {
+#log-in,
+#remember,
+#accept {
 	background: linear-gradient(90deg, #849EEF 0%, #9FA0FF 100%);
 	border-radius: 0px 0px 15px 0px;
 	width: 55%;

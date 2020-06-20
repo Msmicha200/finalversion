@@ -137,7 +137,7 @@ module.exports = class User {
         return db.query(sql, data);
     }
 
-    static resetPassOnEmail (email) {
+    static resetPassOnEmail (email, token) {
         const db = Database.getConnection();
         const sql = `UPDATE
                         Accounts
@@ -145,12 +145,9 @@ module.exports = class User {
                         Token = ?
                     WHERE
                         Email = ?`;
-        const token = this.generateToken();
         const data = [token, email];
 
-        return db.query(sql, data).then(result  => {
-            return Mail.sendMail(email, token);
-        });
+        return db.query(sql, data);
     }
 
     static setPassword (token, password) {

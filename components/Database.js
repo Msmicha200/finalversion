@@ -6,7 +6,7 @@ const connection = mysql
         host: '127.0.0.1',
         database: 'ebook',
         user: 'root',
-        password: '123'
+        password: 'root'
     }).promise();
 
 module.exports = class Database {

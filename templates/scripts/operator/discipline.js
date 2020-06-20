@@ -5,6 +5,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const disciplForm = document.forms.addDiscipline;
     const inputs = uvm.qae(disciplForm, '.uvm--input-wrapper > input');
     const acceptEdit = uvm.q('.accept-edit-discipline');
+    const searchDiscipl = uvm.byId('search-discipl');
+
+    searchDiscipl.addEventListener('input', () => {
+        const all = uvm.qa('.discipline-table tbody tr');
+
+            all.forEach(elem => {
+                if (elem.textContent.trim().toLowerCase()
+                    .includes(searchDiscipl.value.toLowerCase())) {
+                    elem.style.display = 'table-row';
+                }
+                else {
+                    elem.style.display = 'none';
+                }
+            });
+    });
 
     addDiscipline.addEventListener('click', () => {
         doc.classList.add('discipline-modal');

@@ -7,8 +7,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const specSelect = uvm.q('.spec-group-select > .uvm--current-item');
     const groupForm = document.forms.addGroup;
     const inputs = uvm.qae(groupForm, '.uvm--input-wrapper > input');
+    const searchGr = uvm.byId('search-group');
     let group;
     let teacherTd;
+
+    searchGr.addEventListener('input', () => {
+        const all = uvm.qa('.group-table tbody tr');
+
+
+            all.forEach(elem => {
+                if (elem.textContent.trim().toLowerCase()
+                    .includes(searchGr.value.toLowerCase())) {
+                        console.log(elem)
+                    elem.style.display = 'table-row';
+                }
+                else {
+                    elem.style.display = 'none';
+                }
+            });
+    });
 
     groupTable.addEventListener('click', event => {
         const { target } = event;

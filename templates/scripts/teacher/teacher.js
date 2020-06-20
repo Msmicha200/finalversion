@@ -247,4 +247,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    $('.calendar').datepicker({
+        beforeShow:function(textbox, instance){
+            $(this).parent().append($(instance.dpDiv[0]));
+            $(this).parent().addClass('active-cal');
+        }
+    });
 });

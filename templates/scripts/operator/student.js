@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     searchSt.addEventListener('input', () => {
         const all = uvm.qa('.student-table tbody tr');
 
-
             all.forEach(elem => {
                 if (elem.textContent.trim().toLowerCase()
                     .includes(searchSt.value.toLowerCase())) {

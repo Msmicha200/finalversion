@@ -1,31 +1,25 @@
-{% import 'admin/grades.twig' as st %}
+{% import 'student/grades.twig' as st %}
 
-<table class="grades">
-	{% for student in result.students %}
-		{{ st.students(student) }}
-	{% endfor %}
-</table>
-
-<table class="inserted-grades">
-	{% for grade in result.grades %}
-		{{ st.grade(grade) }}
-	{% endfor %}
-</table>
-
-<table class="lessons">
-	{% for lesson in result.lessons %}
-		{{ st.lessons(lesson) }}
-	{% endfor %}
-</table>
-
-<table class="cols">
-	{% for lesson in result.lessons %}
-		{{ st.colors(lesson.Title) }}
-	{% endfor %}
-</table>
-
-<table class="report">
-	{% for str in report %}
-		{{ st.report(str) }}
-	{% endfor %}
+<table class="grades-table">
+	<colgroup>
+		<col>
+		{% for lesson in result.lessons %}
+			{{ st.colors(lesson.Title) }}
+		{% endfor %}
+	</colgroup>
+	<thead>
+		<tr>
+			<td class="group-title">
+				{{ group }}
+			</td>
+			{% for lesson in result.lessons %}
+				{{ st.lessons(lesson) }}
+			{% endfor %}
+		</tr>
+	</thead>
+	<tbody>
+		{% for student in result.students %}
+			{{ st.students(student) }}
+		{% endfor %}
+	</tbody>
 </table>

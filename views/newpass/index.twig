@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Reset</title>
+	<link rel="stylesheet" href="/css/global.css">
+	<link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/uvmInput.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/modal.css">
+</head>
+<body>
+	<div class="wrapper flex jcc">
+		<form  name="newpass" class="login-wrapper flex alic fdc jcsb">
+			<div class="inputs flex fdc alic jcc">
+				<div class="uvm--input-wrapper">
+					<input autocomplete="off" type="password" id="pass" placeholder="Login" name="password" class="uvm--input" required>
+					<label for="login" class="uvm--label">Пароль</label>
+				</div>
+			</div>
+			<div class="buttons flex">
+				<a href="/user" class="flex jcc alic" id="remember-pass">Відміна</a>
+				<button id="accept" data-token="{{ token }}">Підтвердити</button>
+			</div>
+		</form>
+    </div>
+	<script src="/scripts/uvm.js"></script>
+	<script src="/scripts/newpass.js"></script>
+</body>
+</html>

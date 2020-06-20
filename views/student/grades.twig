@@ -63,27 +63,3 @@
 			{% endfor %}
 		</tr>
 {% endmacro %}
-
-{% macro report(data) %}
-    <tr>
-        <td class="report-name">
-            {{ data.Teacher }}
-        </td>
-        <td class="static">
-			виставив (-ла) оцінку 
-			{% if data.Grade == 1 %}
-				НБ
-			{% elseif data.Grade == 0 %}
-				Н/А
-			{% else %}
-				{{ data.Grade }}
-			{% endif %}
-        </td>
-        <td class="report-name">
-            {{ data.Student }}
-        </td>
-        <td class="static">
-            з дисципліни {{ data.Title }} {{ data.Datetime|date("Y.m.d h:m") }}
-        </td>
-    </tr>
-{% endmacro %}

@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <link rel="stylesheet" href="css/jquery.ui.css">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/uvmSearchSelect.css">
     <link rel="stylesheet" href="css/teacher.css">
     <link rel="stylesheet" href="css/modal.css">
     <link rel="stylesheet" href="css/uvmInput.css">
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/student.css">
 </head>
 <body>
     <div class="wrapper full-w">
@@ -47,61 +48,13 @@
                     </div>                
                 </div>
             </div>
-            <div class="report-button">
-                <img src="images/log.svg" alt="">
+            <div class="calendar">
+
             </div>
         </div>
         <div class="main full-w flex jcc">
             <div class="grades-table-wrapper flex fdc alifs">
-                <div class="add-notification flex jcc alic">
-                    Повідомлення
-                </div>
-                <table class="grades-table">
-                    <colgroup class="cols">
-                    <col>
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <td>
-                                <div class="uvm--select group-select">
-                                    <div class="uvm--current-item">
-                                        Група
-                                    </div>
-                                    <div class="uvm--options">
-                                        <ul class="uvm--options-list groups">
-                                            Груп нема
-                                        </ul>
-                                    </div>
-                                </div> 
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
-            <div class="report-wrapper full-w flex jcc">
-                <div class="back-grades">
-                    <img src="images/back.svg" alt="">
-                </div>
-                <div class="table-wrapper">
-                    <table class="report-table full-w">
-                        <tr>
-                            <td class="report-name">
-                                Кривошеєва Олена Миколаївна
-                            </td>
-                            <td class="static">
-                                виставив(-ла) оцінку 3 студенту     
-                            </td>
-                            <td class="report-name">
-                                Дроздов Антон Аднійович
-                            </td>
-                            <td class="static">
-                                з дисципліни ОКС
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+
             </div>
         </div>
     </div>
@@ -117,10 +70,12 @@
 				</button>
 			</div>
 		</form>
-	</div>
+    </div>
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/calendar.js"></script>
     <script src="scripts/uvm.js"></script>
     <script src="scripts/modal.js"></script>
     <script src="scripts/uvmSearchSelect.js"></script>
-    <script src="scripts/admin/admin.js"></script>
+    <script src="scripts/student/student.js"></script>
 </body>
 </html>
