@@ -110,7 +110,6 @@ module.exports = class OperatorController {
                         res.render('operator/groupDiscipl.twig',
                             { disciplines });
                     }
-
                 })
                 .catch(error => {
                     console.log('Error discipline select: ' + error);
@@ -175,11 +174,9 @@ module.exports = class OperatorController {
 
     passed (req, res) {
         if (req.session.operator) {
-            const { dtogroupId } = req.body;
-            const { status } = req.body;
-
+            const { dtogroupId, status, groupid } = req.body;
             if (dtogroupId && status) {
-                Discipline.changePassed(dtogroupId, status)
+                Discipline.changePassed(dtogroupId, status, groupid)
                 .then(([result]) => {
                     res.end('true');
                 })

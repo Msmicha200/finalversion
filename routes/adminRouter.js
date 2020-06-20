@@ -7,8 +7,6 @@ router.get('/', adminController.index);
 
 router.post('/getGroups', adminController.getGroups);
 
-router.post('/getGroups', adminController.getGroups);
-
 router.post('/grades', adminController.grades);
 
 router.post('/sendNotification', adminController.notification);

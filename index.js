@@ -5,9 +5,11 @@ const userRouter = require('./routes/userRouter');
 const adminRouter = require('./routes/adminRouter');
 const operatorRouter = require('./routes/operatorRouter');
 const teacherRouter = require('./routes/teacherRouter');
+const studentRouter = require('./routes/studentRouter');
 const session = require('express-session');
 const redisStorage = require('connect-redis')(session);
 const redis = require('redis');
+const StudentController = require('./controllers/studentController');
 const client = redis.createClient();
 const port = 3000;
 
@@ -45,6 +47,8 @@ app.use('/admin', adminRouter)
 app.use('/operator', operatorRouter);
 
 app.use('/teacher', teacherRouter);
+
+app.use('/student', studentRouter);
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}...`);

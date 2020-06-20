@@ -1,0 +1,89 @@
+{% macro lessons(lesson) %}
+	<td valign="bottom" class="removable" {% if lesson.Title == 'lec' %}
+			title="Лекція"
+		{% elseif lesson.Title == 'iw' %}
+			title="Самостійна робота"	
+		{% elseif lesson.Title == 'pw' %}
+			title="Практична робота" 
+		{% elseif lesson.Title == 'lab' %}
+			title="Лабараторна робота" 
+		{% elseif lesson.Title == 'bc' %}
+			title="Рубіжний контроль"
+		{% elseif lesson.Title == 'ret' %}
+			title="Переатестація"
+		{% elseif lesson.Title == 'tc' %}
+			title="Тематичная атестація"
+		{% elseif lesson.Title == 'cw' %}
+			title="Контроль робота"
+		{% elseif lesson.Title == 'sc' %}
+			title="Семестрова атестація"
+		{% endif %}>
+		<div class="type">
+			{{ lesson.External }}
+		</div>
+		<div class="month">
+			{{ lesson.Datetime|date("m") }}
+		</div>
+		<div class="day">
+			{{ lesson.Datetime|date("d") }}
+		</div>
+	</td>
+{% endmacro %}
+
+{% macro colors(cls) %}
+	<col class="{{ cls }}">
+{% endmacro %}
+
+{% macro grade(gr) %}
+	<td {% if gr.Grade == 2 %}
+			class="bad"
+		{% endif %}>
+		{% if gr.Grade == 1 %}
+			НБ
+		{% elseif gr.Grade == 0 %}
+			Н/А
+		{% else %}
+			{{ gr.Grade }}
+		{% endif %}
+	</td>
+{% endmacro %}
+
+{% macro students(student) %}
+		{% import _self as this %}
+		
+		<tr data-studentid="{{ student.Id }}">
+			<td>
+				<span>
+					{{ student.Id }}
+				</span>
+				{{ student.LastName }} {{ student.FirstName[1:1] }}. {{ student.MiddleName[1:1] }}.
+			</td>
+			{% for gr in student.grades %}
+				{{ this.grade(gr) }}
+			{% endfor %}
+		</tr>
+{% endmacro %}
+
+{% macro report(data) %}
+    <tr>
+        <td class="report-name">
+            {{ data.Teacher }}
+        </td>
+        <td class="static">
+			виставив (-ла) оцінку 
+			{% if data.Grade == 1 %}
+				НБ
+			{% elseif data.Grade == 0 %}
+				Н/А
+			{% else %}
+				{{ data.Grade }}
+			{% endif %}
+        </td>
+        <td class="report-name">
+            {{ data.Student }}
+        </td>
+        <td class="static">
+            з дисципліни {{ data.Title }} {{ data.Datetime|date("Y.m.d h:m") }}
+        </td>
+    </tr>
+{% endmacro %}

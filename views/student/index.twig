@@ -21,7 +21,7 @@
                     <div class="online-container flex">
                         <div class="online-label flex alic">В мережі</div>
                         <div class="online flex alic">
-                            {{ name }}
+                            {{ name.LastName }} {{ name.FirstName[0:1] }}.{{ name.MiddleName[0:1] }}
                         </div>
                     </div>
                     <a href="/user/logout" class="logout">Вийти</a>
@@ -86,6 +86,20 @@
                 </div>
                 <div class="table-wrapper">
                     <table class="report-table full-w">
+                        <tr>
+                            <td class="report-name">
+                                Кривошеєва Олена Миколаївна
+                            </td>
+                            <td class="static">
+                                виставив(-ла) оцінку 3 студенту     
+                            </td>
+                            <td class="report-name">
+                                Дроздов Антон Аднійович
+                            </td>
+                            <td class="static">
+                                з дисципліни ОКС
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>

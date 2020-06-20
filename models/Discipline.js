@@ -14,13 +14,41 @@ module.exports = class Discipline {
         return db.query(sql, [title]);
     }
 
+    static getForSt (id) {
+        const db = Database.getConnection();
+        const sql = `SELECT
+                    d.Title
+                FROM
+                    Accounts AS a
+                INNER JOIN
+                    Groups AS g
+                ON
+                    g.Id = a.GroupId
+                INNER JOIN
+                    DisciplineToGroup AS dtg
+                ON
+                    dtg.GroupId = a.GroupId
+                    INNER JOIN
+                    DisciplineToTeacher AS dtt
+                ON
+                    dtg.DisciplineTeacherId = dtt.Id
+                INNER JOIN
+                    Disciplines AS d
+                ON
+                    d.Id = dtt.DisciplineId
+                WHERE
+                    a.Id = ? AND dtg.Passed = 0`;
+        
+        return db.query(sql, [id]);
+    }
+
     static getDisciplines (groupId = false, teacherId = false) {
         const db = Database.getConnection();
         let sql = '';
         
         if (groupId) {
             sql = `SELECT
-                    dt.Id,
+                    dg.Id,
                     d.Title,
                     dg.Passed
                 FROM
@@ -106,15 +134,15 @@ module.exports = class Discipline {
         return db.query(sql, data);
     }
 
-    static changePassed (id, status) {
+    static changePassed (id, status, groupId) {
         const db = Database.getConnection();
         const sql = `UPDATE
                         DisciplineToGroup
                     SET
                         Passed = ?
                     WHERE
-                        Id = ?`
-        const data = [status, id];
+                        Id = ? AND GroupId = ?`
+        const data = [status, id, groupId];
 
         return db.query(sql, data);
     }

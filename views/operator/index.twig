@@ -52,7 +52,7 @@
 				<div class="content-wrapper">
 					<div class="student-navigations flex jcsb">
 						<div class="search student flex alic">
-							<input type="text" id="search-student">
+							<input type="text" required id="search-student">
 							<span>Пошук...</span>
 						</div>
 						<div class="add-student pointer">
@@ -133,7 +133,7 @@
 					<div class="left-side">
 						<div class="group-navigations flex jcsb">
 							<div class="search student flex alic">
-								<input type="text">
+								<input required type="text">
 								<span>Пошук...</span>
 							</div>
 							<div class="add-group pointer">
@@ -148,6 +148,7 @@
 										<td width="120px">Назва групи</td>
 										<td>Курс</td>
 										<td>Класний керівник</td>
+										<td>Активна</td>
 										<td width="100px">Редагувати</td>
 									</tr>
 								</thead>
@@ -184,7 +185,7 @@
 				<div class="content-wrapper">
 					<div class="teacher-navigations flex jcsb">
 						<div class="search teacher flex alic">
-							<input type="text">
+							<input required type="text">
 							<span>Пошук...</span>
 						</div>
 						<div class="add-teacher pointer">
@@ -231,7 +232,7 @@
 				<div class="content-wrapper">
 					<div class="operator-navigations flex jcsb">
 						<div class="search operator flex alic">
-							<input type="text">
+							<input required type="text">
 							<span>Пошук...</span>
 						</div>
 						<div class="add-operator pointer">
@@ -302,7 +303,7 @@
 					<div class="left-side">
 						<div class="discipline-navigations flex jcsb">
 							<div class="search discipline flex alic">
-								<input type="text">
+								<input required type="text">
 								<span>Пошук...</span>
 							</div>
 							<div class="add-discipline pointer">
@@ -449,7 +450,7 @@
 					<div class="right-side">
 						<div class="group-navigations flex jcsb">
 							<div class="search student flex alic">
-								<input type="text">
+								<input required type="text">
 								<span>Пошук...</span>
 							</div>
 							<div class="pointer add-theme">
@@ -508,7 +509,7 @@
 				</div>
 				<div class="uvm--options">
 					<div class="uvm--search-container">
-						<input type="text" placeholder="Пошук..." class="uvm--input-search">
+						<input type="text" required placeholder="Пошук..." class="uvm--input-search">
 					</div>
 					<ul class="st-gr uvm--options-list">
 						{% for group in groups %}

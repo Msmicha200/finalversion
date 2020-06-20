@@ -9,14 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchSt = uvm.byId('search-student');
 
     searchSt.addEventListener('input', () => {
-        const all = uvm.qa('.student-table tbody tr > td');
+        const all = uvm.qa('.student-table tbody tr');
+
 
             all.forEach(elem => {
-                if (elem.textContent.toLowerCase().includes(searchSt.value)) {
-                    elem.parentNode.style.display = 'table-row';
+                if (elem.textContent.trim().toLowerCase()
+                    .includes(searchSt.value.toLowerCase())) {
+                    elem.style.display = 'table-row';
                 }
                 else {
-                    elem.parentNode.style.display = 'none';
+                    elem.style.display = 'none';
                 }
             });
     });

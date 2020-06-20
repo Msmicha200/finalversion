@@ -5,7 +5,11 @@
     	</td>
         <td align="center">
             <label class="uvm--toggle-container">
-                <input type="checkbox" hidden="" checked class="uvm--toggle">
+                {% if discipline.Passed == 1 %}
+                    <input type="checkbox" hidden="" class="uvm--toggle">
+                {% else %}
+                    <input type="checkbox" hidden="" checked class="uvm--toggle">
+                {% endif %}
                 <div class="uvm--round"></div>
             </label>
         </td>

@@ -77,7 +77,8 @@ module.exports = class Group {
         else if (disciplineId) {
             sql = `SELECT
                         g.Id,
-                        g.Title
+                        g.Title,
+                        g.Active
                     FROM
                         Groups AS g
                     INNER JOIN

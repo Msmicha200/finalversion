@@ -111,12 +111,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const { target } = event;
         const dtogroupId = target.parentNode
             .parentNode.parentNode.dataset.dtogroup;
+        const { groupid } = uvm.q('.group-table tr.selected').dataset;
 
         if (target.classList.contains('uvm--toggle') && dtogroupId) {
+            console.log(dtogroupId, target, groupid)
             uvm.ajax({
                 url: '/operator/passed',
                 type: 'POST',
                 data: {
+                    groupid,
                     dtogroupId,
                     status: target.checked ? 0 : 1
                 }

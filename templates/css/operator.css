@@ -89,6 +89,21 @@ a {
 	left: 8%;
 	opacity: 0;
 }
+.search input:valid + span {
+	left: 8%;
+	opacity: 0;
+}
+:invalid {
+	box-shadow: none;
+}
+
+:-moz-submit-invalid {
+	box-shadow: none;
+}
+
+:-moz-ui-invalid {
+	box-shadow:none;
+}
 .table-wrapper {
 	width: 100%;
 	border: 3px solid #7E9AE4;

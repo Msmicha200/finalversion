@@ -6,6 +6,16 @@
         <td>{{ group.Course }}</td>
         <td class="teacherName teacher" data-userid="{{ group.CuratorId }}" data-specid="{{ group.SpecId }}">{{ group.LastName }} {{ group.FirstName }} {{ group.MiddleName }}</td>
         <td align="center">
+            <label class="uvm--toggle-container">
+                {% if discipline.Passed == 1 %}
+                    <input type="checkbox" hidden="" class="uvm--toggle">
+                {% else %}
+                    <input type="checkbox" hidden="" checked class="uvm--toggle">
+                {% endif %}
+                <div class="uvm--round"></div>
+            </label>
+        </td>
+        <td align="center">
             <button class="edit-group">
                 <img src="/images/edit.svg" alt="">
             </button>
