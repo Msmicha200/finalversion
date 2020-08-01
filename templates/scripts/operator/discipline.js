@@ -177,11 +177,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const teacher = uvm.q('.discipl-teacher.uvm--selected');
         const data = new FormData();
         const teacherSelect = uvm.q('.ds-teach-select > .uvm--current-item');
+        console.log(discipline.dataset.disciplineid, ' ',  ' ', teacher.dataset.teacherid, ' ', teacherSelect)
 
         if (discipline && teacher && discipline.dataset.disciplineid &&
-                teacher.dataset.teacherid) {
+                teacher.dataset.userid) {
+
             data.append('disciplineId', discipline.dataset.disciplineid);
-            data.append('teacherId', teacher.dataset.teacherid);
+            data.append('teacherId', teacher.dataset.userid);
             data.append('teacherName', teacher.textContent.trim());
             uvm.ajax({
                 url: '/operator/addDisciplToTeacher',

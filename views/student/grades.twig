@@ -56,7 +56,7 @@
 				<span>
 					{{ student.Id }}
 				</span>
-				{{ student.LastName }} {{ student.FirstName[1:1] }}. {{ student.MiddleName[1:1] }}.
+				{{ student.LastName }} {{ student.FirstName[0:1] }}. {{ student.MiddleName[0:1] }}.
 			</td>
 			{% for gr in student.grades %}
 				{{ this.grade(gr) }}

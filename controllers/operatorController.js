@@ -40,7 +40,7 @@ module.exports = class OperatorController {
 
                 }
             };
-
+            
             User.getUsers()
             .then(([accounts]) => {
                 for (const user of accounts) {
@@ -191,6 +191,11 @@ module.exports = class OperatorController {
         if (req.session.operator) {
             const { userId } = req.body;
             const { status } = req.body;
+
+            if (userId == req.session.operator) {
+                res.end('false');
+                return;
+            }
 
             if (userId, status) {
                 User.changeStatus(userId, status)
